@@ -4,7 +4,7 @@
 
 /* jshint strict: true */
 
-Console.log("It works");
+console.log('It works');
 
 var milesConvert = {
 	miles: 3,
@@ -15,4 +15,4 @@ var milesConvert = {
 	}
 };
 
-Console.log('Miles in feet ' + milesConvert.milesToFeet());
+console.log('Miles in feet ' + milesConvert.milesToFeet());
