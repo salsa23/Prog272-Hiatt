@@ -1,0 +1,11 @@
+{
+  "name": "MilesFunction",
+  "version": "0.1.0",
+  "description": "Prog272 Week02",
+  "main": "index.js",
+  "scripts": {
+    "test": "Gruntfile.js"
+  },
+  "author": "chelsa.hiatt",
+  "license": "ISC"
+}
