@@ -11,8 +11,4 @@ describe("Jasmine One Suite", function() {
 		expect(2 * 3).toBe(6);
 	});
 
-	it("expects 1 mile to equal 5280 feet", function() {
-		expect(convertToMiles(1)).toBe(5280);
-	});
-
 }); 
