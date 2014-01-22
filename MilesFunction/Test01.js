@@ -1,6 +1,3 @@
-/**
- * @author Salsa
- */
 describe("Jasmine One Suite", function() {
 	it("expects true to be true", function() {
 		expect(true).toBe(true);
@@ -15,9 +12,8 @@ describe("Jasmine One Suite", function() {
 	});
 
 	it("expects 1 mile to equal 5280 feet", function() {
-		var obj = {
-		miles: 1;
-		}
-		expect(convertToMiles(obj.miles)).toBe(5280);
+		miles = 1;
+		expect(convertToMiles(miles)).toBe(5280);
 	});
+
 }); 
