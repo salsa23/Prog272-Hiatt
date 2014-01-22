@@ -1,18 +1,10 @@
-describe("Jasmine One Suite", function() {
-	it("expects true to be true", function() {
-		expect(true).toBe(true);
-	});
-
-	it("expects 1 + 1 to equal 2", function() {
-		expect(1 + 1).toBe(2);
-	});
-
-	it("expects 2 * 3 to equal 6", function() {
-		expect(2 * 3).toBe(6);
-	});
+describe("MilesFunction - Jasmine One Suite", function() {
 
 	it("expects 1 mile to equal 5280 feet", function() {
-		expect(convertToMiles(1)).toBe(5280);
+		expect(milesConvert.milesToFeet(1)).toBe(5280);
 	});
 
+	it("expects -1 mile to equal -5280 feet", function() {
+		expect(milesConvert.milesToFeet(-1)).toBe(-5280);
+	});
 }); 
