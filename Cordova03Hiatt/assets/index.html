@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hiatt 03 Cordova Test</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Converter Program</h1>
+            <div>
+            	<h4>Enter a value to convert:</h4>
+            	<form>
+            		<p><label id="farenheit">Farenheit:</label><input type="text" id="farenheit"><label id="celsius"> to Celsius:</label><input type="text" id="celsius" readonly="true"></p>
+            		<p><label id="miles">Miles:</label><input type="text" id="miles"><label id="kilometers"> to Kilometers:</label><input type="text" id="kilometers" readonly="true"></p>
+            		<p><label id="number">Get this Number's:</label><input type="text" id="number"><label id="sqroot"> Square Root:</label><input type="text" id="sqroot" readonly="true"></p>
+            		<p><input type="button" id="submit" value="Submit" onclick="temp(this.form)"></p>
+            	</form>
+            </div>
+        </div>
+        <script src="cordova-2.3.0.js"></script>
+        <script src="js/jquery.js"> </script>
+        <script src="js/utility.js"> </script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
