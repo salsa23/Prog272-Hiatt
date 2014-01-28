@@ -4,12 +4,12 @@
  * Created: January 27, 2014
  * PROG 272 - Winter 2014
  */
-
+(function{
 var userForm = {
 
-	degree : document.getElementById("farenheit"),
-	distance : document.getElementById("miles"),
-	number : document.getElementById("number"),
+	degree : document.getElementById("farenheit").value,
+	distance : document.getElementById("miles").value,
+	number : document.getElementById("number").value,
 	
 	celcius : function() {'use strict';
 		// Deduct 32, then multiply by 5, then divide by 9
@@ -36,4 +36,6 @@ function convert(){
 	if(userForm.number !== ""){
 		document.getElementById("sqroot").innerHTML = userForm.sqr;
 	};
+};
+return this;
 };
