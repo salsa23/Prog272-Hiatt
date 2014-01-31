@@ -2,7 +2,7 @@
  * @author Chelsa Hiatt
  */
 
-function myConverter() {
+function myConverter() {'use strict';
 	//button that calls degreeConvert function
 	$("#celcius").click(degreeConvert);
 	//button that calls milesConvert function
@@ -18,7 +18,7 @@ function myConverter() {
 	console.log("number in page load: " + number);
 
 	// function to convert fahrenheit to celcuius
-	function degreeConvert() {
+	function degreeConvert() {'use strict';
 		console.log("degreeConvert was called");
 		console.log("degrees within function prior to convert: " + degrees);
 		
@@ -35,7 +35,7 @@ function myConverter() {
 	}
 
 	// function to convert miles to kilometers
-	function milesConvert() {
+	function milesConvert() {'use strict';
 		console.log("milesConvert was called");
 		console.log("miles within function prior to convert: "+miles);
 
@@ -52,7 +52,7 @@ function myConverter() {
 	}
 
 	// function to convert user number to sq root value
-	function numberConvert() {
+	function numberConvert() {'use strict';
 		console.log("numberConvert was called");
 		console.log("number within function prior to convert: "+number);
 
@@ -71,6 +71,6 @@ function myConverter() {
 }
 
 
-$(document).ready(function() {
+$(document).ready(function() {'use strict';
 	myConverter();
 }); 
