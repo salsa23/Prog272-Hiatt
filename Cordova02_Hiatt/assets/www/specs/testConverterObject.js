@@ -9,9 +9,9 @@ describe("Converter test", function() {'use strict';
 		expect(n).not.toBeUndefined();
 	});
 
-	it("myConverter object degrees var to contain something", function() {
+	it("myConverter with 32 degrees to be 0", function() {
 		var n = new myConverter();
-		var that = this;
-		expect(that.degrees).not.toBeUndefined();
+		var actual = n.degreeConvert(32);
+		expect(actual).toBe(0);
 	});
 });
