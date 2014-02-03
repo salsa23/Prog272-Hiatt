@@ -3,23 +3,20 @@
  */
 
 function myConverter() {'use strict';
-	//button that calls degreeConvert function
+	//button that calls degreeConvertPrivate function
 	$("#celcius").click(degreeConvertPrivate);
-	//button that calls milesConvert function
+	//button that calls milesConvertPrivate function
 	$("#kilometers").click(milesConvertPrivate);
-	//button that calls numberConvert function
+	//button that calls numberConvertPrivate function
 	$("#squareRoot").click(numberConvertPrivate);
 
 	var degrees = 0;
-	console.log("degrees in page load: " + degrees);
 	var miles = 0;
-	console.log("miles in page load: " + miles);
 	var number = 0;
-	console.log("number in page load: " + number);
 
 	var that = this;
 
-	// private function to set user values
+	// private function to set user values and button click
 	function degreeConvertPrivate() {'use strict';
 		console.log("degreeConvertPrivate was called");
 
@@ -43,7 +40,7 @@ function myConverter() {'use strict';
 		return cel;
 	};
 
-	// private function to set user values
+	// private function to set user values and button click
 	function milesConvertPrivate() {'use strict';
 		console.log("milesConvertPrivate was called");
 		
@@ -68,7 +65,7 @@ function myConverter() {'use strict';
 		return km;
 	};
 
-	// private function to set user values
+	// private function to set user values when button clicked
 	function numberConvertPrivate() {'use strict';
 		console.log("numberConvertPrivate was called");
 
