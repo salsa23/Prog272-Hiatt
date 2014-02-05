@@ -6,4 +6,3 @@ node_modules
 .DS_Store
 /jarlist.cache
 node_modules
-foo
