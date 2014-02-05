@@ -6,11 +6,11 @@ describe("Hiatt Info Manager Test Suite", function() {'use strict';
 
 	// test that the HTML div value changed
 	it("Making sure that the HTML Div01 changed", function() {
-		var d = myData();
-		expect(o).not.toBeUndefined();
+		var d = new MyData();
+		expect(d).not.toBeUndefined();
 	});
 	it("testing call to HTML file load returns true", function() {
-		var d = MyData();
+		var d = new MyData();
 		var actual = d.getHtml(1);
 		expect(actual).toBeTrue();
 	});

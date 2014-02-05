@@ -60,7 +60,7 @@ function MyData() {'use strict';
 	});
 
 	//this.getHtml = function() {
-	function getHtml(i) {'use strict';
+	this.getHtml = function(i) {'use strict';
 		// uses JQuery .load() depending on index button selected
 		// couldn't get this function to work with passing a parameter
 		if (i === 1) {
@@ -109,6 +109,6 @@ function MyData() {'use strict';
 }
 
 
-$(document).ready(function() {
+/*  $(document).ready(function() {
 	MyData();
-});
+}); */
