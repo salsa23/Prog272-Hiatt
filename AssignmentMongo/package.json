@@ -5,6 +5,9 @@
     "scripts": {
         "start": "node Server.js"
     },
+    "dependencies":{
+		"mongodb": "latest"
+    },
     "devDependencies": {
 		"express": "latest"
 	}

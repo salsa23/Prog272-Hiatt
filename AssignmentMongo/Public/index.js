@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$.getJSON('/read', function(data) {
 		console.log(data);
 		for (var i = 0; i < data.length; i++) {
-			$("#result").append('<li>' + JSON.stringify(data[i]) + '</li>');
+			$("#results").append('<li>' + JSON.stringify(data[i]) + '</li>');
 		}
 	});
 });
