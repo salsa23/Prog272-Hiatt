@@ -5,13 +5,17 @@
 
 $(document).ready(function() {
 	
+	var choice = $("userChoice").val();
+	
 	// button to select record to display
-	$("submit").click(function(){
+	$("submit").click({i:choice},getRecord);
+	
+	//$("submit").click(function(){
 		//get user value
-		var i= $("userChoice").val();	
+	//	var i= $("userChoice").val();	
 		// call function with parameter
-		getRecord(i);
-	});
+	//	var result = getRecord(i);
+	//});
 
 	// displays one record in the html page from the returned data
 	$.getJSON('/read', function(data) {
