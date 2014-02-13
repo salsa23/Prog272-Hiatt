@@ -5,24 +5,17 @@
 
 $(document).ready(function() {
 
-	// displays one record in the application
+	// displays one record in the html page from the returned data
 	$.getJSON('/read', function(data) {
-		console.log(data[1]);
-		console.log("The first name is: "+ data[1].firstName);
-		
-				//$('#Div01').load("source/source.html #paragraph01", function() {
-				//console.log("Load source01 was performed");
-				//});
-				
 		// load to html
 		$('#name').html('<p>'+data[1].firstName + ' ' + data[1].lastName+'<p>', function(){
-			console.log("Name was loaded for object " + data.valueOf);
+			console.log("Name was loaded for object");
 		});
 		$('#address').html('<p>'+data[1].address+'<p>', function(){
-			console.log("Address was loaded for object " + data.valueOf);
+			console.log("Address was loaded for object");
 		});
 		$("#cityStateZip").html('<p>'+data[1].city + ', '+data[1].state + ' ' + data[1].zip+'<p>', function(){
-			console.log("City, State, Zip was loaded for object " + data.valueOf);
+			console.log("City, State, Zip was loaded for object ");
 		});
 		
 	});
