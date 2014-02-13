@@ -15,20 +15,20 @@ $(document).ready(function() {
 				//});
 				
 		// load to html
-		$('#name').load('<p>'+data[1].firstName + ' ' + data[1].lastName+'<p>', function(){
+		$('#name').html('<p>'+data[1].firstName + ' ' + data[1].lastName+'<p>', function(){
 			console.log("Name was loaded for object " + data.valueOf);
 		});
-		$('#address').load('<p>'+data[1].address+'<p>', function(){
+		$('#address').html('<p>'+data[1].address+'<p>', function(){
 			console.log("Address was loaded for object " + data.valueOf);
 		});
-		$("#cityStateZip").load('<p>'+data[1].city + ', '+data[1].state + ' ' + data[1].zip+'<p>', function(){
+		$("#cityStateZip").html('<p>'+data[1].city + ', '+data[1].state + ' ' + data[1].zip+'<p>', function(){
 			console.log("City, State, Zip was loaded for object " + data.valueOf);
 		});
 		
 	});
 
 	$.getJSON('/read', function(data) {
-		console.log(data);
+		//console.log(data);
 		for (var i = 0; i < data.length; i++) {
 			$("#results").append('<li>' + JSON.stringify(data[i]) + '</li>');
 		}
