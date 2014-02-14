@@ -35,6 +35,7 @@ var url02 = 'mongodb://192.168.2.19:27017/test';
       // Locate all the entries using find
       collection.find().toArray(function(err, results) {
         console.dir(results);
+        
         // close the db
         db.close();
       });
