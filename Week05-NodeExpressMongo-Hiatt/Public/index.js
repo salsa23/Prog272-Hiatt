@@ -2,10 +2,10 @@
  * @author Chelsa Hiatt
  */
 function showData(){ 
-	var choice = $("userChoice").val();
+	var i = $("userChoice").val();
 	
 	// button to select record to display
-	$("submit").click({i:choice},getRecord);
+	$("submit").click({i:$("userChoice").val()},getRecord);
 	
 	//$("submit").click(function(){
 	//get user value
