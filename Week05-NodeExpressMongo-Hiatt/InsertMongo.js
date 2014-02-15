@@ -13,7 +13,7 @@ var url02 = 'mongodb://192.168.2.19:27017/test';
     var dataArray = [];
     
     // populate the array with address fields
-    for (var i = 10000; i < 10251; i = i + 1) {
+    for (var i = 10000; i < 10250; i = i + 1) {
 		var person = {
 			firstName : 'Rita' + i,
 			lastName : 'Hill' + i,

@@ -2,48 +2,32 @@
  * @author Chelsa Hiatt
  */
 function showData() {
-	var i = $('#userChoice').val();
-	console.log(i);
-	
+
 	// button to select record to display
-	$('#submit').click({x : $('#userChoice').val()}, getRecord);
+	$('#submit').click(getRecord);
 
 	// get the selected record
 	function getRecord(event) {
+		var userChoice = $('#userChoice').val();
 		$.getJSON('/read', function(data) {
-			// set x to x-1 to accommodate array numbering and user non-use of 0 when requesting the first record.
-			var x = (event.data.x - 1);
-			//var x = (event.x - 1);
-			if (x >=0 && x < data.length){
+			// set userChoice to one less to accommodate array numbering and user non-use of 0 when requesting the first record.
+			userChoice = userChoice-1;
+			if (userChoice >=0 && userChoice < data.length){
 				// load to html
-				$('#name').html('<p>' + data[x].firstName + ' ' + data[x].lastName + '<p>', function() {
+				$('#name').html('<p>' + data[userChoice].firstName + ' ' + data[userChoice].lastName + '<p>', function() {
 					console.log("Name was loaded for object");
 				});
-				$('#address').html('<p>' + data[x].address + '<p>', function() {
+				$('#address').html('<p>' + data[userChoice].address + '<p>', function() {
 					console.log("Address was loaded for object");
 				});
-				$("#cityStateZip").html('<p>' + data[x].city + ', ' + data[x].state + ' ' + data[x].zip + '<p>', function() {
+				$("#cityStateZip").html('<p>' + data[userChoice].city + ', ' + data[userChoice].state + ' ' + data[userChoice].zip + '<p>', function() {
 					console.log("City, State, Zip was loaded for object ");
 				});
 			}else{
-				$('#error').html("That record number does not exist. Please enter a different number.");	
+				$('#error').html("That record does not exist. Please enter a different number. NOTE: If you are trying to access the 0 record type 1.");	
 			};
 		});
 	};
-
-	// displays one record in the html page from the returned data <<<<<<<<<<<<<<<<<<<<< Remove to test
-	//$.getJSON('/read', function(data) {
-	// load to html
-	//	$('#name').html('<p>'+data[1].firstName + ' ' + data[1].lastName+'<p>', function(){
-	//		console.log("Name was loaded for object");
-	//	});
-	//	$('#address').html('<p>'+data[1].address+'<p>', function(){
-	//		console.log("Address was loaded for object");
-	//	});
-	//	$("#cityStateZip").html('<p>'+data[1].city + ', '+data[1].state + ' ' + data[1].zip+'<p>', function(){
-	//		console.log("City, State, Zip was loaded for object ");
-	//	});
-	//});
 
 	$.getJSON('/read', function(data) {
 		//console.log(data);
@@ -51,7 +35,6 @@ function showData() {
 			$("#results").append('<li>' + JSON.stringify(data[i]) + '</li>');
 		}
 	});
-
 };
 
 $(document).ready(function() {
