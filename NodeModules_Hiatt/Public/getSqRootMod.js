@@ -29,7 +29,7 @@ var ModObj = (function() {
 		// call private method to do the work
 		sqRootPrivate();
 		
-		console.log(mySqrt);
+		console.log("The square root of "+ number +" is: "+mySqrt);
 	};
 
 	return ModObj;
