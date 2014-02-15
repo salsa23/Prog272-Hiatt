@@ -22,9 +22,9 @@ var ModObj = (function() {
 		mySqrt = Math.sqrt(number);
 	}
 
-	ModObj.prototype.squareRoot = function(passedObj) {
+	ModObj.prototype.squareRoot = function(num) {
 		// set the number
-		number = passedObj.num;
+		number = num;
 		
 		// call private method to do the work
 		sqRootPrivate();

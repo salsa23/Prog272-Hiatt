@@ -18,4 +18,4 @@ console.log("Subtracting 4-3 returns: "+ getCalc.subtract(4,3));
 console.log("50 feet in miles is: " + getMiles.feetToMiles(50));
 
 // using modular pattern from Mod03, passing in an object with a num value
-getSqRoot.myObject.squareRoot({num:16});
+getSqRoot.modObj.squareRoot(16);
