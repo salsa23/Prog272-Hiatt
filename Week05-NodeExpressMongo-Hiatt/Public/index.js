@@ -2,8 +2,9 @@
  * @author Chelsa Hiatt
  */
 function showData() {
-	//var i = $('#userChoice').val();
-
+	var i = $('#userChoice').val();
+	console.log(i);
+	
 	// button to select record to display
 	$('#submit').click({x : $('#userChoice').val()}, getRecord);
 
@@ -12,7 +13,8 @@ function showData() {
 		$.getJSON('/read', function(data) {
 			// set x to x-1 to accommodate array numbering and user non-use of 0 when requesting the first record.
 			var x = (event.data.x - 1);
-			if (x > 0 && x < data.length){
+			//var x = (event.x - 1);
+			if (x >=0 && x < data.length){
 				// load to html
 				$('#name').html('<p>' + data[x].firstName + ' ' + data[x].lastName + '<p>', function() {
 					console.log("Name was loaded for object");

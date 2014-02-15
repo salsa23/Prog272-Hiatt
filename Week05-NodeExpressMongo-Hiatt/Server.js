@@ -45,7 +45,7 @@ var QueryMongo = (function() {
 
 		// Send the collection to the client.
 		collection.find().toArray(function(err, theArray) {
-			//console.dir(theArray);
+			console.dir(theArray);
 			database.close();
 			response.send(theArray);			
 		});
