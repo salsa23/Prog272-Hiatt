@@ -30,6 +30,7 @@ var ModObj = (function() {
 		sqRootPrivate();
 		
 		console.log("Within Mod03 the square root of number: "+ number +" is: " + mySqrt);
+		return mySqrt;
 	};
 
 	return ModObj;
