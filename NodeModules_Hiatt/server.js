@@ -3,7 +3,7 @@
  */
 
 // Link in Modules
-var mod01 = require('Module01');
+var mod01 = require('.Module01');
 var mod02 = require('./Library/Module02');
 var mod03 = require('./Public/Module03');
 
