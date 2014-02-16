@@ -56,7 +56,7 @@ var RouteMaster = ( function() {
 			var userRadius = $("#userRadius").val();
 
 			$.ajax({
-				url : "/add",
+				url : "/getCircumference",
 				type : "POST",
 				data : {
 					"userRadius" : userRadius
