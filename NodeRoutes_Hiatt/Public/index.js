@@ -63,7 +63,7 @@ var RouteMaster = ( function() {
 				},
 				dataType : "json",
 				success : function(data) {					
-					$("#getCircumferenceResults").html("A circle with the radius of " + userRadius + " has a circumference of: " + data.result);
+					$("#getCircumferenceResult").html("A circle with the radius of " + userRadius + " has a circumference of: " + data.result);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					console.log(jqXHR.responseText);
