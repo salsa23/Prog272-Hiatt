@@ -1,49 +1,48 @@
 /**
  * @author Chelsa Hiatt
  * 
- * Need to update!
+ * Calls made from client to the web server
  */
 
 var RouteMaster = ( function() {
 
 		// Constructor
 		function RouteMaster() {
-			$("#getFeet").click(getFeet);
-			$("#getNineParse").click(getNineParse);
-			$("#add").click(add);
-			$("#addPost").click(addPost);
+			$("#getFeet").click(getFeetParse);		// use function "getFeet" to return the object
+			$("#getXFeet").click(getXFeet);
+			$("#getCircumference").click(getCircumference);
 		}
 
-		var getNine = function() {
-			var nineResult = $('#getNineResult');
-			nineResult.load('/getNine', function(response, status, xhr) {
+		var getFeet = function() {
+			var getFeetResult = $('#getFeetResult');
+			nineResult.load('/getFeet', function(response, status, xhr) {
 				if (status == "error") {
-					nineResult.html("Error: <strong>" + xhr.statusText + "</strong>");
+					getFeetResult.html("Error: <strong>" + xhr.statusText + "</strong>");
 				}
 			});
 		};
-
-		var getNineParse = function() {
-			var nineResult = $('#getNineParseResult');
-			$.get('/getNine', function(data) {
-				nineResult.html("The value sent from the server is: <strong>" + data.result + "</strong>");
+		
+		// parses out the data result to text that is easier to read for the user.
+		var getFeetParse = function() {
+			var getFeetResult = $('#getFeetResult');
+			$.get('/getFeet', function(data) {
+				getFeetResult.html("One mile is <strong>" + data.result + "</strong> feet.");
 			});
 		};
 
-		var add = function() {
-			var operandA = $("#operandA").val();
-			var operandB = $("#operandB").val();
+		// passes an object with parameters to use in the function.
+		var getXFeet = function() {
+			var userMiles = $("#userMiles").val();
 
 			$.ajax({
-				url : "/add",
+				url : "/getXFeet",
 				type : "GET",
 				data : {
-					"operandA" : operandA,
-					"operandB" : operandB
+					"userMiles" : userMiles
 				},
 				dataType : "json",
 				success : function(data) {					
-					$("#addResult").html(operandA + " + " + operandB + " = " + data.result);
+					$("#getXFeetResult").html(userMiles + " miles = " + data.result + " feet.");
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					console.log(jqXHR.responseText);
@@ -53,20 +52,18 @@ var RouteMaster = ( function() {
 			});
 		};
 
-		var addPost = function() {
-			var operandA = $("#operandAPost").val();
-			var operandB = $("#operandBPost").val();
+		var getCircumference = function() {
+			var userRadius = $("#userRadius").val();
 
 			$.ajax({
 				url : "/add",
 				type : "POST",
 				data : {
-					"operandA" : operandA,
-					"operandB" : operandB
+					"userRadius" : userRadius
 				},
 				dataType : "json",
 				success : function(data) {					
-					$("#addResultPost").html(operandA + " + " + operandB + " = " + data.result);
+					$("#getCircumferenceResults").html("A circle with the radius of " + userRadius + " has a circumference of: " + data.result);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					console.log(jqXHR.responseText);

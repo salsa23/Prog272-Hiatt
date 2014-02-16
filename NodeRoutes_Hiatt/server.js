@@ -7,10 +7,12 @@ var app = express();
 var fs = require('fs');
 var getFeet = require('./Library/GetFeet');
 var calculator = require('./Library/Calculator');
-//app.use(express.bodyParser());   // used with app.post
+
+app.use(express.bodyParser());   // used with app.post (Built in Express tool)
 
 var port = process.env.PORT || 30025;
 
+// getFeet called from html using $get or $JSON
 app.get('/getFeet', function(request, response) {
 	console.log('getFeet called');
 	response.send({ "result": getFeet.getFeet() });
@@ -21,21 +23,20 @@ app.get('/getXFeet', function(request, response) {
 	console.log('getXFeet called');	
 	console.log(request.query);	
 	var userMiles = parseInt(request.query.userMiles);
-	var result = calculator.myObject.getXFeet(userMiles);
+	var result = calculator.myCalc.getXFeet(userMiles);
 	response.send({ "result": result });
 });
 
 /* To handle a post, we have to add express.bodyParser, shown above
    Now our parameters come in on request.body */
-/*app.post('/add', function(request, response) {
-	console.log('add called');	
+app.post('/getCircumference', function(request, response) {
+	console.log('getCircumference called');	
 	console.log(request.body);	
-	var operandA = parseInt(request.body.operandA);
-	var operandB = parseInt(request.body.operandB);
-	var result = addingMachine.myObject.add(operandA, operandB);
+	var userRadius = parseInt(request.body.userRadius);
+	var result = calculator.myCalc.getCircumference(userRadius);
 	response.send({ "result": result });
 });
-*/
+
 
 app.get('/', function(request, response) {
 	var html = fs.readFileSync(__dirname + '/Public/index.html');
