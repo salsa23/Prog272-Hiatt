@@ -15,9 +15,9 @@ var exec = require('child_process').exec;
 
 var FileProcess = (function() {
 	// PRIVATE DATA
-	var uploadPath = "../";
-	var uploadFileName = 'sample.md';
-	var getFile = 'sample.md';
+	var uploadPath = "../";					// use after confirm upload works to remove hard-coded path
+	var uploadFileName = 'sample.md';		// used after confirm upload code works so you can re-use code and not hard-code file name
+	var getFile = 'sample.md';				// used after get file code works to remove hard coded file name
 
 	// USER INPUT ----> to be used in future release, commented out for now
 	// var userUploadFile = $('#userDocument').val();
@@ -25,15 +25,18 @@ var FileProcess = (function() {
 	// add portion to set upload file and get file values with user data for
 	// future release.
 
+	// function to upload file
 	FileProcess.prototype.uploadFile = function() {
 		// reads the file contents to upload
-		var uploadContents = fs.readFileSync(uploadPath + uploadFileName, 'utf8');
+		var uploadContents = fs.readFileSync('../sample.md', 'utf8');
 
 		// make file into JSON
 		var fileToJson = {
-			docFileName : uploadFileName,
+			docFileName : 'sample.md',
 			docContents : uploadContents
 		};
+		// for debugging  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Comment out after working <<<<<<<<<<<<<<<<<<
+		console.log("The JSON is: "+fileToJson);
 
 		// insert JSON into collection
 		collection.insert(fileToJson, function(err, docs) {
@@ -53,38 +56,26 @@ var FileProcess = (function() {
 		var outputFile = 'htmlFile.html';
 		var inputFile = 'sample.md';
 		// var i = $('#userChoice').val(); // will be used in future version to
-		// select the file the users wants using a filter
+		// select the file the users wants using a filter	// added in future release
 
+		// find the file in the collection and output to html file
 		collection.find().toArray(function(err, mongoArray) {
 			// write to htmlFile.html file
-			fs.writeFileSync(outputFile, mongoArray[0].docText);
+			fs.writeFileSync(inputFile, mongoArray[0].docText);
 			console.log("outputFile has been created.");
-		})
+		});
+		
+		// convert newly export Markdown file to html using outside program: Pandoc
 		exec('pandoc -t html5 -o htmlFile.html output.md', function callback(error,
 				stdout, stderr) {
 			// Read in the document, send the HTML to the client
-
+			var html = fs.readFileSync('htmlFile.html');
+			return html;
 		});
-	}
+	};
 	
 	return FileProcess;
 
 })();
 
-var processFile = function() {
-	var outputFile = 'htmlFile.html';
-	var inputFile = 'sample.md';
-	// var i = $('#userChoice').val(); // will be used in future version to
-	// select the file the users wants using a filter
-
-	var mongoArray = collection.find().toArray(function(err, results) {
-
-		// write to htmlFile.html file
-		fs.writeFileSync(filename, data, [ options ]);
-	})
-	exec('pandoc -t html5 -o htmlFile.html output.md', function callback(error,
-			stdout, stderr) {
-		// Read in the document, send the HTML to the client
-
-	});
-};
+exports.fileProcess = new FileProcess();
