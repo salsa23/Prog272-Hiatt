@@ -93,18 +93,18 @@ var FileProcess = (function() {
 			// find the file in the collection and output to html file
 			collection.find().toArray(function(err, mongoArray) {
 				// write to htmlFile.html file
-				fs.writeFileSync('temp.md', mongoArray[0].docContents);
+				fs.writeFileSync('./Source/temp.md', mongoArray[0].docContents);
 				console.log("temp.md file has been created.");
 			});
 
 			// convert temp Markdown file to html using Pandoc
-			exec('pandoc -t html5 -o outputPandoc.html temp.md',
+			exec('pandoc -t html5 -o ./Source/outputPandoc.html ./Source/temp.md',
 					function callback(error, stdout, stderr) {
 						// Read in the document, send the HTML to the client
-						var html = fs.readFileSync('outputPandoc.html');
+						var html = fs.readFileSync('./Source/outputPandoc.html');
 						console.log("html file read: "+ html);
 						console.log("pandoc html has been read");
-						fs.writeFileSync('/Source/outputPandoc.html', html);
+						fs.writeFileSync('./Source/outputPandoc.html', html);
 					});
 		});
 	};

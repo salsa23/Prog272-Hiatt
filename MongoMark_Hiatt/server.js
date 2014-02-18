@@ -108,7 +108,7 @@ app.get('/', function(request, response) {
 
 //Give express access to the Public directory
 app.use("/", express.static(__dirname + '/Public'));
-app.use("/outputPandoc.html", express.static(__dirname + '/Source'))
+app.use("/Source", express.static(__dirname + '/Source'));
 
 //set up port to listen on
 app.listen(port);
