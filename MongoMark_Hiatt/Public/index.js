@@ -65,7 +65,7 @@ var Run = (function() {
     	
     	if($('#first').is('checked')){
     		console.log("within section 1 of show data user choice");
-    		$.get('./outputPandoc.html', function(data){
+    		$.get('../outputPandoc.html', function(data){
     			var html = $('#stepsfirst','<div>'+data+'</div>')
     				.nextUntil('#whosecond')
     				.andSelf();
@@ -74,7 +74,7 @@ var Run = (function() {
     		});
     	};
     	if($('#second').is('checked')){
-    		$.get('./outputPandoc.html', function(data){
+    		$.get('../outputPandoc.html', function(data){
     			var html = $('#whosecond','<div>'+data+'</div>')
     				.nextUntil('#whatthird')
     				.andSelf();
@@ -82,7 +82,7 @@ var Run = (function() {
     		});
     	};
     	if($('#third').is('checked')){
-    		$.get('./outputPandoc.html', function(data){
+    		$.get('../outputPandoc.html', function(data){
     			var html = $('#whatthird','<div>'+data+'</div>')
     				.nextUntil('#notesend')
     				.andSelf();
@@ -90,7 +90,7 @@ var Run = (function() {
     		});
     	};
     	if ($("#highlight").is(':checked')) {
-    		$('#showData').load("./outputPandoc.html") 
+    		$('#showData').load("../outputPandoc.html") 
     			.andSelf().css("background", "#668800");
     	};
     };
