@@ -97,7 +97,7 @@ var FileProcess = (function() {
 			// find the file in the collection and output to html file
 			collection.find().toArray(function(err, mongoArray) {
 				// write to htmlFile.html file
-				fs.writeFileSync(inputFile, mongoArray[0].docText);
+				fs.writeFileSync('output.md', mongoArray[0].docText);
 				console.log("outputFile has been created.");
 			});
 
