@@ -97,7 +97,7 @@ app.get('/uploadDocumentJson', function(request,response){
 });
 // upload document calls CreateJason.js object and function
 app.get('/uploadDocument', function(request, response) {
-	var f = new processFile();
+	var f = new ProcessFile();
 	var data = f.uploadFile(response);	
 });
 

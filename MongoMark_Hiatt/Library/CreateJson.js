@@ -18,13 +18,18 @@ var FileProcess = (function() {
 	var uploadPath = "../";					// use after confirm upload works to remove hard-coded path
 	var uploadFileName = 'sample.md';		// used after confirm upload code works so you can re-use code and not hard-code file name
 	var getFile = 'sample.md';				// used after get file code works to remove hard coded file name
-
-	// USER INPUT ----> to be used in future release, commented out for now
-	// var userUploadFile = $('#userDocument').val();
-	// var userGetFile = $('#userChoice').val();
-	// add portion to set upload file and get file values with user data for
-	// future release.
-
+	
+	// Constructor
+	function FileProcess() {
+		console.log("FileProcess.Constructor called");
+		
+		// USER INPUT ----> to be used in future release, commented out for now
+		// var userUploadFile = $('#userDocument').val();
+		// var userGetFile = $('#userChoice').val();
+		// add portion to set upload file and get file values with user data for
+		// future release.
+	}
+	
 	// function to upload file
 	FileProcess.prototype.uploadFile = function() {
 		// reads the file contents to upload
@@ -53,8 +58,8 @@ var FileProcess = (function() {
 	
 	// function to read from DB
 	FileProcess.prototype.getFile = function() {
-		var outputFile = 'htmlFile.html';
-		var inputFile = 'sample.md';
+		var outputHTMLFile = 'outputPandoc.html';
+		var outputMDFile = 'output.md';
 		// var i = $('#userChoice').val(); // will be used in future version to
 		// select the file the users wants using a filter	// added in future release
 
@@ -66,10 +71,10 @@ var FileProcess = (function() {
 		});
 		
 		// convert newly export Markdown file to html using outside program: Pandoc
-		exec('pandoc -t html5 -o htmlFile.html output.md', function callback(error,
+		exec('pandoc -t html5 -o outputPandoc.html output.md', function callback(error,
 				stdout, stderr) {
 			// Read in the document, send the HTML to the client
-			var html = fs.readFileSync('htmlFile.html');
+			var html = fs.readFileSync('outputPandoc.html');
 			return html;
 		});
 	};
