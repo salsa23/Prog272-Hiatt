@@ -68,7 +68,7 @@ var Run = (function() {
     		$.get(source, function(data){
     			var html = $('#stepsfirst','<div>'+data+'</div>')
     				.nextUntil('#whosecond')
-    				.andSelf();
+    				.addBack();
     			$('#showData').html(html);
     			console.log("within callback 1");
     		});
@@ -77,7 +77,7 @@ var Run = (function() {
     		$.get(source, function(data){
     			var html = $('#whosecond','<div>'+data+'</div>')
     				.nextUntil('#whatthird')
-    				.andSelf();
+    				.addBack();
     			$('#showData').html(html);
     		});
     	};
@@ -85,7 +85,7 @@ var Run = (function() {
     		$.get(source, function(data){
     			var html = $('#whatthird','<div>'+data+'</div>')
     				.nextUntil('#notesend')
-    				.andSelf();
+    				.addBack();
     			$('#showData').html(html);
     		});
     	};
