@@ -79,14 +79,22 @@ var FileProcess = (function() {
 		});
 	};
 
-	// function to read from DB
+	// function to read from DB, and convert to html
 	FileProcess.prototype.getFile = function() {
 		var outputHTMLFile = 'outputPandoc.html';
 		var outputMDFile = 'output.md';
 		// var i = $('#userChoice').val(); // will be used in future version to
 		// select the file the users wants using a filter // added in future
 		// release
+		MongoClient.connect(url01, function(err, db) {
+			'use strict';
+			if (err) {
+				throw err;
+			}
 
+		var collection = db.collection('test_docs');
+
+		
 		// find the file in the collection and output to html file
 		collection.find().toArray(function(err, mongoArray) {
 			// write to htmlFile.html file

@@ -70,9 +70,7 @@ app.get('/read', function(request, response) {
 	console.log('Server /read called');
 	//var q = new QueryMongo();
 	//var data = q.getData(response);	
-	//response.send(data);
-	
-	console.log('/read was called with query:' + request.query);	
+	//response.send(data);	
 	var result = processFile.fileProcess.getFile(response);
 	response.send({ "result": result });
 });
