@@ -67,10 +67,14 @@ var QueryMongo = (function() {
 // route the read call to the Mongo Database (from $get or $JSON)
 // parameters are passed in the request.query 
 app.get('/read', function(request, response) {
-	console.log('mongoQuery /read called');
-	var q = new QueryMongo();
-	var data = q.getData(response);	
-	// ? response.send(data);
+	console.log('Server /read called');
+	//var q = new QueryMongo();
+	//var data = q.getData(response);	
+	//response.send(data);
+	
+	console.log('/read was called with query:' + request.query);	
+	var result = processFile.fileProcess.getFile(response);
+	response.send({ "result": result });
 });
 
 // To handle a post, we have to add express.bodyParser, shown above.
@@ -79,6 +83,7 @@ app.post('/getDocumentPost', function(request, response) {
 	console.log('mongoQuery POST /getDocumentPost called');	
 	console.log(request.body);
 	var userDoc = request.body.userChoice;
+	
 	var q = new QueryMongo();
 	var data = q.getData(response);
 	response.send(data);
@@ -88,11 +93,11 @@ app.post('/getDocumentPost', function(request, response) {
 	//response.send({ "result": result });
 });
 
-// upload document UNFINISHED - calls CreateJson.js routine
+
+// upload document - calls CreateJson.js routine
 app.get('/uploadDocument', function(request,response){
 	console.log('CreateJson /uploadDocument on server called');
 		console.log(request.query);	
-		var html = (request.query);	// IS THIS NECESSARY???? <<<<<<<<<<<<<<<<<<<<<<<<<<
 		var result = processFile.fileProcess.uploadFile(response);
 		response.send({ "result": result });
 	});

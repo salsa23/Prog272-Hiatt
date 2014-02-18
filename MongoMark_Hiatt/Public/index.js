@@ -54,7 +54,8 @@ var Run = (function() {
 	// parses out the document returned in result to text that is easier to read for the user.
 	var getDocumentParse = function() {
 		var getDocumentParseResult = $('#getDocumentParseResult');
-		$.get('/getDocumentParse', function(data) {
+		$.get('/read', function(data) {
+			showUserSelection(data.result);
 			getDocumentParseResult.html("The document you requested contents: " + data.result);
 		});
 	};
@@ -64,8 +65,8 @@ var Run = (function() {
 		var getDocumentDataResult = $('#getDocumentDataResult');
         // Call the server's app.get('/read', function() {}); 
         $.get('/read', function(data) {
-            // do something with HTML sent from the server  <<<<<<<<<<<<<<<<<<< ADD CODE <<<<<<<<<<<<<<<<<<<
-        	getDocumentDataResult.html(data.result);
+        	// displays all data returned
+        	getDocumentDataResult.html("Here is all: "+data.result);
         }).error(function(err) {
             console.log(err.responseText);
         });
@@ -73,26 +74,26 @@ var Run = (function() {
     
     var showUserSelection = function(){
     	if($("#first").is('checked')){
-    		$.get("htmlFile.htm", function(data){
-    			var html = $("#first-section",'<div>'+data+'</div>')
-    				.nextUntil('#second-section')
+    		$.get("outputPandoc.html", function(data){
+    			var html = $("#first",'<div>'+data+'</div>')
+    				.nextUntil('#second')
     				.andSelf();
     			$('#showData').html(html);
     			return html;
     		});
     	};
     	if($("#second").is('checked')){
-    		$.get("htmlFile.htm", function(data){
-    			var html = $("#second-section",'<div>'+data+'</div>')
-    				.nextUntil('#third-section')
+    		$.get("outputPandoc.html", function(data){
+    			var html = $("#second",'<div>'+data+'</div>')
+    				.nextUntil('#third')
     				.andSelf();
     			$('#showData').html(html);
     			return html;
     		});
     	};
     	if($("#third").is('checked')){
-    		$.get("htmlFile.htm", function(data){
-    			var html = $("#third-section",'<div>'+data+'</div>')
+    		$.get("outputPandoc.html", function(data){
+    			var html = $("#third",'<div>'+data+'</div>')
     				.nextUntil('#end')
     				.andSelf();
     			$('#showData').html(html);
@@ -100,7 +101,7 @@ var Run = (function() {
     		});
     	};
     	if ($("#highlight").is(':checked')) {
-    		$('#showData').load("htmlFile.htm") 
+    		$('#showData').load("outputPandoc.html") 
     			.andSelf().css("background", "#668800");
     	};
     };

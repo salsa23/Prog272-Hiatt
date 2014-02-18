@@ -1,12 +1,8 @@
-% sample.md
-% Chelsa Hiatt
-% February 16, 2014
-
 Sample File
 ==============
 
 
-Steps:
+Steps:(#first)
 ----------
 
 1. Read the File
@@ -17,12 +13,15 @@ Steps:
 6. Display to user
 
 
-Who:
+Who:(#second)
 -----------
 
 - server.js
 - index.js
 - sample.md
+
+What:(#third)
+-----------
 
 > 
 > This is within a block
@@ -31,8 +30,9 @@ Who:
 >
 
 
-Notes:
+Notes:(#end)
 ------------
 
 This project is to test file upload to Mongo. It will also test retrieving data and parsing it to be html display to the user.
+
 
