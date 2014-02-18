@@ -61,32 +61,32 @@ var Run = (function() {
         });
 	};
     
-    var showUserSelection = function(){
-    	if($("#first").is('checked')){
-    		$.get("outputPandoc.html", function(data){
-    			var html = $("#stepsfirst",'<div>'+data+'</div>')
+    var showUserSelection = function(html){
+    	
+    	if($('#first').is('checked')){
+    		console.log("within section 1 of show data user choice");
+    		$.get('outputPandoc.html', function(data){
+    			var html = $('#stepsfirst','<div>'+data+'</div>')
     				.nextUntil('#whosecond')
     				.andSelf();
     			$('#showData').html(html);
-    			return html;
+    			console.log("within callback 1");
     		});
     	};
-    	if($("#second").is('checked')){
-    		$.get("outputPandoc.html", function(data){
-    			var html = $("#whosecond",'<div>'+data+'</div>')
+    	if($('#second').is('checked')){
+    		$.get('outputPandoc.html', function(data){
+    			var html = $('#whosecond','<div>'+data+'</div>')
     				.nextUntil('#whatthird')
     				.andSelf();
     			$('#showData').html(html);
-    			return html;
     		});
     	};
-    	if($("#third").is('checked')){
-    		$.get("outputPandoc.html", function(data){
-    			var html = $("#whatthird",'<div>'+data+'</div>')
+    	if($('#third').is('checked')){
+    		$.get('outputPandoc.html', function(data){
+    			var html = $(''#whatthird','<div>'+data+'</div>')
     				.nextUntil('#notesend')
     				.andSelf();
     			$('#showData').html(html);
-    			return html;
     		});
     	};
     	if ($("#highlight").is(':checked')) {
