@@ -47,7 +47,7 @@ var FileProcess = (function() {
 			var dataArray = [];
 
 			// reads the file contents to upload
-			var uploadContents = fs.readFileSync('../sample.md', 'utf8');
+			var uploadContents = fs.readFileSync('./sample.md', 'utf8');
 
 			// make file into JSON object
 			var fileToJson = {
