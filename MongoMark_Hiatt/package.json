@@ -1,0 +1,14 @@
+{
+	"name": "MongoMark_Hiatt",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"express": "latest",
+		"mongodb": "latest"
+	}
+}
