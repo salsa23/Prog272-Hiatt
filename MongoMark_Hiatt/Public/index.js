@@ -8,9 +8,8 @@ var Run = (function() {
 
     // Constructor for module pattern
     function Run() {
-    	$("#uploadUserDocument").click(uploadDocument);		// use function "getDocumentPost" to return the whole document
-    	$("#getDocumentPost").click(getDocumentPost);		// use function "getDocumentPost" to return the whole document
-    	$("#getDocumentParse").click(getDocumentParse);		// use function "getDocumentPost" to return the whole document
+    	$("#uploadUserDocument").click(uploadDocument);				
+    	$("#getDocument").click(getDocument);				
     	$("input[name=userSelection]:radio").click(showUserSelection);
     }
     
@@ -30,7 +29,7 @@ var Run = (function() {
         });
     };
     
-	var getDocumentPost = function() {
+/*	var getDocumentPost = function() {
 		var userChoice = $("#userChoice").val();
 
 		$.ajax({
@@ -50,27 +49,17 @@ var Run = (function() {
 			}
 		});
 	};    
-	
+*/
 	// parses out the document returned in result to text that is easier to read for the user.
-	var getDocumentParse = function() {
-		var getDocumentParseResult = $('#getDocumentParseResult');
+	var getDocument = function() {
+		var getDocumentResult = $('#getDocumentParseResult');
 		$.get('/read', function(data) {
 			showUserSelection(data.result);
-			getDocumentParseResult.html("The document you requested contents: " + data.result);
-		});
-	};
-
-	// reads the document from the mongo database
-	var getDocumentData = function(){
-		var getDocumentDataResult = $('#getDocumentDataResult');
-        // Call the server's app.get('/read', function() {}); 
-        $.get('/read', function(data) {
-        	// displays all data returned
-        	getDocumentDataResult.html("Here is all: "+data.result);
-        }).error(function(err) {
+			getDocumentResult.html("The document you requested contents: " + data.result);
+		}).error(function(err) {
             console.log(err.responseText);
         });
-    };
+	};
     
     var showUserSelection = function(){
     	if($("#first").is('checked')){

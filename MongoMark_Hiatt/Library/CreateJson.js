@@ -82,7 +82,7 @@ var FileProcess = (function() {
 	// function to read from DB, and convert to html
 	FileProcess.prototype.getFile = function() {
 		var outputHTMLFile = 'outputPandoc.html';
-		var outputMDFile = 'output.md';
+		var outputMDFile = 'temp.md';
 		// var i = $('#userChoice').val(); // will be used in future version to
 		// select the file the users wants using a filter // added in future
 		// release
@@ -97,13 +97,13 @@ var FileProcess = (function() {
 			// find the file in the collection and output to html file
 			collection.find().toArray(function(err, mongoArray) {
 				// write to htmlFile.html file
-				fs.writeFileSync('output.md', mongoArray[0].docText);
+				fs.writeFileSync('temp.md', mongoArray[0].docContents);
 				console.log("outputFile has been created.");
 			});
 
 			// convert newly export Markdown file to html using outside program:
 			// Pandoc
-			exec('pandoc -t html5 -o outputPandoc.html output.md',
+			exec('pandoc -t html5 -o outputPandoc.html temp.md',
 					function callback(error, stdout, stderr) {
 						// Read in the document, send the HTML to the client
 						var html = fs.readFileSync('outputPandoc.html');
