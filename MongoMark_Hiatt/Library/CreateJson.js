@@ -54,8 +54,6 @@ var FileProcess = (function() {
 				docFileName : 'sample.md',
 				docContents : uploadContents
 			};
-			// for debugging <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Comment out
-			// after working <<<<<<<<<<<<<<<<<<
 			console.log("The JSON is: " + fileToJson);
 
 			// add the new doc to the array
@@ -69,9 +67,7 @@ var FileProcess = (function() {
 				// Locate all the entries using find
 				collection.find().toArray(function(err, theArray) {
 					// display collection array results in console
-					console.dir(theArray); // <<<<<<<<<<<<<<<<<<<<<<<< Comment
-					// out after working <<<<<<<<<<<<<<
-
+					console.dir(theArray); 
 					// close the db
 					db.close();
 				});
@@ -98,17 +94,17 @@ var FileProcess = (function() {
 			collection.find().toArray(function(err, mongoArray) {
 				// write to htmlFile.html file
 				fs.writeFileSync('temp.md', mongoArray[0].docContents);
-				console.log("outputFile has been created.");
+				console.log("temp.md file has been created.");
 			});
 
-			// convert newly export Markdown file to html using outside program:
-			// Pandoc
+			// convert temp Markdown file to html using Pandoc
 			exec('pandoc -t html5 -o outputPandoc.html temp.md',
 					function callback(error, stdout, stderr) {
 						// Read in the document, send the HTML to the client
 						var html = fs.readFileSync('outputPandoc.html');
+						console.log("pandoc html has been read");
+						return html;
 					});
-
 		});
 	};
 

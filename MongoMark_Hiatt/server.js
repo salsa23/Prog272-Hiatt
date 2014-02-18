@@ -67,17 +67,14 @@ var QueryMongo = (function() {
 // route the read call to the Mongo Database (from $get or $JSON)
 // parameters are passed in the request.query 
 app.get('/read', function(request, response) {
-	console.log('Server /read called');
-	//var q = new QueryMongo();
-	//var data = q.getData(response);	
-	//response.send(data);	
+	console.log('Server /read called');	
 	var result = processFile.fileProcess.getFile(response);
 	response.send({ "result": result });
 });
 
 // To handle a post, we have to add express.bodyParser, shown above.
 // parameters come in on request.body, POST used to pass large data such as documents
-app.post('/getDocumentPost', function(request, response) {
+/*app.post('/getDocumentPost', function(request, response) {
 	console.log('mongoQuery POST /getDocumentPost called');	
 	console.log(request.body);
 	var userDoc = request.body.userChoice;
@@ -90,7 +87,7 @@ app.post('/getDocumentPost', function(request, response) {
 	//var result = calculator.myCalc.getCircumference(userRadius);
 	//response.send({ "result": result });
 });
-
+*/
 
 // upload document - calls CreateJson.js routine
 app.get('/uploadDocument', function(request,response){

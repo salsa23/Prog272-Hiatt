@@ -9,45 +9,69 @@
 	</head>
 	<body>
 		<h1>MongoMark-Hiatt</h1>
-		<h2>Use the buttons and radio buttons to demonstrate how to upload a Markdown file, 
-			uploading it to, and reading it from a Mongo DB, then translating a JSON object into HTML, 
-			to display to the user.</h2>
+		<h2>Use the buttons and radio buttons to demonstrate how to upload a Markdown file,
+		uploading it to, and reading it from a Mongo DB, then translating a JSON object into HTML,
+		to display to the user.</h2>
 		<hr />
 		<section id = "user">
 			<h2>Upload Document</h2>
-			<p>This version of the application only uploads a sample Markdown file called "sample.md". 
+			<p>
+				This version of the application only uploads a sample Markdown file called "sample.md".
 				In future implementations, we hope to allow users to select a file they wish to store online.
-				Therefore, the input textbox is read-only.</p>
+				Therefore, the input textbox is read-only.
+			</p>
 			<input type="text" id="userDocument" value="" readonly="" />
-			<button id="uploadUserDocument">Upload Document</button>
+			<button id="uploadUserDocument">
+				Upload Document
+			</button>
 			<p id="uploadUserDocumentResult"> </p>
 
 			<hr />
 
 			<h2>Get Document</h2>
-			<p>Enter the file name you want to retrieve:<br/>
-				This version of the application only reads a sample Markdown file called "sample.md". 
+			<p>
+				Enter the file name you want to retrieve:
+				<br/>
+				This version of the application only reads a sample Markdown file called "sample.md".
 				In future implementations, we hope to allow users to select a file they wish to retrieve from the database.
-				Therefore, the input textbox is read-only.</p>
+				Therefore, the input textbox is read-only.
+			</p>
 			<input type="text" id="userChoice" value="" readonly="" />
-			<button id="getDocument">Get Document</button>
+			<button id="getDocument">
+				Get Document
+			</button>
 			<p id="getDocumentResult"> </p>
 
 			<hr />
 
 			<section id="userSelection">
-			<ul>
-				<li><input type="radio" name="userSelection" id="first"><label for="first">First Section</label></li>
-				<li><input type="radio" name="userSelection" id="second"><label for="second">Second Section</label></li>				
-				<li><input type="radio" name="userSelection" id="third"><label for="third">Third Section</label></li>
-				<li><input type="radio" name="userSelection" id="highlight"><label for="highlight">Load all and highlight</label></li>
-			</ul>
+				<p>
+					Choose a section you wish to view:
+				</p>
+				<ul>
+					<li>
+						<input type="radio" name="userSelection" id="first">
+						<label for="first">First Section</label>
+					</li>
+					<li>
+						<input type="radio" name="userSelection" id="second">
+						<label for="second">Second Section</label>
+					</li>
+					<li>
+						<input type="radio" name="userSelection" id="third">
+						<label for="third">Third Section</label>
+					</li>
+					<li>
+						<input type="radio" name="userSelection" id="highlight">
+						<label for="highlight">Load all and highlight</label>
+					</li>
+				</ul>
 			</section>
 
 			<hr />
 
 			<div id="showData"> </div>
-			
+
 		</section>
 	</body>
 </html>
