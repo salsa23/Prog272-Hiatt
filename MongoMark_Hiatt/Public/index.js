@@ -64,8 +64,8 @@ var Run = (function() {
     var showUserSelection = function(){
     	if($("#first").is('checked')){
     		$.get("outputPandoc.html", function(data){
-    			var html = $("#first",'<div>'+data+'</div>')
-    				.nextUntil('#second')
+    			var html = $("#stepsfirst",'<div>'+data+'</div>')
+    				.nextUntil('#whosecond')
     				.andSelf();
     			$('#showData').html(html);
     			return html;
@@ -73,8 +73,8 @@ var Run = (function() {
     	};
     	if($("#second").is('checked')){
     		$.get("outputPandoc.html", function(data){
-    			var html = $("#second",'<div>'+data+'</div>')
-    				.nextUntil('#third')
+    			var html = $("#whosecond",'<div>'+data+'</div>')
+    				.nextUntil('#whatthird')
     				.andSelf();
     			$('#showData').html(html);
     			return html;
@@ -82,8 +82,8 @@ var Run = (function() {
     	};
     	if($("#third").is('checked')){
     		$.get("outputPandoc.html", function(data){
-    			var html = $("#third",'<div>'+data+'</div>')
-    				.nextUntil('#end')
+    			var html = $("#whatthird",'<div>'+data+'</div>')
+    				.nextUntil('#notesend')
     				.andSelf();
     			$('#showData').html(html);
     			return html;
