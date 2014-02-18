@@ -16,11 +16,14 @@ var Run = (function() {
     
 	// uploads the document to the mongo database
 	var uploadDocument = function(){
+		//var userUploadDocument = $('#userDocument');
+		var userUploadDocument = 'sample.md';
 		var uploadUserDocumentResult = $('#uploadUserDocumentResult');
-        // Call the server's app.get('/read', function() {}); 
+		
+        // Call the server's app.get('/uploadDocument', function() {}); 
         $.get('/uploadDocument', function(data) {
-            // do something with HTML sent from the server  <<<<<<<<<<<<<<<<<<< ADD CODE <<<<<<<<<<<<<<<<<<<
-        	uploadUserDocumentResult.html(data.result);
+        	//uploadUserDocumentResult.html(data.result);
+        	uploadUserDocumentResult.html("Upload was successful.");
         }).error(function(err) {
             console.log(err.responseText);
             uploadUserDocumentResult.html(err.responseText);
@@ -52,7 +55,7 @@ var Run = (function() {
 	var getDocumentParse = function() {
 		var getDocumentParseResult = $('#getDocumentParseResult');
 		$.get('/getDocumentParse', function(data) {
-			getDocumentParseResult.html("The document you requested was " + data.result);
+			getDocumentParseResult.html("The document you requested contents: " + data.result);
 		});
 	};
 

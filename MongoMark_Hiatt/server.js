@@ -43,7 +43,7 @@ var QueryMongo = (function() {
 	};
 	
 	var getCollection = function(database, response) {
-		var collection = database.collection('test_data');
+		var collection = database.collection('test_docs');
 
 		// Count documents in the collection
 		collection.count(function(err, count) {
@@ -76,8 +76,9 @@ app.get('/read', function(request, response) {
 // To handle a post, we have to add express.bodyParser, shown above.
 // parameters come in on request.body, POST used to pass large data such as documents
 app.post('/getDocumentPost', function(request, response) {
-	console.log('mongoQuery POST /read called');	
+	console.log('mongoQuery POST /getDocumentPost called');	
 	console.log(request.body);
+	var userDoc = request.body.userChoice;
 	var q = new QueryMongo();
 	var data = q.getData(response);
 	response.send(data);
@@ -88,18 +89,14 @@ app.post('/getDocumentPost', function(request, response) {
 });
 
 // upload document UNFINISHED - calls CreateJson.js routine
-app.get('/uploadDocumentJson', function(request,response){
+app.get('/uploadDocument', function(request,response){
 	console.log('CreateJson /uploadDocument on server called');
-	// get database and connection to pass as parameters
-	
-	// call upload file process in CreateJson.js
+		console.log(request.query);	
+		var html = (request.query);	// IS THIS NECESSARY???? <<<<<<<<<<<<<<<<<<<<<<<<<<
+		var result = processFile.fileProcess.uploadFile(response);
+		response.send({ "result": result });
+	});
 
-});
-// upload document calls CreateJason.js object and function
-app.get('/uploadDocument', function(request, response) {
-	var f = new ProcessFile();
-	var data = f.uploadFile(response);	
-});
 
 // default app.get for default html page
 app.get('/', function(request, response) {
