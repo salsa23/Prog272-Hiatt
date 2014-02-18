@@ -110,7 +110,7 @@ var FileProcess = (function() {
 					var html = fs.readFileSync('outputPandoc.html');
 					return html;
 				});
-	};
+	}
 
 	return FileProcess;
 
