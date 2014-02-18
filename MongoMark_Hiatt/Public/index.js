@@ -83,7 +83,7 @@ var Run = (function() {
     	};
     	if($('#third').is('checked')){
     		$.get('./outputPandoc.html', function(data){
-    			var html = $(''#whatthird','<div>'+data+'</div>')
+    			var html = $('#whatthird','<div>'+data+'</div>')
     				.nextUntil('#notesend')
     				.andSelf();
     			$('#showData').html(html);
