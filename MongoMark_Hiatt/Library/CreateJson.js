@@ -104,7 +104,7 @@ var FileProcess = (function() {
 						var html = fs.readFileSync('outputPandoc.html');
 						console.log("html file read: "+ html);
 						console.log("pandoc html has been read");
-						fs.writeFileSync('outputPandoc.html', html);
+						fs.writeFileSync('/Source/outputPandoc.html', html);
 					});
 		});
 	};
