@@ -108,8 +108,8 @@ var FileProcess = (function() {
 				function callback(error, stdout, stderr) {
 					// Read in the document, send the HTML to the client
 					var html = fs.readFileSync('outputPandoc.html');
-					return html;
 				});
+		
 	}
 
 	return FileProcess;
