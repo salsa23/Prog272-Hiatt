@@ -11,19 +11,19 @@
  */
 var fs = require('fs');
 var exec = require('child_process').exec; // external program that handles
-											// conversion from Markdown to HTML
+// conversion from Markdown to HTML
 var MongoClient = require('mongodb').MongoClient;
 var format = require('util').format;
 
 var FileProcess = (function() {
 	// PRIVATE DATA
 	var uploadPath = "../"; // use after confirm upload works to remove
-							// hard-coded path
+	// hard-coded path
 	var uploadFileName = 'sample.md'; // used after confirm upload code works
-										// so you can re-use code and not
-										// hard-code file name
+	// so you can re-use code and not
+	// hard-code file name
 	var getFile = 'sample.md'; // used after get file code works to remove hard
-								// coded file name
+	// coded file name
 	var url01 = 'mongodb://127.0.0.1:27017/test';
 	var url02 = 'mongodb://192.168.2.19:27017/test';
 
@@ -70,7 +70,7 @@ var FileProcess = (function() {
 				collection.find().toArray(function(err, theArray) {
 					// display collection array results in console
 					console.dir(theArray); // <<<<<<<<<<<<<<<<<<<<<<<< Comment
-											// out after working <<<<<<<<<<<<<<
+					// out after working <<<<<<<<<<<<<<
 
 					// close the db
 					db.close();
@@ -92,25 +92,25 @@ var FileProcess = (function() {
 				throw err;
 			}
 
-		var collection = db.collection('test_docs');
+			var collection = db.collection('test_docs');
 
-		
-		// find the file in the collection and output to html file
-		collection.find().toArray(function(err, mongoArray) {
-			// write to htmlFile.html file
-			fs.writeFileSync(inputFile, mongoArray[0].docText);
-			console.log("outputFile has been created.");
+			// find the file in the collection and output to html file
+			collection.find().toArray(function(err, mongoArray) {
+				// write to htmlFile.html file
+				fs.writeFileSync(inputFile, mongoArray[0].docText);
+				console.log("outputFile has been created.");
+			});
+
+			// convert newly export Markdown file to html using outside program:
+			// Pandoc
+			exec('pandoc -t html5 -o outputPandoc.html output.md',
+					function callback(error, stdout, stderr) {
+						// Read in the document, send the HTML to the client
+						var html = fs.readFileSync('outputPandoc.html');
+					});
+
 		});
-
-		// convert newly export Markdown file to html using outside program:
-		// Pandoc
-		exec('pandoc -t html5 -o outputPandoc.html output.md',
-				function callback(error, stdout, stderr) {
-					// Read in the document, send the HTML to the client
-					var html = fs.readFileSync('outputPandoc.html');
-				});
-		
-	}
+	};
 
 	return FileProcess;
 
