@@ -87,8 +87,8 @@ var QueryMongo = (function() {'use strict';
 				}
 				database.close();
 				console.log("insert succeeded");
-			}))
-		})
+			});
+		});
 	};
 
 	return QueryMongo;
