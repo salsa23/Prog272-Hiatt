@@ -63,7 +63,7 @@ var Run = (function() {
     
     var showUserSelection = function(){
     	var source = "./Source/outputPandoc.html";
-    	if($('#first').is('checked')){
+    	if($('#first').is(':checked')){
     		console.log("within section 1 of show data user choice");
     		$.get(source, function(data){
     			var html = $('#stepsfirst','<div>'+data+'</div>')
@@ -73,7 +73,7 @@ var Run = (function() {
     			console.log("within callback 1");
     		});
     	};
-    	if($('#second').is('checked')){
+    	if($('#second').is(':checked')){
     		$.get(source, function(data){
     			var html = $('#whosecond','<div>'+data+'</div>')
     				.nextUntil('#whatthird')
@@ -81,7 +81,7 @@ var Run = (function() {
     			$('#showData').html(html);
     		});
     	};
-    	if($('#third').is('checked')){
+    	if($('#third').is(':checked')){
     		$.get(source, function(data){
     			var html = $('#whatthird','<div>'+data+'</div>')
     				.nextUntil('#notesend')
@@ -89,9 +89,9 @@ var Run = (function() {
     			$('#showData').html(html);
     		});
     	};
-    	if ($("#highlight").is(':checked')) {
-    		$('#showData').load(source) 
-    			.andSelf().css("background", "#668800");
+    	if ($("#all").is(':checked')) {
+    		$('#showData').load(source);
+    			//.andSelf().css("background", "#668800");
     	};
     };
 
