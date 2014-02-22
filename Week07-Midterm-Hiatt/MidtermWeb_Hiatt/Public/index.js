@@ -8,8 +8,8 @@ var MongoData = (function() { 'use strict';
 		$("#showData").click(showData);				// calls function to display one record that user specifies
 		
 		$("#uploadCollection").click(queryAll);
-		$("#deleteCollection").click(deleteAll);	// MAKE METHOD deleteAll --> remove collection
-		$("#backupCollection").click(backupAll);	// MAKE METHOD backupAll --> write to JSON file
+		//$("#deleteCollection").click(deleteAll);	// MAKE METHOD deleteAll --> remove collection
+		//$("#backupCollection").click(backupAll);	// MAKE METHOD backupAll --> write to JSON file
 	}
 
 	// displays one record from the database as index identifies
@@ -33,20 +33,28 @@ var MongoData = (function() { 'use strict';
 			alert("That is not a valid record ID.");
 		}
 	};
-
-	// displays database as list elements in HTML
+	
+	// displays titles as buttons
+	var displayTitles = function() {
+		for (var i=0; i< mongoData.length; i=i+1){
+			
+		};
+	};
+	
+	// displays database poem title elements in HTML buttons
 	var queryAll = function() {
 		$.getJSON('/readAll', function(data) {
 			console.log("--inside queryAll callback - getting data...");
 			mongoData = data;
 			console.log("The data was returned and SET as: " + data);
 			displayRecord(0);
+			//displayTitles();	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MAKE METHOD displayTitles --> write html file buttons <<<<<<<
 			
 			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
-			//$("#mongoData").empty();
-			//for (var i = 0; i < data.length; i++) {
-			//	$("#mongoData").append('<li>' + JSON.stringify(data[i]) + '</li>');
-			//}
+			// $("#mongoData").empty();
+			// for (var i = 0; i < data.length; i++) {
+			//	 $("#mongoData").append('<li>' + JSON.stringify(data[i]) + '</li>');
+			// }
 		});
 	};
 
