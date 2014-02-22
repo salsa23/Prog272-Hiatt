@@ -25,9 +25,10 @@ var MyMongo = (function() {'use strict';
 				'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272'];
 	
 			url = urls[0];
-			myCollection = 'poems';
+			myCollection = 'test_insert';
 		}
 	}
+	
 	// set constants with a config file  <<<<<<<<<<<<<<<<<<< TO BE IMPLEMENTED IN THE FUTURE <<<<<<<<<<<<<<<<<<<<<<<<
 	// function setConfig(configFile) {
 	//	urlChoice = configFile.urlChoice;
@@ -57,6 +58,21 @@ var MyMongo = (function() {'use strict';
 			});
 		}
 	};
+	
+	// will remove the current collection from the database - used in refreshing data by first clearing database before re-populating
+	var removeCollection = function(database) {
+		console.log('removeCollection called');
+		var collection = database.collection(myCollection);
+		
+		collection.remove(function(err) {
+			if (err) {
+				throw err;
+			}
+			console.log('Collection' + myCollection + ' was removed');
+			database.close();
+		});
+	};
+
 
 	MyMongo.prototype.getCollection = function(initResponse) {
 		console.log("getCollection called");
@@ -91,6 +107,22 @@ var MyMongo = (function() {'use strict';
 			});
 		});
 	};
+	
+	// Will insert into collection
+	MyMongo.prototype.insertIntoCollection = function(objectToInsert) {
+		removeCollection(database);
+		getDatabase(function getCol(database){
+			var collection = database.collection(myCollection);
+			collection.insert(objectToInsert, function(err, docs){
+				if(err){
+					throw err;
+				}
+				database.close();
+				console.log("insert succeeded");
+			});
+		});
+	};
+	
 
 	return MyMongo;
 

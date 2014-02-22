@@ -28,6 +28,12 @@ app.get('/readOne', function(request, response) { 'use strict';
 	myMongo.getCollectionCount(response, 2);
 });
 
+// clears collection and loads from JSON file on server
+app.get('/loadDatabase', function(request, response) { 'use strict';
+	var fileContent = fs.readFileSync('/src/Shakespeare.json','utf8');
+	myMongo.insertIntoCollection(JSON.parse(fileContent));
+	//response.send( { result: "Success" } );
+});
 
 // Default route to public folder
 app.get('/', function(request, result) {'use strict';

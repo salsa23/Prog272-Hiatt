@@ -46,9 +46,12 @@ var MongoData = (function() { 'use strict';
 		$.getJSON('/readAll', function(data) {
 			console.log("--inside queryAll callback - getting data...");
 			mongoData = data;
-			console.log("mongoData in queryAll " + mongoData);
+			console.log("mongoData in queryAll: " + mongoData);
+			console.log("Data in queryAll: " + data);
+			
 			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
 			$("#mongoData").empty();
+			console.log("The title from index.js: " + data[i].title);
 			for (var i = 0; i < data.length; i++) {
 				$("#mongoData").append('<li>' + JSON.stringify(data[i].title) + '</li>');
 			}
@@ -76,6 +79,13 @@ var MongoData = (function() { 'use strict';
 			// for (var i = 0; i < data.length; i++) {
 			//	$("#mongoData").append('<li>' + JSON.stringify(data[i]) + '</li>');
 			// }
+		});
+	};
+	
+	var loadDatabase = function() {
+		$.getJSON('/loadDatabase', function(data) {
+			// tells user that insert successful
+			alert(data);
 		});
 	};
 
