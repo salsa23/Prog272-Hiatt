@@ -8,15 +8,23 @@ var app = express();
 var format = require('util').format;
 var fs = require('fs');
 var qm = require('./lib/MyMongo');
-var myMongo = qm.MyMongo;
+var myMongo = qm.myMongo;
 var ePort = 30025;
+
+console.log('init setup qm:' + qm);
+console.log('init setup myMongo:' + myMongo);
 
 // Read the whole collection
 app.get('/readAll', function(request, response) {'use strict';
+	console.log('readAll called');
+	console.log('from readAll --data: '+ myMongo);
+	console.log('from readAll --request: '+ request);
 	myMongo.getCollection(response);
 });
 
 app.get('/readOne', function(request, response) { 'use strict';
+	console.log('readOne called');
+	console.log('from readAll --request: '+ request);
 	myMongo.getCollectionCount(response, 2);
 });
 

@@ -24,8 +24,8 @@ var MyMongo = (function() {'use strict';
 				'mongodb://192.168.56.101:27017/test', 
 				'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272'];
 	
-			url = urls[2];
-			myCollection = 'test_insert';
+			url = urls[0];
+			myCollection = 'poems';
 		}
 	}
 	// set constants with a config file  <<<<<<<<<<<<<<<<<<< TO BE IMPLEMENTED IN THE FUTURE <<<<<<<<<<<<<<<<<<<<<<<<
@@ -37,7 +37,7 @@ var MyMongo = (function() {'use strict';
 	// }
 
 	var getDatabase = function(func) {
-		console.log('getData called');
+		console.log('getDatabase called');
 		if (database !== null) {
 			console.log('database exists');
 			database.open(function(err, database) {
@@ -47,7 +47,7 @@ var MyMongo = (function() {'use strict';
 				func(database);
 			});
 		} else {
-			console.log('Querying for database');
+			console.log('Looking for database');
 			MongoClient.connect(url, function(err, databaseResult) {
 				if (err) {
 					throw err;
