@@ -17,7 +17,7 @@ var MyMongo = (function() {'use strict';
 	var url01 = 'mongodb://127.0.0.1:27017/test';
 	var url02 = 'mongodb://192.168.56.101:27017/test';
 	var url03 = 'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272';
-	var myCollection = "poems";
+	var myCollection = "test_insert";
 
 	// constructor
 	function MyMongo() {

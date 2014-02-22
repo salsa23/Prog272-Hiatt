@@ -25,7 +25,7 @@ var MyMongo = (function() {'use strict';
 				'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272'];
 	
 			url = urls[2];
-			myCollection = "poems";
+			myCollection = 'test_insert';
 		}
 	}
 	// set constants with a config file  <<<<<<<<<<<<<<<<<<< TO BE IMPLEMENTED IN THE FUTURE <<<<<<<<<<<<<<<<<<<<<<<<

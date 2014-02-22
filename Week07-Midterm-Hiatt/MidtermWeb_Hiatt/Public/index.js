@@ -38,7 +38,7 @@ var MongoData = (function() { 'use strict';
 	var displayTitles = function() {
 		for (var i=0; i< mongoData.length; i=i+1){
 			
-		};
+		}
 	};
 	
 	// displays database poem title elements in HTML buttons
