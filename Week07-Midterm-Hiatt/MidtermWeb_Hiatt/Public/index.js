@@ -7,7 +7,7 @@ var MongoData = (function() { 'use strict';
 		//$("#readTwo").click(queryTwo);
 		$("#showData").click(showData);				// calls function to display one record that user specifies
 		
-		$("#uploadCollection").click(queryAll);
+		$("#uploadCollection").click(loadCollection);
 		//$("#deleteCollection").click(deleteAll);	// MAKE METHOD deleteAll --> remove collection
 		//$("#backupCollection").click(backupAll);	// MAKE METHOD backupAll --> write to JSON file
 	}
@@ -85,7 +85,7 @@ var MongoData = (function() { 'use strict';
 	var loadDatabase = function() {
 		$.getJSON('/loadDatabase', function(data) {
 			// tells user that insert successful
-			alert(data);
+			$('#adminNotes').append('<p>'+JSON.stringify(data[0]) + '</p>');
 		});
 	};
 

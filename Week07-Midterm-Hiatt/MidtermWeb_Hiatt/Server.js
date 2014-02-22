@@ -32,7 +32,7 @@ app.get('/readOne', function(request, response) { 'use strict';
 app.get('/loadDatabase', function(request, response) { 'use strict';
 	var fileContent = fs.readFileSync('/src/Shakespeare.json','utf8');
 	myMongo.insertIntoCollection(JSON.parse(fileContent));
-	//response.send( { result: "Success" } );
+	response.send( { result: "Database Loaded" } );
 });
 
 // Default route to public folder
