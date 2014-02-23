@@ -58,21 +58,6 @@ var MyMongo = (function() {'use strict';
 			});
 		}
 	};
-	
-	// will remove the current collection from the database - used in refreshing data by first clearing database before re-populating
-	var removeCollection = function(database) {
-		console.log('removeCollection called');
-		var collection = database.collection(myCollection);
-		
-		collection.remove(function(err) {
-			if (err) {
-				throw err;
-			}
-			console.log('Collection' + myCollection + ' was removed');
-			database.close();
-		});
-	};
-
 
 	MyMongo.prototype.getCollection = function(initResponse) {
 		console.log("getCollection called");
@@ -108,9 +93,8 @@ var MyMongo = (function() {'use strict';
 		});
 	};
 	
-	// Will insert into collection
+	// Will insert into current collection
 	MyMongo.prototype.insertIntoCollection = function(objectToInsert) {
-		removeCollection(database);
 		getDatabase(function getCol(database){
 			var collection = database.collection(myCollection);
 			collection.insert(objectToInsert, function(err, docs){
@@ -119,6 +103,21 @@ var MyMongo = (function() {'use strict';
 				}
 				database.close();
 				console.log("insert succeeded");
+			});
+		});
+	};
+	
+	// Will remove current collection
+	MyMongo.prototype.removeCollection = function(objectToInsert) {
+		getDatabase(function getCol(database){
+			var collection = database.collection(myCollection);
+		
+			collection.remove(function(err) {
+				if (err) {
+					throw err;
+				}
+			console.log('Collection' + myCollection + ' was removed');
+			database.close();
 			});
 		});
 	};

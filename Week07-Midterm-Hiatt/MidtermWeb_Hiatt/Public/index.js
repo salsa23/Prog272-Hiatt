@@ -8,8 +8,8 @@ var MongoData = (function() { 'use strict';
 		$("#showData").click(showData);				// calls function to display one record that user specifies
 		
 		$("#uploadCollection").click(loadCollection);
-		//$("#deleteCollection").click(deleteAll);	// MAKE METHOD deleteAll --> remove collection
-		//$("#backupCollection").click(backupAll);	// MAKE METHOD backupAll --> write to JSON file
+		$("#deleteCollection").click(removeCollection);	
+		//$("#backupCollection").click(backupCollection);	// MAKE METHOD backupCollection --> write to JSON file
 	}
 
 	// displays one record from the database as index identifies
@@ -82,10 +82,17 @@ var MongoData = (function() { 'use strict';
 		});
 	};
 	
-	var loadDatabase = function() {
-		$.getJSON('/loadDatabase', function(data) {
+	var loadCollection = function() {
+		$.getJSON('/loadCollection', function(data) {
 			// tells user that insert successful
-			$('#adminNotes').append('<p>'+JSON.stringify(data[0]) + '</p>');
+			$('#adminNotes').append('<p>'+JSON.stringify(data.result) + '</p>');
+		});
+	};
+	
+	var removeCollection = function() {
+		$.getJSON('/removeCollection', function(data) {
+			// tells user that remove was successful
+			$('#adminNotes').append('<p>'+JSON.stringify(data.result) + '</p>');
 		});
 	};
 

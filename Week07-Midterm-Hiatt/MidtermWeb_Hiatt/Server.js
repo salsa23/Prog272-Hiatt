@@ -28,11 +28,18 @@ app.get('/readOne', function(request, response) { 'use strict';
 	myMongo.getCollectionCount(response, 2);
 });
 
-// clears collection and loads from JSON file on server
-app.get('/loadDatabase', function(request, response) { 'use strict';
-	var fileContent = fs.readFileSync('/src/Shakespeare.json','utf8');
+// loads from JSON file on server
+app.get('/loadCollection', function(request, response) { 'use strict';
+	var fileContent = fs.readFileSync('./src/Shakespeare.json','utf8');
 	myMongo.insertIntoCollection(JSON.parse(fileContent));
 	response.send( { result: "Database Loaded" } );
+});
+
+// removes collection - clears entries
+app.get('/removeCollection', function(request, response) { 'use strict';
+	var fileContent = fs.readFileSync('./src/Shakespeare.json','utf8');
+	myMongo.removeCollection();
+	response.send( { result: "Collection Removed" } );
 });
 
 // Default route to public folder
