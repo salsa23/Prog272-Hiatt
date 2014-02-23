@@ -116,7 +116,7 @@ var MyMongo = (function() {'use strict';
 				if (err) {
 					throw err;
 				}
-			console.log('Collection' + myCollection + ' was removed');
+			console.log('Collection: ' + myCollection + ' was removed');
 			database.close();
 			});
 		});

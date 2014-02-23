@@ -5,11 +5,18 @@ var MongoData = (function() { 'use strict';
 	function MongoData() {		
 		//$("#readAll").click(queryAll);
 		//$("#readTwo").click(queryTwo);
-		$("#showData").click(showData);				// calls function to display one record that user specifies
+
 		
 		$("#uploadCollection").click(loadCollection);
 		$("#deleteCollection").click(removeCollection);	
 		//$("#backupCollection").click(backupCollection);	// MAKE METHOD backupCollection --> write to JSON file
+
+		$("#getTitles").click(getTitles);
+		$("#poemContents").click(poemContents);
+		$("#searchKeywords").click(searchKeywords);
+		$("#addPoem").click(addPoem);
+		$("#deletePoem").click(deletePoem);
+		$("#showData").click(showData);				// calls function to display one record that user specifies
 	}
 
 	// displays one record from the database as index identifies
@@ -26,18 +33,21 @@ var MongoData = (function() { 'use strict';
 	// displays one record as selected by user
 	var showData = function() {
 		// get user value and compensate for lack of knowledge for indexing starting at 0
-		var index = ($("#userIndex").val()-1);
-		if(index>=0){
-			displayRecord(index);
-		}else{
+		$("select.#poemTitles").val(function(index, value){
+			console.log("index: " + index);
+			if(index>=0){
+				displayRecord(index);
+			}else{
 			alert("That is not a valid record ID.");
-		}
+			}
+		});
 	};
 	
-	// displays titles as buttons
-	var displayTitles = function() {
+	// displays titles in dropdown
+	var getTitles = function() {
 		for (var i=0; i< mongoData.length; i=i+1){
-			
+			$("#mongoData").append('<li>'+JSON.stringify(data[i].title) + '<li>');
+			$('#poemTitles').append('<option value="' + JSON.stringify(data[i]._id) +'">' + JSON.stringify(data[i].title) + '</option>');
 		}
 	};
 	
@@ -49,15 +59,8 @@ var MongoData = (function() { 'use strict';
 			console.log("mongoData in queryAll: " + mongoData);
 			console.log("Data in queryAll: " + data);
 			
-			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
-			$("#mongoData").empty();
-			console.log("The title from index.js: " + data[i].title);
-			for (var i = 0; i < data.length; i++) {
-				$("#mongoData").append('<li>' + JSON.stringify(data[i].title) + '</li>');
-			}
-			
 			//displayRecord(0);
-			//displayTitles();	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MAKE METHOD displayTitles --> write html file buttons <<<<<<<
+			//getTitles();	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MAKE METHOD displayTitles --> write html file buttons <<<<<<<
 			
 			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
 			// $("#mongoData").empty();

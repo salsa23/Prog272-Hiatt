@@ -18,31 +18,53 @@
 			to be added to our ever expanding poetry collection.
 		</p>
 		<div id="admin" class="box">
-			<h2>ADMIN USE ONLY</h2>
+			<h2>*** ADMIN USE ONLY ***</h2>
 			<p>Control database operations: upload original collection, delete entire collection, or backup the current collection.</p>
-			<span id="buttons">
-				<button id="uploadCollection">Upload Original Collection</button>
-				<button id="deleteCollection">Remove Current Collection</button>
-				<button id="backupCollection">Backup Current Collection</button>
+			<span id="adminbuttons">
+				<button id="uploadCollection">Upload Collection</button>
+				<button id="deleteCollection">Remove Collection</button>
+				<button id="backupCollection">Backup Collection</button>
 			</span>
+			<div id="adminNotes"> </div>
 		</div>
+		
 		<div id="user" class="box">
 			<h2>Research Poetry</h2>
-			<p>Please select from the options below: </p>
-			<!-- Get List of poems to view -->
-			<!-- Pick a poem -->
-			<!-- Search on Keyword -->
-			<!-- Add a new poem -->
-			<!-- Delete a poem -->
+			<p>First, get a current listing of available poems by clicking "Get Peom List". You will then be able to 
+				select a poem from that list to read. Other options include searching on keywords such as "poem" or "sonnet".
+				You may also submit a poem to add to our collection, or delete a particular poem. Its your choice! Enjoy and 
+				HAPPY READING!
+				</p> 
+			
+			<span id="userButtons">
+				<button id="getTitles">Get Poem List</button>
+				<button id="addPoem">Add a Poem</button>
+				<button id="deletePoem">Delete a Poem</button>
+			</span>
+			
 			<hr/>
+			
+			<label for="poemTitles">Select a Poem Title:</label>
+			<select id="poemTitles">
+					<option value="SonnetTest">Sonnet Test</option>
+			</select>
+			<button id="poemContents">Display Poem</button>
+			<br/>
+			<label for="keywords">Search Keywords:</label>
+			<input type="text" id="keywords">
+			<button id="searchKeywords">Search Keywords</button> (use keywords such as "poem" or "sonnet")
+			<br/><br>
+			
+			<button id="showData">Show Data</button>
+			
+			<hr>
+			
 			<div class="dataDisplay">
-			<!-- Display per user choice above -->
-
-				<input type="number" id="userIndex" value=0>
-				<button id="showData">Show Data</button>
-				<ul id="mongoData"> </ul>		
+				dataDisplay area -- updated per above choice
+			<!-- Display per user choice above -->	
+				<p>mongoData List:</p> 
+				<ul id="mongoData"> </ul>
 			</div>
-		</div>
-		<div id="adminNotes"> </div>
+		</div>	<!-- End User Box  -->
 	</body>
 </html>
