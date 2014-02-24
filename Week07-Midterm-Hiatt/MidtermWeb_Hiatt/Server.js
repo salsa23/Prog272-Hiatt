@@ -24,8 +24,9 @@ app.get('/readAll', function(request, response) {'use strict';
 
 app.get('/readOne', function(request, response) { 'use strict';
 	console.log('readOne called');
-	console.log('from readAll --request: '+ request);
-	myMongo.getCollectionCount(response, 2);
+	console.log('from readOne --request: '+ request);
+	console.log('from readOne --requested ID: '+request.id);
+	myMongo.getDocumentByID(response);
 });
 
 // loads from JSON file on server

@@ -74,6 +74,18 @@ var MyMongo = (function() {
 			});
 		});
 	};
+	
+	MyMongo.prototype.getDocumentByID = function(id, callback) {
+		console.log("getDocumentByID called, finding ID: "+ id);
+		getDatabase(function getCol(database) {
+			collection.findOne({"_id" : new ObjectId(id)}, function(err, obj) {
+				console.log("--inside getObjectByID callback.");
+				console.log("Found obj: "+ obj.title);
+				database.close();
+				callback(obj);
+			});
+		});
+	};
 
 	// get collection
 	MyMongo.prototype.getCollection = function(initResponse) {

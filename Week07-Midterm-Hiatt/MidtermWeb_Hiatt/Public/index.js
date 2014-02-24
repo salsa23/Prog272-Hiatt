@@ -28,6 +28,22 @@ var MongoData = (function() { 'use strict';
 			"<p>" + mongoData[index].content + "<p>";
 		$('#dataDisplay').html(poem);
 	};
+	
+	// displays one record from the database as index identifies
+	var displayRecordID = function(id) {
+		console.log("displayRecordID called, id: "+id);
+		$.getJSON('/readOne', function(obj) {
+			poem = obj;
+			console.log("The record was returned and SET as: " + poem);
+			$('#dataDisplay').empty();
+			var html = 
+				"<h2>Title: " + poem.title + "</h2>"+
+				"<h3>Author: " + poem.author + "</h3>"+
+				"<hr/>"+
+				"<p>" + poem.content + "<p>";
+			$('#dataDisplay').html(html);
+		});
+	};
 
 	// displays one record as selected by user
 	var poemContents = function() {
@@ -70,12 +86,14 @@ var MongoData = (function() { 'use strict';
 		console.log("displayTitleList called");
 		
 		$("#dataDisplay").empty();
-		var keyTitles = '<ul>';
+		var keyTitles = '<ul>Titles of poems with keyword:';
 		for (var i=0; i< keyArray.length; i=i+1){
-			keyTitles = keyTitles+ '<li>' + keyArray[i].title + '<li>';
+			var id = keyArray[i]._id;
+			keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))"' + keyArray[i].title + '<li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);
+		$("#dataDisplay").append(keyTitles);
 		console.log("TitleList Loaded");
 	};
 	
@@ -87,10 +105,10 @@ var MongoData = (function() { 'use strict';
 		var keyword = $("#keywords").val();
 		console.log("User Keyword: " + keyword);
 		var keyArray = [];
-		for(var i=0; i<mongoData.length; i+i+1){
+		for(var i=0; i<mongoData.length; i=i+1){
 			// search each records keyword array within
 			for(var j=0;j<mongoData[i].keywords.length; j=j+1){
-				console.log("inside keyword array, the keywords are: " + mongoData[i].keywords);
+				//console.log("inside keyword array, the keywords are: " + mongoData[i].keywords);
 				if(mongoData[i].keywords[j] === keyword){
 					console.log("found the keyword: " + keyword);
 					keyArray.push(mongoData[i]);
