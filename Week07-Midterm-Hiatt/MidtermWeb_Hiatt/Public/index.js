@@ -11,7 +11,7 @@ var MongoData = (function() { 'use strict';
 		$("#deleteCollection").click(removeCollection);	
 		//$("#backupCollection").click(backupCollection);	// MAKE METHOD backupCollection --> write to JSON file
 
-		$("#getTitles").click(getTitles);
+		$("#getTitles").click(queryAll);
 		$("#poemContents").click(poemContents);
 		$("#searchKeywords").click(searchKeywords);
 		$("#addPoem").click(addPoem);
@@ -43,12 +43,17 @@ var MongoData = (function() { 'use strict';
 		});
 	};
 	
-	// displays titles in dropdown
+	// displays titles in dropdown, setting value to ID
 	var getTitles = function() {
+		console.log("getTitles called");
+		//$("#mongoData").empty();
+		$("#poemTitles").empty();
 		for (var i=0; i< mongoData.length; i=i+1){
-			$("#mongoData").append('<li>'+JSON.stringify(data[i].title) + '<li>');
-			$('#poemTitles').append('<option value="' + JSON.stringify(data[i]._id) +'">' + JSON.stringify(data[i].title) + '</option>');
+			//$("#mongoData").append('<li>'+mongoData[i].title + '<li>');
+			$('#poemTitles').append('<option value="' + mongoData[i]._id +'">' + mongoData[i].title + '</option>');
 		}
+		console.log("MongoData First ID: "+ mongoData[0]._id + "  First Title Name: "+ mongoData[i].title);
+		console.log("Titles Loaded");
 	};
 	
 	// displays database poem title elements in HTML buttons
@@ -57,11 +62,11 @@ var MongoData = (function() { 'use strict';
 			console.log("--inside queryAll callback - getting data...");
 			mongoData = data;
 			console.log("mongoData in queryAll: " + mongoData);
-			console.log("Data in queryAll: " + data);
+			//console.log("Data in queryAll: " + data);
+			
+			getTitles();		// populates poem dropdown list with ID and Title
 			
 			//displayRecord(0);
-			//getTitles();	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MAKE METHOD displayTitles --> write html file buttons <<<<<<<
-			
 			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
 			// $("#mongoData").empty();
 			// for (var i = 0; i < data.length; i++) {
@@ -88,14 +93,14 @@ var MongoData = (function() { 'use strict';
 	var loadCollection = function() {
 		$.getJSON('/loadCollection', function(data) {
 			// tells user that insert successful
-			$('#adminNotes').append('<p>'+JSON.stringify(data.result) + '</p>');
+			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
 	};
 	
 	var removeCollection = function() {
 		$.getJSON('/removeCollection', function(data) {
 			// tells user that remove was successful
-			$('#adminNotes').append('<p>'+JSON.stringify(data.result) + '</p>');
+			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
 	};
 

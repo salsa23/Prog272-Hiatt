@@ -25,7 +25,7 @@ var MyMongo = (function() {'use strict';
 				'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272'];
 	
 			url = urls[0];
-			myCollection = 'test_insert';
+			myCollection = 'Poems';
 		}
 	}
 	
