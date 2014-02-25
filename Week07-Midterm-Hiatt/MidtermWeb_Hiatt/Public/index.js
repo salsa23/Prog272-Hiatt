@@ -15,8 +15,11 @@ var MongoData = (function() { 'use strict';
 		$("#addPoem").click(addPoem);
 		$("#deletePoem").click(deletePoem);
 		
-		$(".link").each(function($) {
-			$(this).on('click', { param: this.id}, displayRecordID);
+		$('.link').click(function() {
+			alert(this.id);
+			var id = $(this).attr('id');
+			//var id = $(this).prop('id');
+			displayRecordID(id);
 		});
 		
 		$("#showData").click(showData);				// calls function to display one record that user specifies

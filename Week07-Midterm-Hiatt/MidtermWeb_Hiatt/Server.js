@@ -24,6 +24,7 @@ app.get('/readAll', function(request, response) {'use strict';
 
 app.get('/displayRecordID', function(request, response) { 'use strict';
 	request.query.id = $(this).val();
+	console.log('request query: '+request.query);
 	console.log('displayRecordID called');
 	console.log('from displayRecordID --request: '+ request);
 	console.log('from displayRecordID --requested ID: '+request.id);
