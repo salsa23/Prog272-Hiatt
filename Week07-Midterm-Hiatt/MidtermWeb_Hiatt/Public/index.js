@@ -89,7 +89,8 @@ var MongoData = (function() { 'use strict';
 		var keyTitles = '<ul>Titles of poems with keyword:';
 		for (var i=0; i< keyArray.length; i=i+1){
 			var id = keyArray[i]._id;
-			keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
+			//keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
+			keyTitles = keyTitles+ '<li><a href="displayRecordID({ id: "'+ id +'"})">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);

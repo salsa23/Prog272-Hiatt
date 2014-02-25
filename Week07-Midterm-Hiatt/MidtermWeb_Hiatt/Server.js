@@ -22,10 +22,10 @@ app.get('/readAll', function(request, response) {'use strict';
 	myMongo.getCollection(response);
 });
 
-app.get('/readOne', function(request, response) { 'use strict';
-	console.log('readOne called');
-	console.log('from readOne --request: '+ request);
-	console.log('from readOne --requested ID: '+request.id);
+app.get('/displayRecordID', function(request, response) { 'use strict';
+	console.log('displayRecordID called');
+	console.log('from displayRecordID --request: '+ request);
+	console.log('from displayRecordID --requested ID: '+request.id);
 	myMongo.getDocumentByID(response);
 });
 
