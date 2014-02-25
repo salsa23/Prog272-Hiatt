@@ -28,12 +28,16 @@ var MongoData = (function() { 'use strict';
 	// displays one record from the local mongoData as index identifies
 	var displayRecord = function(index) {
 		console.log("displayRecord called");
-		$('#dataDisplay').empty();
+		
+		$("#dataDisplay").empty();
+		$("#searchResultsPoem").empty();
+		
 		var poem = 
 			"<h2>Title: " + mongoData[index].title + "</h2>"+
 			"<h3>Author: " + mongoData[index].author + "</h3>"+
 			"<hr/>"+
 			"<p>" + mongoData[index].content + "<p>";
+		
 		$('#dataDisplay').html(poem);
 	};
 	
@@ -43,7 +47,8 @@ var MongoData = (function() { 'use strict';
 		$.getJSON('/displayRecordID', function(obj) {
 			poem = obj;
 			console.log("The record was returned and SET as: " + poem);
-			$('#dataDisplay').empty();
+			$("#dataDisplay").empty();
+			$("#searchResultsPoem").empty();
 			var html = 
 				"<h2>Title: " + poem.title + "</h2>"+
 				"<h3>Author: " + poem.author + "</h3>"+
@@ -79,15 +84,17 @@ var MongoData = (function() { 'use strict';
 		console.log("displayTitleList called");
 		
 		$("#dataDisplay").empty();
+		$("#searchResultsPoem").empty();
+		
 		var keyTitles = '<ul>Titles of poems with keyword:';
 		for (var i=0; i< keyArray.length; i=i+1){
 			var id = keyArray[i]._id;
 			//keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
 			
-			keyTitles = keyTitles+ '<li><a href="#" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
-			
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
+			
+			keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);
@@ -121,15 +128,16 @@ var MongoData = (function() { 'use strict';
 	// displays database poem title elements in HTML buttons
 	var queryAll = function() {
 		$.getJSON('/readAll', function(data) {
-			console.log("--inside queryAll callback - getting data...");
+			console.log("--inside readAll callback - getting mongoData...");
 			mongoData = data;
-			console.log("mongoData in queryAll: " + mongoData);
+			//console.log("mongoData in queryAll: " + mongoData);
 			//console.log("Data in queryAll: " + data);
 		});
 	};
 	
 	var loadCollection = function() {
 		$.getJSON('/loadCollection', function(data) {
+			queryAll();
 			// tells user that insert successful
 			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
@@ -137,6 +145,11 @@ var MongoData = (function() { 'use strict';
 	
 	var removeCollection = function() {
 		$.getJSON('/removeCollection', function(data) {
+			
+			// when collection removed, user should not have a list of titles for an empty collection
+			$("#poemTitles").empty();
+			mongoData = null;
+			
 			// tells user that remove was successful
 			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
@@ -144,14 +157,21 @@ var MongoData = (function() { 'use strict';
 	
 	var addPoem = function() {
 		$.getJSON('/insertRecord', function(data) {
+			// when poem is added, mongoData and title list will need refreshed
+			queryAll();
+			getTitles();
 			// tells user that insert successful
 			$('#adminNotes').append('<p>'+ data.file +' has been processed: '+ data.result + '</p>');
 		});
 	};
 	
 	var deletePoem = function() {
+		request.selectedPoem = $("#poemTitles").val();	
+		console.log("request: "+request.selectedPoem);
 		$.getJSON('/removeRecord', function(data) {
 			// tells user that remove was successful
+			queryAll();
+			getTitles();
 			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
 	};
