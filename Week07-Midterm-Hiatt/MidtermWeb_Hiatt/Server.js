@@ -23,10 +23,10 @@ app.get('/readAll', function(request, response) {'use strict';
 });
 
 app.get('/displayRecordID', function(request, response) { 'use strict';
-	request.query.id = $(this).val();
-	console.log('request query: '+request.query);
+	//request.query.id = $(this).val();
 	console.log('displayRecordID called');
 	console.log('from displayRecordID --request: '+ request);
+	console.log('request query: '+request.query);
 	console.log('from displayRecordID --requested ID: '+request.id);
 	myMongo.getDocumentByID(response);
 });
@@ -40,10 +40,26 @@ app.get('/loadCollection', function(request, response) { 'use strict';
 
 // removes collection - clears entries
 app.get('/removeCollection', function(request, response) { 'use strict';
-	var fileContent = fs.readFileSync('./src/Shakespeare.json','utf8');
 	myMongo.removeCollection();
 	response.send( { result: "Collection Removed" } );
 });
+
+// inserts a record into the collection
+app.get('/insertRecord', function(request, response) { 'use strict';
+	console.log("insertRecord called");
+	var fileContent = fs.readFileSync('new_poem.json','utf8');
+	myMongo.insertIntoCollection(JSON.parse(fileContent));
+	response.send( { result: "Success", file: "new_poem.json" } );
+});
+
+// removes a record from the collection
+app.get('/removeRecord', function(request, response) { 'use strict';
+	var selectedPoem = $("#poemTitles").val();		
+	console.log("removeRecord called, Poem Selected Val: "+ selectedPoem);
+	myMongo.removeFromCollection(selectedPoem);
+	response.send( { result: "Success", file: "new_poem.json" } );
+});
+
 
 // Default route to public folder
 app.get('/', function(request, result) {'use strict';

@@ -2,9 +2,7 @@ var MongoData = (function() { 'use strict';
 
 	var mongoData = null;
 
-	function MongoData() {		
-		//$("#readTwo").click(queryTwo);
-		
+	function MongoData() {
 		$("#uploadCollection").click(loadCollection);
 		$("#deleteCollection").click(removeCollection);	
 		//$("#backupCollection").click(backupCollection);	// MAKE METHOD backupCollection --> write to JSON file
@@ -15,17 +13,19 @@ var MongoData = (function() { 'use strict';
 		$("#addPoem").click(addPoem);
 		$("#deletePoem").click(deletePoem);
 		
-		$('.link').click(function() {
+		$('.link').click(function(e) {
+			e.preventDefault();
 			alert(this.id);
 			var id = $(this).attr('id');
 			//var id = $(this).prop('id');
 			displayRecordID(id);
 		});
 		
-		$("#showData").click(showData);				// calls function to display one record that user specifies
+		queryAll();				// populates local mongoData
+		
 	}
 
-	// displays one record from the database as index identifies
+	// displays one record from the local mongoData as index identifies
 	var displayRecord = function(index) {
 		console.log("displayRecord called");
 		$('#dataDisplay').empty();
@@ -40,7 +40,7 @@ var MongoData = (function() { 'use strict';
 	// displays one record from the database as index identifies
 	var displayRecordID = function(id) {
 		console.log("displayRecordID called, id: "+id);
-		$.getJSON('/readOne', function(obj) {
+		$.getJSON('/displayRecordID', function(obj) {
 			poem = obj;
 			console.log("The record was returned and SET as: " + poem);
 			$('#dataDisplay').empty();
@@ -61,27 +61,12 @@ var MongoData = (function() { 'use strict';
 		displayRecord(index);
 	};
 	
-	// MAY NOT USE --- displays one record as selected by user -- see poemContents
-	var showData = function() {
-		console.log("showData called");
-		var index = $("select.#poemTitles").val();
-		console.log("index: " + index);
-		
-		if(index>=0){
-			displayRecord(index);
-		}else{
-			alert("That is not a valid record ID.");
-		}
-	};
-	
 	// displays titles in drop down, setting value to ID
 	var getTitles = function() {
 		console.log("getTitles called");
-		queryAll();				// refreshes the mongoData
 		
 		$("#poemTitles").empty();
 		for (var i=0; i< mongoData.length; i=i+1){
-			//$("#mongoData").append('<li>'+mongoData[i].title + '<li>');
 			//$('#poemTitles').append('<option value="' + mongoData[i]._id +'">' + mongoData[i].title + '</option>');
 			$('#poemTitles').append('<option value="' + i +'">' + mongoData[i].title + '</option>');
 		}
@@ -99,7 +84,7 @@ var MongoData = (function() { 'use strict';
 			var id = keyArray[i]._id;
 			//keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
 			
-			keyTitles = keyTitles+ '<li><a href="" id="'+id+'" class="link" target="#dataDisplay">' + keyArray[i].title + '</a></li>';
+			keyTitles = keyTitles+ '<li><a href="#" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 			
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
@@ -113,7 +98,6 @@ var MongoData = (function() { 'use strict';
 	// searches records that hold keywords as selected by user
 	var searchKeywords = function() {
 		console.log("searchKeywords called");
-		queryAll();				// refreshes the mongoData
 		
 		var keyword = $("#keywords").val();
 		console.log("User Keyword: " + keyword);
@@ -141,28 +125,6 @@ var MongoData = (function() { 'use strict';
 			mongoData = data;
 			console.log("mongoData in queryAll: " + mongoData);
 			//console.log("Data in queryAll: " + data);
-			
-			//displayRecord(0);
-			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
-			// $("#mongoData").empty();
-			// for (var i = 0; i < data.length; i++) {
-			// $("#mongoData").append('<li>' + JSON.stringify(data[i]) + '</li>');
-			// }
-		});
-	};
-
-	// displays 2 records of the database as list elements in HTML
-	var queryTwo = function() {
-		$.getJSON('/readTwo', function(data) {
-			mongoData = data;
-			console.log("The data was returned and SET as: " + data);
-			displayRecord(0);
-			
-			// displays list of database entries in HTML div #mongoData  <<<<<<<<<<<<<<<<<<<< POSSIBLY REMOVE IF NOT USING <<<<<
-			// $("#mongoData").empty();
-			// for (var i = 0; i < data.length; i++) {
-			//	$("#mongoData").append('<li>' + JSON.stringify(data[i]) + '</li>');
-			// }
 		});
 	};
 	
@@ -175,6 +137,20 @@ var MongoData = (function() { 'use strict';
 	
 	var removeCollection = function() {
 		$.getJSON('/removeCollection', function(data) {
+			// tells user that remove was successful
+			$('#adminNotes').append('<p>'+ data.result + '</p>');
+		});
+	};
+	
+	var addPoem = function() {
+		$.getJSON('/insertRecord', function(data) {
+			// tells user that insert successful
+			$('#adminNotes').append('<p>'+ data.file +' has been processed: '+ data.result + '</p>');
+		});
+	};
+	
+	var deletePoem = function() {
+		$.getJSON('/removeRecord', function(data) {
 			// tells user that remove was successful
 			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});

@@ -78,8 +78,8 @@ var MyMongo = (function() {
 	MyMongo.prototype.getDocumentByID = function(id, callback) {
 		console.log("getDocumentByID called, finding ID: "+ id);
 		getDatabase(function getCol(database) {
-			collection.findOne({"_id" : new ObjectId(id)}, function(err, obj) {
-				console.log("--inside getObjectByID callback.");
+			collection.findOne({ _id : new ObjectId(id) }, function(err, obj) {
+				console.log("--inside getObjectByID FindOne callback.");
 				console.log("Found obj: "+ obj.title);
 				database.close();
 				callback(obj);
@@ -125,6 +125,7 @@ var MyMongo = (function() {
 
 	// Will insert into current collection
 	MyMongo.prototype.insertIntoCollection = function(objectToInsert) {
+		console.log("SERVER: insertIntoCollection called: "+ objectToInsert);
 		getDatabase(function getCol(database) {
 			var collection = database.collection(myCollection);
 			collection.insert(objectToInsert, function(err, docs) {
@@ -132,7 +133,24 @@ var MyMongo = (function() {
 					throw err;
 				}
 				database.close();
-				console.log("insert succeeded");
+				console.log("insert succeeded: " + docs._id);
+				response.send(docs);
+			});
+		});
+	};
+
+	// Will remove from current collection
+	MyMongo.prototype.removeFromCollection = function(poem) {
+		console.log("SERVER: removeFromCollection called: "+ poem);
+		getDatabase(function getCol(database) {
+			var collection = database.collection(myCollection);
+			collection.remove(({ _id : new ObjectID(poem)},1), function(err, docs) {
+				if (err) {
+					throw err;
+				}
+				database.close();
+				console.log("insert succeeded: " + docs._id);
+				response.send(docs);
 			});
 		});
 	};
