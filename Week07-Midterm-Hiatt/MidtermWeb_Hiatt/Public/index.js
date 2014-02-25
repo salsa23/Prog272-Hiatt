@@ -15,14 +15,8 @@ var MongoData = (function() { 'use strict';
 		$("#addPoem").click(addPoem);
 		$("#deletePoem").click(deletePoem);
 		
-		$(".link").click(function(e) {
-			e.preventDefault(); 
-			console.dir("click event on link: " + e);
-			console.log("click event has query: "+ e.query);
-			console.log("click event has ID: " + e.id);
-			
-			var html = '<h2>Title: '+e.title+'</h2><h3>Author: '+e.author+'</h3><hr/><p>'+e.content+'</p>';
-			$("#dataDisplay").load(html);
+		$(".link").each(function($) {
+			$(this).on('click', { param: this.id}, displayRecordID);
 		});
 		
 		$("#showData").click(showData);				// calls function to display one record that user specifies
@@ -102,7 +96,7 @@ var MongoData = (function() { 'use strict';
 			var id = keyArray[i]._id;
 			//keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
 			
-			keyTitles = keyTitles+ '<li><a href="#" id="'+id+'" class="link" target="#dataDisplay">' + keyArray[i].title + '</a></li>';
+			keyTitles = keyTitles+ '<li><a href="" id="'+id+'" class="link" target="#dataDisplay">' + keyArray[i].title + '</a></li>';
 			
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
