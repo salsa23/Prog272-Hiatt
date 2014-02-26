@@ -35,6 +35,7 @@ var MongoData = (function() { 'use strict';
 		var poem = 
 			"<h2>Title: " + mongoData[index].title + "</h2>"+
 			"<h3>Author: " + mongoData[index].author + "</h3>"+
+			"<h4>Keywords: " + mongoData[index].keywords + "</h4>"+
 			"<hr/>"+
 			"<p>" + mongoData[index].content + "<p>";
 		
@@ -52,6 +53,7 @@ var MongoData = (function() { 'use strict';
 			var html = 
 				"<h2>Title: " + poem.title + "</h2>"+
 				"<h3>Author: " + poem.author + "</h3>"+
+				"<h4>Keywords: " + poem.keywords + "</h4>" +
 				"<hr/>"+
 				"<p>" + poem.content + "<p>";
 			$('#dataDisplay').html(html);
@@ -158,20 +160,26 @@ var MongoData = (function() { 'use strict';
 	var addPoem = function() {
 		$.getJSON('/insertRecord', function(data) {
 			// when poem is added, mongoData and title list will need refreshed
-			queryAll();
-			getTitles();
+			queryAll('', function(){
+				console.log("mongoData refreshed");
+				getTitles();
+			});
+			
 			// tells user that insert successful
 			$('#adminNotes').append('<p>'+ data.file +' has been processed: '+ data.result + '</p>');
 		});
 	};
 	
 	var deletePoem = function() {
+		var request= {};
 		request.selectedPoem = $("#poemTitles").val();	
 		console.log("request: "+request.selectedPoem);
 		$.getJSON('/removeRecord', function(data) {
 			// tells user that remove was successful
-			queryAll();
-			getTitles();
+			queryAll('', function(){
+				console.log("mongoData refreshed");
+				getTitles();
+			});
 			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
 	};

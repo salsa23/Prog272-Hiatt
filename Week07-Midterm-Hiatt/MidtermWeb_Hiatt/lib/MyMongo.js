@@ -4,7 +4,7 @@
  */
 
 var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
+var mongodb = require('mongodb');
 
 var MyMongo = (function() {
 	'use strict';
@@ -67,7 +67,7 @@ var MyMongo = (function() {
 	var getObjectByID = function(id, callback) {
 		console.log("getObjectByID called, find ID: " + id);
 		getDatabase(function getCol(database) {
-			collection.findOne({"_id" : new ObjectId(id)}, function(err, obj) {
+			collection.findOne({ "_id" : mongodb.ObjectID(id) }, function(err, obj) {
 				console.log("--inside getObjectByID callback.");
 				console.log("Found obj: "+ obj.title);
 				callback(obj);
@@ -78,8 +78,8 @@ var MyMongo = (function() {
 	MyMongo.prototype.getDocumentByID = function(id, callback) {
 		console.log("getDocumentByID called, finding ID: "+ id);
 		getDatabase(function getCol(database) {
-			collection.findOne({ _id : new ObjectId(id) }, function(err, obj) {
-				console.log("--inside getObjectByID FindOne callback.");
+			collection.findOne({ "_id" : mongodb.ObjectID(id) }, function(err, obj) {
+				console.log("--inside getDocumentByID FindOne callback.");
 				console.log("Found obj: "+ obj.title);
 				database.close();
 				callback(obj);
@@ -139,21 +139,35 @@ var MyMongo = (function() {
 		});
 	};
 
-	// Will remove from current collection
-	MyMongo.prototype.removeFromCollection = function(poem) {
-		console.log("SERVER: removeFromCollection called: "+ poem);
+	// Will remove from current collection by ID
+	MyMongo.prototype.removeByID = function(id) {
+		console.log("SERVER: removeByID called with ID: "+ id);
 		getDatabase(function getCol(database) {
 			var collection = database.collection(myCollection);
-			collection.remove(({ _id : new ObjectID(poem)},1), function(err, docs) {
+			collection.remove({ "_id" : mongodb.ObjectID(id)}, function(err, docs) {
 				if (err) {
 					throw err;
 				}
 				database.close();
-				console.log("insert succeeded: " + docs._id);
-				response.send(docs);
+				console.log("Item removed: " + id);
 			});
 		});
 	};
+	
+	MyMongo.prototype.removeFromCollection = function(selectedPoem){
+		console.log("SERVER: removeFromCollection called on poem: "+ selectedPoem);
+		getDatabase(function getCol(database){
+			var collection = database.collection(myCollection);
+			collection.remove({ "title" : selectedPoem }, function(err, docs){
+				if (err){
+					throw err;
+				}
+				database.close();
+				console.log("Item removed: "+ selectedPoem);
+			});
+		});
+	};
+	
 
 	// Will remove current collection
 	MyMongo.prototype.removeCollection = function() {

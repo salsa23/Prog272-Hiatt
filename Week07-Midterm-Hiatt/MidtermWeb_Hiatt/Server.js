@@ -53,11 +53,12 @@ app.get('/insertRecord', function(request, response) { 'use strict';
 });
 
 // removes a record from the collection
-app.get('/removeRecord', function(request, response) { 'use strict';
-		
-	console.log("removeRecord called, Poem Selected Val: "+ request.selectedPoem);
-	myMongo.removeFromCollection(request.selectedPoem);
-	response.send( { result: "Success", file: "new_poem.json" } );
+	app.get('/removeRecord', function(request, response) { 'use strict';
+	var selectedPoem = parseString(request.query.selectedPoem);
+	console.log("SelectedPoem: " + selectedPoem);
+	console.log("removeRecord called");
+	myMongo.removeFromCollection(response, selectedPoem);
+	response.send( { result: "Success" } );
 });
 
 
