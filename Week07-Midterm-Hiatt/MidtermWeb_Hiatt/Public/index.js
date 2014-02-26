@@ -175,8 +175,8 @@ var MongoData = (function() { 'use strict';
 		var currentPoemID = mongoData[currentPoemIndex]._id; 
 		var request= {};
 		request.selectedPoemID = currentPoemID;	
-		console.log("request: "+request.selectedPoemID);
-		$.getJSON('/removeRecordID', function(data) {
+		console.log("Delete Poem request ID: "+request.selectedPoemID);
+		$.getJSON('/removeRecordID', request, function(data) {
 			// tells user that remove was successful
 			queryAll('', function(){
 				console.log("mongoData refreshed");

@@ -141,7 +141,7 @@ var MyMongo = (function() {
 
 	// Will remove from current collection by ID
 	MyMongo.prototype.removeByID = function(id) {
-		console.log("SERVER: removeByID called with ID: "+ id);
+		console.log("MONGO SERVER: removeByID called with ID: "+ id);
 		getDatabase(function getCol(database) {
 			var collection = database.collection(myCollection);
 			collection.remove({ "_id" : mongodb.ObjectID(id)}, function(err, docs) {
@@ -154,8 +154,10 @@ var MyMongo = (function() {
 		});
 	};
 	
-	MyMongo.prototype.removeFromCollection = function(selectedPoemID){
-		console.log("SERVER: removeFromCollection called on poem: "+ selectedPoemID);
+	// updated with Charlie Tuesday -- use for copying format
+	MyMongo.prototype.removeFromCollection = function(response, selectedPoemID){
+		console.log("MONGO SERVER: removeFromCollection called on poem: "+ selectedPoemID);
+		console.log("--parameter passed type: "+typeof selectedPoemID);
 		getDatabase(function getCol(database){
 			var collection = database.collection(myCollection);
 			collection.remove({ "_id" : mongodb.ObjectID(selectedPoemID) }, function(err, docs){

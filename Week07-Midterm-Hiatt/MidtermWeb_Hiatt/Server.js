@@ -53,10 +53,10 @@ app.get('/insertRecord', function(request, response) { 'use strict';
 });
 
 // removes a record from the collection
-	app.get('/removeRecordID', function(request, response) { 'use strict';
-	var selectedPoemID = parseInt(request.query.selectedPoemID);
-	console.log("SelectedPoemID: " + selectedPoemID);
+app.get('/removeRecordID', function(request, response) { 'use strict';
 	console.log("removeRecordID called");
+	console.log("SelectedPoemID: " + JSON.stringify(request.query));
+	var selectedPoemID = request.query.selectedPoemID;
 	myMongo.removeFromCollection(response, selectedPoemID);
 	response.send( { result: "Success" } );
 });
