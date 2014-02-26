@@ -171,10 +171,12 @@ var MongoData = (function() { 'use strict';
 	};
 	
 	var deletePoem = function() {
+		var currentPoemIndex = $("#poemTitles").val();
+		var currentPoemID = mongoData[currentPoemIndex]._id; 
 		var request= {};
-		request.selectedPoem = $("#poemTitles").val();	
-		console.log("request: "+request.selectedPoem);
-		$.getJSON('/removeRecord', function(data) {
+		request.selectedPoemID = currentPoemID;	
+		console.log("request: "+request.selectedPoemID);
+		$.getJSON('/removeRecordID', function(data) {
 			// tells user that remove was successful
 			queryAll('', function(){
 				console.log("mongoData refreshed");

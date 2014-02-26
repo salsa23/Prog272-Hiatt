@@ -154,16 +154,16 @@ var MyMongo = (function() {
 		});
 	};
 	
-	MyMongo.prototype.removeFromCollection = function(selectedPoem){
-		console.log("SERVER: removeFromCollection called on poem: "+ selectedPoem);
+	MyMongo.prototype.removeFromCollection = function(selectedPoemID){
+		console.log("SERVER: removeFromCollection called on poem: "+ selectedPoemID);
 		getDatabase(function getCol(database){
 			var collection = database.collection(myCollection);
-			collection.remove({ "title" : selectedPoem }, function(err, docs){
+			collection.remove({ "_id" : mongodb.ObjectID(selectedPoemID) }, function(err, docs){
 				if (err){
 					throw err;
 				}
 				database.close();
-				console.log("Item removed: "+ selectedPoem);
+				console.log("Item removed: "+ selectedPoemID);
 			});
 		});
 	};
