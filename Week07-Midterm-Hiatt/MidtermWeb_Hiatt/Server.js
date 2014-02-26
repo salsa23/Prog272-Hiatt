@@ -48,8 +48,8 @@ app.get('/removeCollection', function(request, response) { 'use strict';
 app.get('/insertRecord', function(request, response) { 'use strict';
 	console.log("insertRecord called");
 	var fileContent = fs.readFileSync('new_poem.json','utf8');
-	myMongo.insertIntoCollection(JSON.parse(fileContent));
-	response.send( { result: "Success", file: "new_poem.json" } );
+	myMongo.insertIntoCollection(response, JSON.parse(fileContent));
+	// response.send(response);
 });
 
 // removes a record from the collection

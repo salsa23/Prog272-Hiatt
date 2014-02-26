@@ -124,7 +124,7 @@ var MyMongo = (function() {
 	};
 
 	// Will insert into current collection
-	MyMongo.prototype.insertIntoCollection = function(objectToInsert) {
+	MyMongo.prototype.insertIntoCollection = function(response, objectToInsert) {
 		console.log("SERVER: insertIntoCollection called: "+ objectToInsert);
 		getDatabase(function getCol(database) {
 			var collection = database.collection(myCollection);
@@ -134,6 +134,7 @@ var MyMongo = (function() {
 				}
 				database.close();
 				console.log("insert succeeded: " + docs._id);
+				
 				response.send(docs);
 			});
 		});
