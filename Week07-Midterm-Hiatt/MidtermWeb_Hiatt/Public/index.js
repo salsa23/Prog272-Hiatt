@@ -15,7 +15,7 @@ var MongoData = (function() { 'use strict';
 		
 		$('.link').click(function(e) {
 			e.preventDefault();
-			alert(this.id);
+			//alert(this.id);
 			var id = $(this).attr('id');
 			//var id = $(this).prop('id');
 			displayRecordID(id);
@@ -141,7 +141,7 @@ var MongoData = (function() { 'use strict';
 		$.getJSON('/loadCollection', function(data) {
 			queryAll();
 			// tells user that insert successful
-			$('#adminNotes').append('<p>'+ data.result + '</p>');
+			$('#adminNotes').append('<p>Collection Loaded: '+ data + '</p>');
 		});
 	};
 	
@@ -161,7 +161,6 @@ var MongoData = (function() { 'use strict';
 		$.getJSON('/insertRecord', function(data) {
 			// when poem is added, mongoData and title list will need refreshed
 			queryAll();
-			
 			console.log("mongoData refreshed");
 			getTitles();
 			
@@ -179,11 +178,12 @@ var MongoData = (function() { 'use strict';
 		$.getJSON('/removeRecordID', request, function(data) {
 			// tells user that remove was successful
 			// removes the poem from the current local array
+			console.log("remove ID from local array: "+currentPoemIndex);
 			mongoData.remove(currentPoemIndex);
 			// refreshes title list
 			getTitles();
 			console.log("mongoData refreshed");
-			$('#adminNotes').append('<p>'+ data.result + '</p>');
+			$('#adminNotes').append('<p> Poems deleted: '+ data + '</p>');
 		});
 	};
 

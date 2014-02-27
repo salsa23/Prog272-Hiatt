@@ -34,8 +34,7 @@ app.get('/displayRecordID', function(request, response) { 'use strict';
 // loads from JSON file on server
 app.get('/loadCollection', function(request, response) { 'use strict';
 	var fileContent = fs.readFileSync('./src/Shakespeare.json','utf8');
-	myMongo.insertIntoCollection(JSON.parse(fileContent));
-	response.send( { result: "Database Loaded" } );
+	myMongo.insertIntoCollection(response, JSON.parse(fileContent));
 });
 
 // removes collection - clears entries
@@ -49,7 +48,6 @@ app.get('/insertRecord', function(request, response) { 'use strict';
 	console.log("insertRecord called");
 	var fileContent = fs.readFileSync('new_poem.json','utf8');
 	myMongo.insertIntoCollection(response, JSON.parse(fileContent));
-	// response.send(response);
 });
 
 // removes a record from the collection
@@ -58,7 +56,7 @@ app.get('/removeRecordID', function(request, response) { 'use strict';
 	console.log("SelectedPoemID: " + JSON.stringify(request.query));
 	var selectedPoemID = request.query.selectedPoemID;
 	myMongo.removeFromCollection(response, selectedPoemID);
-	response.send( { result: "Success" } );
+	//response.send( { result: "Success" } );
 });
 
 

@@ -70,6 +70,7 @@ var MyMongo = (function() {
 			collection.findOne({ "_id" : mongodb.ObjectID(id) }, function(err, obj) {
 				console.log("--inside getObjectByID callback.");
 				console.log("Found obj: "+ obj.title);
+				database.close();
 				callback(obj);
 			});
 		});
@@ -132,9 +133,9 @@ var MyMongo = (function() {
 				if (err) {
 					throw err;
 				}
-				database.close();
-				console.log("insert succeeded: " + docs._id);
 				
+				console.log("insert succeeded: " + docs._id);
+				database.close();
 				response.send(docs);
 			});
 		});
@@ -181,8 +182,8 @@ var MyMongo = (function() {
 				if (err) {
 					throw err;
 				}
-				console.log('Collection: ' + myCollection + ' was removed');
 				database.close();
+				console.log('Collection: ' + myCollection + ' was removed');
 			});
 		});
 	};
