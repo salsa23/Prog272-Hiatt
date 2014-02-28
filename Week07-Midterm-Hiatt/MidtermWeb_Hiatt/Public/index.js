@@ -142,8 +142,8 @@ var MongoData = (function() { 'use strict';
 	
 	// gets local copy of database in an array
 	var queryAll = function() {
-		$.getJSON('/readAll', function(data) {
-			console.log("--inside readAll callback - getting mongoData...");
+		$.getJSON('/queryAll', function(data) {
+			console.log("--inside queryAll callback - getting mongoData...");
 			mongoData = data;
 		});
 	};

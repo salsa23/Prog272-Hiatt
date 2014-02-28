@@ -15,10 +15,10 @@ console.log('init setup qm:' + qm);
 console.log('init setup myMongo:' + myMongo);
 
 // Read the whole collection
-app.get('/readAll', function(request, response) {'use strict';
-	console.log('readAll called');
-	console.log('from readAll --data: '+ myMongo);
-	console.log('from readAll --request: '+ request);
+app.get('/queryAll', function(request, response) {'use strict';
+	console.log('queryAll called');
+	console.log('from queryAll --data: '+ myMongo);
+	console.log('from queryAll --request: '+ request);
 	myMongo.getCollection(response);
 });
 
