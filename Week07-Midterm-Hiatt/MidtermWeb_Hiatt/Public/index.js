@@ -21,8 +21,7 @@ var MongoData = (function() { 'use strict';
 	var displayRecord = function(index) {
 		console.log("displayRecord called");
 		
-		$("#dataDisplay").empty();
-		$("#searchResultsPoem").empty();
+		$("#displayPoem").empty();
 		
 		var poem = 
 			"<h2>Title: " + mongoData[index].title + "</h2>"+
@@ -31,23 +30,25 @@ var MongoData = (function() { 'use strict';
 			"<hr/>"+
 			"<p>" + mongoData[index].content + "<p>";
 		
-		$('#dataDisplay').html(poem);
+		$('#displayPoem').html(poem);
 	};
 	
 	// displays one record from the database as index identifies
 	var displayRecordID = function(id) {
 		console.log("displayRecordID called, id: "+id);
-		$.getJSON('/displayRecordID', function(obj) {
+		var request= {};
+		request.selectedPoemID = id;
+		$.getJSON('/displayRecordID', request, function(obj) {
 			poem = obj;
 			console.log("The record was returned and SET as: " + poem);
-			$("#searchResultsPoem").empty();
+			$("#displayPoem").empty();
 			var html = 
 				"<h2>Title: " + poem.title + "</h2>"+
 				"<h3>Author: " + poem.author + "</h3>"+
 				"<h4>Keywords: " + poem.keywords + "</h4>" +
 				"<hr/>"+
 				"<p>" + poem.content + "<p>";
-			$('#searchResultsPoem').html(html);
+			$('#displayPoem').html(html);
 		});
 	};
 
@@ -72,12 +73,12 @@ var MongoData = (function() { 'use strict';
 		console.log("Titles Loaded");
 	};
 	
-	// displays titles in list inside #dataDisplay, user selected poem displays in #searchResultsPoem
+	// displays titles in list inside #dataDisplay, user selected poem displays in #displayPoem
 	var displayTitleList = function(keyArray) {
 		console.log("displayTitleList called");
 		
 		$("#dataDisplay").empty();
-		$("#searchResultsPoem").empty();
+		$("#displayPoem").empty();
 		
 		var keyTitles = '<ul>Titles of poems with keyword:';
 		for (var i=0; i< keyArray.length; i=i+1){
@@ -87,8 +88,9 @@ var MongoData = (function() { 'use strict';
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
 			
-			keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			//keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 			//keyTitles = keyTitles+ '<li><a href="javascript:void(0);" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			keyTitles = keyTitles+ '<li><a href="#displayPoem" id="'+i+'" class="link">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);

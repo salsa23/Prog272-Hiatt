@@ -22,13 +22,13 @@ app.get('/readAll', function(request, response) {'use strict';
 	myMongo.getCollection(response);
 });
 
+// displays a specific record
 app.get('/displayRecordID', function(request, response) { 'use strict';
-	//request.query.id = $(this).val();
 	console.log('displayRecordID called');
 	console.log('from displayRecordID --request: '+ request);
 	console.log('request query: '+request.query);
-	console.log('from displayRecordID --requested ID: '+request.id);
-	myMongo.getDocumentByID(response);
+	console.log('from displayRecordID --requested ID: '+request.selectedPoemID);
+	myMongo.getDocumentByID(response, selectedPoemID);
 });
 
 // loads from JSON file on server
