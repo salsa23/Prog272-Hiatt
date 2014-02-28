@@ -58,18 +58,17 @@ var MongoData = (function() { 'use strict';
 		var poem = {};
 		for(var i=0; i>mongoData.length; i=i+1){
 			if(mongoData[i]._id === id){
-				poem = mongoData[i];
+				$("#displayPoem").empty();
+				console.log("The record selected is: " + mongoData[i].title);
+				var html = 
+					"<h2>Title: " + mongoData[i].title + "</h2>"+
+					"<h3>Author: " + mongoData[i].author + "</h3>"+
+					"<h4>Keywords: " + mongoData[i].keywords + "</h4>" +
+					"<hr/>"+
+					"<p>" + mongoData[i].content + "<p>";
+				$('#displayPoem').html(html);
 			}
 		}
-		console.log("The record selected is: " + poem.title);
-		$("#displayPoem").empty();
-		var html = 
-			"<h2>Title: " + poem.title + "</h2>"+
-			"<h3>Author: " + poem.author + "</h3>"+
-			"<h4>Keywords: " + poem.keywords + "</h4>" +
-			"<hr/>"+
-			"<p>" + poem.content + "<p>";
-		$('#displayPoem').html(html);
 	};
 
 	// displays one record as selected by user
