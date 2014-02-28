@@ -13,14 +13,6 @@ var MongoData = (function() { 'use strict';
 		$("#addPoem").click(addPoem);
 		$("#deletePoem").click(deletePoem);
 		
-		$('.link').click(function(e) {
-			e.preventDefault();
-			//alert(this.id);
-			var id = $(this).attr('id');
-			//var id = $(this).prop('id');
-			displayRecordID(id);
-		});
-		
 		queryAll();				// populates local mongoData
 		
 	}
@@ -96,11 +88,21 @@ var MongoData = (function() { 'use strict';
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
 			
-			keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			//keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			keyTitles = keyTitles+ '<li><a href="javascript:void(0);" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);
 		$("#dataDisplay").append(keyTitles);
+		
+		// adds link functionality for all with class 'link'
+		$('.link').click(function(e) {
+			e.preventDefault();
+			var id = $(this).attr('id');
+			//var id = $(this).prop('id');
+			displayRecordID(id);
+		});
+		
 		console.log("TitleList Loaded");
 	};
 	
@@ -160,12 +162,23 @@ var MongoData = (function() { 'use strict';
 	var addPoem = function() {
 		$.getJSON('/insertRecord', function(data) {
 			// when poem is added, mongoData and title list will need refreshed
-			queryAll();
-			console.log("mongoData refreshed");
+			// for loop to populate from array sent back
+			for(var i=0; i<data.length; i=i+1) {
+				var id = data[i]._id;
+				var author = data[i].author;
+				var content = data[i].content;
+				var keywords = data[i].keywords;
+				var title = data[i].title;
+				
+				var newPoem = { '_id': id, 'author': author, 'content': content, 'keywords': keywords, 'title': title };
+				mongoData.push(newPoem);
+			}
+			
 			getTitles();
+			console.log("mongoData refreshed");
 			
 			// tells user that insert successful
-			$('#adminNotes').append('<p>'+ data.file +' has been processed: '+ data.result + '</p>');
+			$('#adminNotes').append('<p>'+ data.file +'File has been processed: </p>');
 		});
 	};
 	
