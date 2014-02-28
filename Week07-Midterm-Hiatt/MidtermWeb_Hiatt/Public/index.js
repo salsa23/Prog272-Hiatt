@@ -33,7 +33,7 @@ var MongoData = (function() { 'use strict';
 		$('#displayPoem').html(poem);
 	};
 	
-	// displays one record from the database as index identifies
+	// displays one record from the database from ID
 	var displayRecordID = function(id) {
 		console.log("displayRecordID called, id: "+id);
 		var request= {};
@@ -50,6 +50,26 @@ var MongoData = (function() { 'use strict';
 				"<p>" + poem.content + "<p>";
 			$('#displayPoem').html(html);
 		});
+	};
+	
+	// displays one record from the local array from ID
+	var displayLocalID = function(id) {
+		console.log("displayLocalID called, id: "+id);
+		var poem = {};
+		for(var i=0; i>mongoData.length; i=i+1){
+			if(mongoData[i]._id === id){
+				poem = mongoData[i];
+			}
+		}
+		console.log("The record selected is: " + poem.title);
+		$("#displayPoem").empty();
+		var html = 
+			"<h2>Title: " + poem.title + "</h2>"+
+			"<h3>Author: " + poem.author + "</h3>"+
+			"<h4>Keywords: " + poem.keywords + "</h4>" +
+			"<hr/>"+
+			"<p>" + poem.content + "<p>";
+		$('#displayPoem').html(html);
 	};
 
 	// displays one record as selected by user
@@ -84,13 +104,12 @@ var MongoData = (function() { 'use strict';
 		for (var i=0; i< keyArray.length; i=i+1){
 			var id = keyArray[i]._id;
 			//keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
-			
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
-			
-			//keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 			//keyTitles = keyTitles+ '<li><a href="javascript:void(0);" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
-			keyTitles = keyTitles+ '<li><a href="#displayPoem" id="'+i+'" class="link">' + keyArray[i].title + '</a></li>';
+			//keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			
+			keyTitles = keyTitles+ '<li><a href="#displayPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);
@@ -100,8 +119,7 @@ var MongoData = (function() { 'use strict';
 		$('.link').click(function(e) {
 			e.preventDefault();
 			var id = $(this).attr('id');
-			//var id = $(this).prop('id');
-			displayRecordID(id);
+			displayLocalID(id);
 		});
 		
 		console.log("TitleList Loaded");
@@ -187,11 +205,13 @@ var MongoData = (function() { 'use strict';
 		request.selectedPoemID = currentPoemID;	
 		console.log("Delete Poem request ID: "+request.selectedPoemID);
 		$.getJSON('/removeRecordID', request, function(data) {
+			// clears if any poem is displayed
+			$("#displayPoem").empty();
+			
 			// removes the poem from the current local array
 			console.log("remove ID from local array: "+currentPoemIndex);
 			
 			// update local array
-			//mongoData.remove(currentPoemIndex); -----  TRY SPLICE????
 			mongoData.splice(currentPoemIndex, 1);
 			
 			// refreshes title list
