@@ -40,7 +40,6 @@ var MongoData = (function() { 'use strict';
 		$.getJSON('/displayRecordID', function(obj) {
 			poem = obj;
 			console.log("The record was returned and SET as: " + poem);
-			$("#dataDisplay").empty();
 			$("#searchResultsPoem").empty();
 			var html = 
 				"<h2>Title: " + poem.title + "</h2>"+
@@ -48,7 +47,7 @@ var MongoData = (function() { 'use strict';
 				"<h4>Keywords: " + poem.keywords + "</h4>" +
 				"<hr/>"+
 				"<p>" + poem.content + "<p>";
-			$('#dataDisplay').html(html);
+			$('#searchResultsPoem').html(html);
 		});
 	};
 
@@ -73,7 +72,7 @@ var MongoData = (function() { 'use strict';
 		console.log("Titles Loaded");
 	};
 	
-	// displays titles in list
+	// displays titles in list inside #dataDisplay, user selected poem displays in #searchResultsPoem
 	var displayTitleList = function(keyArray) {
 		console.log("displayTitleList called");
 		
@@ -88,8 +87,8 @@ var MongoData = (function() { 'use strict';
 			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
 			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
 			
-			//keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
-			keyTitles = keyTitles+ '<li><a href="javascript:void(0);" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
+			//keyTitles = keyTitles+ '<li><a href="javascript:void(0);" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
 		console.log("keyTitle html: "+ keyTitles);
@@ -176,9 +175,6 @@ var MongoData = (function() { 'use strict';
 			
 			getTitles();
 			console.log("mongoData refreshed");
-			
-			// tells user that insert successful
-			$('#adminNotes').append('<p>'+ data.file +'File has been processed: </p>');
 		});
 	};
 	
@@ -189,14 +185,16 @@ var MongoData = (function() { 'use strict';
 		request.selectedPoemID = currentPoemID;	
 		console.log("Delete Poem request ID: "+request.selectedPoemID);
 		$.getJSON('/removeRecordID', request, function(data) {
-			// tells user that remove was successful
 			// removes the poem from the current local array
 			console.log("remove ID from local array: "+currentPoemIndex);
-			mongoData.remove(currentPoemIndex);
+			
+			// update local array
+			//mongoData.remove(currentPoemIndex); -----  TRY SPLICE????
+			mongoData.splice(currentPoemIndex, 1);
+			
 			// refreshes title list
 			getTitles();
 			console.log("mongoData refreshed");
-			$('#adminNotes').append('<p> Poems deleted: '+ data + '</p>');
 		});
 	};
 

@@ -134,7 +134,7 @@ var MyMongo = (function() {
 					throw err;
 				}
 				
-				console.log("insert succeeded: " + docs._id);
+				console.log("insert succeeded.");
 				database.close();
 				response.send(docs);
 			});

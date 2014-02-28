@@ -56,7 +56,7 @@ app.get('/removeRecordID', function(request, response) { 'use strict';
 	console.log("SelectedPoemID: " + JSON.stringify(request.query));
 	var selectedPoemID = request.query.selectedPoemID;
 	myMongo.removeFromCollection(response, selectedPoemID);
-	//response.send( { result: "Success" } );
+	response.send( { result: "Success" } );
 });
 
 
