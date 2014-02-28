@@ -31,7 +31,6 @@ var MyMongo = (function() {
 
 			url = urls[2];
 			myCollection = 'Poems';
-			getCollection();
 		}
 	}
 

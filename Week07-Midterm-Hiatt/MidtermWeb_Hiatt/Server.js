@@ -68,6 +68,10 @@ app.get('/', function(request, result) {'use strict';
 	result.end();
 });
 
+app.get('/testAwake', function(request, response) { 'use strict';
+	response.send('I am awake.');
+});
+
 app.use("/", express.static(__dirname + '/Public'));
 app.use("/", express.static(__dirname + '/lib'));
 app.use("/", express.static(__dirname + '/src'));
