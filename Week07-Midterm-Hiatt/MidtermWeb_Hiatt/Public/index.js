@@ -23,7 +23,7 @@ var MongoData = (function() { 'use strict';
 		
 		$("#displayPoem").empty();
 		
-		var poem = 
+		var poem = "<hr/>" +
 			"<h2>Title: " + mongoData[index].title + "</h2>"+
 			"<h3>Author: " + mongoData[index].author + "</h3>"+
 			"<h4>Keywords: " + mongoData[index].keywords + "</h4>"+
@@ -55,12 +55,11 @@ var MongoData = (function() { 'use strict';
 	// displays one record from the local array from ID
 	var displayLocalID = function(id) {
 		console.log("displayLocalID called, id: "+id);
-		var poem = {};
-		for(var i=0; i>mongoData.length; i=i+1){
+		for(var i=0; i<mongoData.length; i=i+1){
 			if(mongoData[i]._id === id){
 				$("#displayPoem").empty();
 				console.log("The record selected is: " + mongoData[i].title);
-				var html = 
+				var html = "<hr/>" +
 					"<h2>Title: " + mongoData[i].title + "</h2>"+
 					"<h3>Author: " + mongoData[i].author + "</h3>"+
 					"<h4>Keywords: " + mongoData[i].keywords + "</h4>" +
@@ -102,12 +101,6 @@ var MongoData = (function() { 'use strict';
 		var keyTitles = '<ul>Titles of poems with keyword:';
 		for (var i=0; i< keyArray.length; i=i+1){
 			var id = keyArray[i]._id;
-			//keyTitles = keyTitles+ '<li><a href="$(this).click(displayRecordID('+ id +'))">' + keyArray[i].title + '</a></li>';
-			//keyTitles = keyTitles+ '<li><a href="$(".link").click(function(e){ e.preventDefault(); $("dataDisplay).load(<h2>Title: '+
-			//	keyArray[i].title+'</h2><h3>Author: '+keyArray[i].author+'</h3><hr/><p>'+keyArray[i].content+'</p>");});">'+keyArray[i].title+'</a></li>';
-			//keyTitles = keyTitles+ '<li><a href="javascript:void(0);" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
-			//keyTitles = keyTitles+ '<li><a href="#searchResultsPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
-			
 			keyTitles = keyTitles+ '<li><a href="#displayPoem" id="'+id+'" class="link">' + keyArray[i].title + '</a></li>';
 		}
 		keyTitles = keyTitles + '</ul>';
@@ -147,40 +140,18 @@ var MongoData = (function() { 'use strict';
 		console.log("keyword search complete");
 	};
 	
-	// displays database poem title elements in HTML buttons
+	// gets local copy of database in an array
 	var queryAll = function() {
 		$.getJSON('/readAll', function(data) {
 			console.log("--inside readAll callback - getting mongoData...");
 			mongoData = data;
-			//console.log("mongoData in queryAll: " + mongoData);
-			//console.log("Data in queryAll: " + data);
 		});
 	};
-	
-	var loadCollection = function() {
-		$.getJSON('/loadCollection', function(data) {
-			queryAll();
-			// tells user that insert successful
-			$('#adminNotes').append('<p>Collection Loaded: '+ data + '</p>');
-		});
-	};
-	
-	var removeCollection = function() {
-		$.getJSON('/removeCollection', function(data) {
-			
-			// when collection removed, user should not have a list of titles for an empty collection
-			$("#poemTitles").empty();
-			mongoData = null;
-			
-			// tells user that remove was successful
-			$('#adminNotes').append('<p>'+ data.result + '</p>');
-		});
-	};
-	
+
+	// adds data from JSON file on the server
 	var addPoem = function() {
 		$.getJSON('/insertRecord', function(data) {
 			// when poem is added, mongoData and title list will need refreshed
-			// for loop to populate from array sent back
 			for(var i=0; i<data.length; i=i+1) {
 				var id = data[i]._id;
 				var author = data[i].author;
@@ -216,6 +187,28 @@ var MongoData = (function() { 'use strict';
 			// refreshes title list
 			getTitles();
 			console.log("mongoData refreshed");
+		});
+	};
+	
+	// used in ADMIN section
+	var loadCollection = function() {
+		$.getJSON('/loadCollection', function(data) {
+			queryAll();
+			// tells user that insert successful
+			$('#adminNotes').append('<p>Collection Loaded: '+ data + '</p>');
+		});
+	};
+	
+	// used in ADMIN section
+	var removeCollection = function() {
+		$.getJSON('/removeCollection', function(data) {
+			
+			// when collection removed, user should not have a list of titles for an empty collection
+			$("#poemTitles").empty();
+			mongoData = null;
+			
+			// tells user that remove was successful
+			$('#adminNotes').append('<p>'+ data.result + '</p>');
 		});
 	};
 
