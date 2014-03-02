@@ -1,8 +1,10 @@
 var MongoData = (function() { 'use strict';
 
 	var mongoData = null;
+	var that = null;
 
 	function MongoData() {
+		that = this;
 		$("#uploadCollection").click(loadCollection);
 		$("#deleteCollection").click(removeCollection);	
 		//$("#backupCollection").click(backupCollection);	// MAKE METHOD backupCollection --> write to JSON file
@@ -10,10 +12,10 @@ var MongoData = (function() { 'use strict';
 		$("#getTitles").click(getTitles);			// uses queryAll to populate mongoData, then adds titles
 		$("#poemContents").click(poemContents);		// uses local mongoData
 		$("#searchKeywords").click(searchKeywords);	// uses local mongoData
-		$("#addPoem").click(addPoem);
+		$("#addPoem").click(callAddPoem);
 		$("#deletePoem").click(deletePoem);
 		
-		queryAll();				// populates local mongoData
+		this.queryAll();				// populates local mongoData
 		
 	}
 
@@ -34,7 +36,7 @@ var MongoData = (function() { 'use strict';
 	};
 	
 	// displays one record from the database from ID
-	var displayRecordID = function(id) {
+	MongoData.prototype.displayRecordID = function(id) {
 		console.log("displayRecordID called, id: "+id);
 		var request= {};
 		request.selectedPoemID = id;
@@ -141,16 +143,15 @@ var MongoData = (function() { 'use strict';
 	};
 	
 	// gets local copy of database in an array
-	var queryAll = function() {
+	MongoData.prototype.queryAll = function() {
 		$.getJSON('/queryAll', function(data) {
 			console.log("--inside queryAll callback - getting mongoData...");
 			mongoData = data;
 		});
 	};
 
-	// adds data from JSON file on the server
-	var addPoem = function() {
-		$.getJSON('/insertRecord', function(data) {
+	var callAddPoem = function() {
+		that.addPoem(function(data) {
 			// when poem is added, mongoData and title list will need refreshed
 			for(var i=0; i<data.length; i=i+1) {
 				var id = data[i]._id;
@@ -162,10 +163,14 @@ var MongoData = (function() { 'use strict';
 				var newPoem = { '_id': id, 'author': author, 'content': content, 'keywords': keywords, 'title': title };
 				mongoData.push(newPoem);
 			}
-			
 			getTitles();
 			console.log("mongoData refreshed");
-		});
+		});		
+	};
+	
+	// adds data from JSON file on the server
+	MongoData.prototype.addPoem = function(callback) {
+		$.getJSON('/insertRecord', callback);	
 	};
 	
 	var deletePoem = function() {

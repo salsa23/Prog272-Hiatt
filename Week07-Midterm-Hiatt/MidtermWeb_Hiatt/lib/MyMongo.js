@@ -27,9 +27,10 @@ var MyMongo = (function() {
 			// mongo shell, 2: MongoLab }
 			var urls = [ 'mongodb://127.0.0.1:27017/test',
 					'mongodb://192.168.56.101:27017/test',
+					'mongodb://168.156.42.186:27017/test',
 					'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272' ];
 
-			url = urls[2];
+			url = urls[3];
 			myCollection = 'Poems';
 		}
 	}
@@ -72,7 +73,7 @@ var MyMongo = (function() {
 		getDatabase(function getCol(database) {
 			console.log("-- inside getCollection callback");
 			collection = database.collection(myCollection); 
-
+ 
 			// Send the collection to the client.
 			collection.find().toArray(function(err, theArray) {
 				console.log("-- found a collection, first entry: "+ theArray[0]);

@@ -56,6 +56,6 @@ describe("Testing MidtermWeb-Hiatt Server Suite", function() { 'use strict';
 			expect(result).toEqual(1);
 			done();
 		});
-	}, 15000);
+	});
 	
 }); 

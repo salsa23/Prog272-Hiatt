@@ -1,0 +1,13 @@
+[ 
+  {
+	"mongoUrls" : [ 
+	        "mongodb://127.0.0.1:27017/test",
+			"mongodb://192.168.56.101:27017/test",
+			"mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272" 
+			],
+	"urlChoice" : 2,
+	"myCollection": "poems",
+	"ePort" : 30025
+  },
+  
+]
