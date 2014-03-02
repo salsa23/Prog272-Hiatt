@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>MidtermWeb-Hiatt</title>
+		<link href="/css/index.css" rel="stylesheet" type="text/css">
+		<!-- <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script> -->
+		<script src = "jquery.js" type ="text/javascript"> </script>
+		<script src="indexPoem.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<h1>MidtermWeb-Hiatt</h1>
+		<h2>Poetry Research Tool</h2>
+		<hr/>
+		<p>
+			Welcome to the Hiatt Online Reasearch Portal for Poetry. Here you can search for specific author, 
+			titles, or even words within any poem found within our database. Also, you can submit new content
+			to be added to our ever expanding poetry collection.
+		</p>
+		<div id="admin" class="box" hidden>
+			<h2>*** ADMIN USE ONLY ***</h2>
+			<p>Control database operations:</p>
+			<span id="adminbuttons">
+				<button id="uploadCollection">Upload Collection</button>
+				<button id="deleteCollection">Remove Collection</button>
+				<button id="backupCollection">Backup Collection</button>
+			</span>
+		</div>
+		
+		<div id="user" class="box">
+			<h2>Research Poetry</h2>
+			<p>First, get a current listing of available poems by clicking "Get Peom List". You will then be able to 
+				select a poem from that list to read. Other options include searching on keywords such as "poem" or "sonnet".
+				You may also submit a poem to add to our collection, or delete a particular poem. Its your choice! Enjoy and 
+				HAPPY READING!
+				</p> 
+			
+			<!-- Main User Menu Buttons -->	
+			<span id="userButtons">
+				<button id="getTitles">Get Poem List</button>
+				<button id="addPoem">Add a Poem</button>
+			</span>
+			
+			<hr/>
+			
+			<!-- Select a poem from title list -->	
+			<label for="poemTitles">Select a Poem Title:</label>
+			<select id="poemTitles">
+					<option value="default">-- get list --</option>
+			</select>
+			<button id="poemContents">Display Poem</button>
+			<button id="deletePoem">Delete a Poem</button>
+			<br/>
+			
+			<!-- Search Keywords -->	
+			<label for="keywords">Search Keywords (use keywords such as "poem" or "sonnet"):</label>
+			<input type="text" id="keywords">
+			<button id="searchKeywords">Search Keywords</button> 
+			<br/><br>
+			
+			<div class="dataDisplay" id = "dataDisplay">
+				<!-- Display area -->	
+
+			</div>
+			<div id="displayPoem">
+				<!-- Display poem selected -->	
+			</div>
+		</div>	<!-- End User Box  -->
+		<div id="adminNotes"> </div>
+	</body>
+</html>
