@@ -1,6 +1,7 @@
 var MongoData = (function() { 'use strict';
 
 	var mongoData = null;
+	var webServerURL = "http://168.156.46.22:30025";
 	var that = null;
 
 	function MongoData() {
@@ -40,7 +41,7 @@ var MongoData = (function() { 'use strict';
 		console.log("displayRecordID called, id: "+id);
 		var request= {};
 		request.selectedPoemID = id;
-		$.getJSON('/displayRecordID', request, function(obj) {
+		$.getJSON(webServerURL+'/displayRecordID', request, function(obj) {
 			poem = obj;
 			console.log("The record was returned and SET as: " + poem);
 			$("#displayPoem").empty();
@@ -144,15 +145,16 @@ var MongoData = (function() { 'use strict';
 	
 	// gets local copy of database in an array
 	MongoData.prototype.queryAll = function() {
-		$.getJSON('/queryAll', function(data) {
+		$.getJSON(webServerURL+'/queryAll', function(data) {
 			console.log("--inside queryAll callback - getting mongoData...");
 			mongoData = data;
 		});
 	};
 
+	// private callback that updates local array when new poem added using addPoem(callback)
 	var callAddPoem = function() {
 		that.addPoem(function(data) {
-			// when poem is added, mongoData and title list will need refreshed
+			// local mongoData and title list refreshed
 			for(var i=0; i<data.length; i=i+1) {
 				var id = data[i]._id;
 				var author = data[i].author;
@@ -170,7 +172,7 @@ var MongoData = (function() { 'use strict';
 	
 	// adds data from JSON file on the server
 	MongoData.prototype.addPoem = function(callback) {
-		$.getJSON('/insertRecord', callback);	
+		$.getJSON(webServerURL+'/insertRecord', callback);	
 	};
 	
 	var deletePoem = function() {
@@ -179,7 +181,7 @@ var MongoData = (function() { 'use strict';
 		var request= {};
 		request.selectedPoemID = currentPoemID;	
 		console.log("Delete Poem request ID: "+request.selectedPoemID);
-		$.getJSON('/removeRecordID', request, function(data) {
+		$.getJSON(webServerURL+'/removeRecordID', request, function(data) {
 			// clears if any poem is displayed
 			$("#displayPoem").empty();
 			
@@ -197,7 +199,7 @@ var MongoData = (function() { 'use strict';
 	
 	// used in ADMIN section
 	var loadCollection = function() {
-		$.getJSON('/loadCollection', function(data) {
+		$.getJSON(webServerURL+'/loadCollection', function(data) {
 			queryAll();
 			// tells user that insert successful
 			$('#adminNotes').append('<p>Collection Loaded: '+ data + '</p>');
@@ -206,7 +208,7 @@ var MongoData = (function() { 'use strict';
 	
 	// used in ADMIN section
 	var removeCollection = function() {
-		$.getJSON('/removeCollection', function(data) {
+		$.getJSON(webServerURL+'/removeCollection', function(data) {
 			
 			// when collection removed, user should not have a list of titles for an empty collection
 			$("#poemTitles").empty();
