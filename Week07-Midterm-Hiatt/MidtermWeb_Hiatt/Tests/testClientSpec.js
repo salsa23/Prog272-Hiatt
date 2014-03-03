@@ -4,25 +4,23 @@
  */
 
 //var request = require('request');
-var serverURL = "http://168.156.46.22:30025";
+var serverURL = "http://localhost:30025";
 
 describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
 	
 	var testMongo = null;
-
-	beforeEach(function(){
-		testMongo = new MongoData();
-	});
 	
 	it("proves that jasmine is working", function(){
 		expect(true).toBe(true);
 	});
 	
 	it("proves we can fill testMongo with data", function(){
+		testMongo = new MongoData().getCollection;
 		expect(testMongo).not.toBeNull();
 	});
 	
 	it("performs ASYNC integration test on queryAll", function(){
+		testMongo = new MongoData();
 		testMongo.queryAll(function(data){
 			expect(data[0].title).toBe("Sonnet01");
 			done();
@@ -30,12 +28,15 @@ describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
 	});
 	
 	it("expects getJSON to have been called in queryAll", function(){
+		testMongo = new MongoData();
+		
 		spyOn($, "getJSON");
 		testMongo.queryAll(null);
 		expect($.getJSON).toHaveBeenCalledWith(serverURL+"/readAll", null);
 	});
 
 	it("Tests that displayRecordID is called with all parameters", function() {
+		testMongo = new MongoData();
 		// peek at call
 		spyOn($, "getJSON");
 		var request = {};
@@ -58,6 +59,7 @@ describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
 	}); */
 
 	it("Integration test for insertPoem, returns the array that was inserted, first position should not be null", function(done) {
+		testMongo = new MongoData();
 		//var poem = {"title": "", "keywords": "test", "author":"tester", "content": "this is a test" };
 		//$.getJSON('/insertRecord', function(data) {
 		testMongo.queryAll(function(data) {

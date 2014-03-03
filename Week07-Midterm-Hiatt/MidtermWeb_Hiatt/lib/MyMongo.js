@@ -30,7 +30,7 @@ var MyMongo = (function() {
 					'mongodb://168.156.42.186:27017/test',
 					'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272' ];
 
-			url = urls[3];
+			url = urls[0];
 			myCollection = 'Poems';
 		}
 	}
@@ -80,6 +80,25 @@ var MyMongo = (function() {
 				// console.dir(theArray);
 				database.close();
 				response.send(theArray);
+			});
+		});
+	};
+	
+	// gets the total count of a collection
+	MyMongo.prototype.getDocumentCount = function(initResponse) {
+		console.log("MyMOngo.getDocumentCount called");
+		response = initResponse;
+		getDatabase(function getCol(database) {
+			console.log("-- inside getDocumentCount callback");
+			collection = database.collection(myCollection); 
+			
+			var count = collection.count(function(err, result) {
+				if (err){
+					throw err;
+				}
+				console.log("sending the count back: "+count);
+				database.close();
+				response.send({"documentCount" : result });
 			});
 		});
 	};

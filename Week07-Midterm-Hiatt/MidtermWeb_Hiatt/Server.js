@@ -59,6 +59,10 @@ app.get('/removeRecordID', function(request, response) { 'use strict';
 	response.send( { result: "Success" } );
 });
 
+// gets a count of database collection
+app.get('/getDocumentCount', function(request, response){
+	myMongo.getDocumentCount(response);
+});
 
 // Default route to public folder
 app.get('/', function(request, result) {'use strict';

@@ -1,7 +1,7 @@
 var MongoData = (function() { 'use strict';
 
 	var mongoData = null;
-	var webServerURL = "http://168.156.46.22:30025";
+	var webServerURL = "http://localhost:30025";
 	var that = null;
 
 	function MongoData() {
@@ -145,6 +145,7 @@ var MongoData = (function() { 'use strict';
 	
 	// gets local copy of database in an array
 	MongoData.prototype.queryAll = function() {
+		console.log("client called queryAll");
 		$.getJSON(webServerURL+'/queryAll', function(data) {
 			console.log("--inside queryAll callback - getting mongoData...");
 			mongoData = data;
