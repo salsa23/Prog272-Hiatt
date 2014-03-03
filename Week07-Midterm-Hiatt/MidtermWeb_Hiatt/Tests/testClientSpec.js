@@ -4,17 +4,36 @@
  */
 
 //var request = require('request');
-var serverURL = "http://localhost:30025";
+var serverURL = "http://168.156.46.22:30025";
 
-describe("Testing MidtermWeb-Hiatt Client Suite", function() {'use strict';
-	var testMongo = new MongoData();
+describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
+	
+	var testMongo = null;
 
-	/* beforeEach(function(done) {
-		setTimeout(function() {
-			value = 15000;
+	beforeEach(function(){
+		testMongo = new MongoData();
+	});
+	
+	it("proves that jasmine is working", function(){
+		expect(true).toBe(true);
+	});
+	
+	it("proves we can fill testMongo with data", function(){
+		expect(testMongo).not.toBeNull();
+	});
+	
+	it("performs ASYNC integration test on queryAll", function(){
+		testMongo.queryAll(function(data){
+			expect(data[0].title).toBe("Sonnet01");
 			done();
-		}, 15000);
-	}); */
+		});
+	});
+	
+	it("expects getJSON to have been called in queryAll", function(){
+		spyOn($, "getJSON");
+		testMongo.queryAll(null);
+		expect($.getJSON).toHaveBeenCalledWith(serverURL+"/readAll", null);
+	});
 
 	it("Tests that displayRecordID is called with all parameters", function() {
 		// peek at call
@@ -22,7 +41,7 @@ describe("Testing MidtermWeb-Hiatt Client Suite", function() {'use strict';
 		var request = {};
 		request.selectedPoemID = 1;
 		testMongo.displayRecordID(request.selectedPoemID);
-		expect($.getJSON).toHaveBeenCalledWith('/displayRecordID', request, jasmine.any(Function));
+		expect($.getJSON).toHaveBeenCalledWith(serverURL+"/displayRecordID", request, Function);
 	});
 
 	/* it("SpyOn Callback callback is called and creates fake get method", function(done) {

@@ -70,7 +70,7 @@ app.get('/', function(request, result) {'use strict';
 });
 
 app.get('/testAwake', function(request, response) { 'use strict';
-	response.send('I am awake.');
+	response.send("I am awake.");
 });
 
 app.use("/", express.static(__dirname + '/Public'));
