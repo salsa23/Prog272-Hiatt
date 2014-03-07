@@ -30,7 +30,7 @@ var MyMongo = (function() {
 					'mongodb://168.156.42.186:27017/test',
 					'mongodb://appUser:password@ds033429.mongolab.com:33429/midterm272' ];
 
-			url = urls[0];
+			url = urls[3];
 			myCollection = 'Poems';
 		}
 	}
