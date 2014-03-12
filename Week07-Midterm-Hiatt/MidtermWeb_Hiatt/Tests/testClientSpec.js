@@ -21,7 +21,7 @@ describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
 	
 	it("performs ASYNC integration test on queryAll", function(){
 		testMongo = new MongoData();
-		testMongo.queryAll(function(data){
+		testMongo.readAll(function(data){
 			expect(data[0].title).toBe("Sonnet01");
 			done();
 		});
@@ -32,7 +32,7 @@ describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
 		
 		spyOn($, "getJSON");
 		testMongo.queryAll(null);
-		expect($.getJSON).toHaveBeenCalledWith(serverURL+"/readAll", null);
+		expect($.getJSON).toHaveBeenCalledWith(serverURL+"/queryAll", null);
 	});
 
 	it("Tests that displayRecordID is called with all parameters", function() {
@@ -62,7 +62,7 @@ describe("Testing Client MidtermWeb-Hiatt Suite", function() {'use strict';
 		testMongo = new MongoData();
 		//var poem = {"title": "", "keywords": "test", "author":"tester", "content": "this is a test" };
 		//$.getJSON('/insertRecord', function(data) {
-		testMongo.queryAll(function(data) {
+		testMongo.readAll(function(data) {
 			// expect(data[0].title).toEqual("a road");
 			done();
 		});

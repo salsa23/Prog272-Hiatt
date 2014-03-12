@@ -1,0 +1,50 @@
+
+body {
+    background-color:#99CCFF;
+    font-family:'Comic Sans MS', 'HelveticaNeue', Arial, sans-serif;
+    font-size:1em;
+    height:100%;
+    margin:10px;
+    padding:0px;
+    text-transform:none;
+    width: auto;
+}
+
+h1 {
+    font-size:1.5em;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+}
+
+h2{
+	font-size:1.25em;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align: left;
+}
+
+h3{
+	font-size:1.1em;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+}
+
+
+ul{
+	list-style-type: none;
+}
+
+.box{
+	border: dotted;
+	margin:0px;
+	overflow: visible;
+	padding:10px;
+	width: 300px;
+	height: auto;
+	text-align: center;
+}
