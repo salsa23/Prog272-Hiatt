@@ -24,16 +24,24 @@ a {
 	overflow: hidden;	
 	border: solid black 1px;
 	background-color: #00DDAA;	
-	width: 788px;
+	width: 80%;
 	padding: 5px;
 }
 
 .displayKing p {
 	display: inline-block;
 	padding-left: 3px;
-	width:65%;    
+	width:60%;    
 	border: solid black 1px;
 	background-color: #00BBFF;
+	margin: 1%;
+}
+
+.displayKing input {
+	display: inline-block;
+	padding-left: 3px;
+	width:60%;    
+	border: solid black 1px;
 	margin: 1%;
 }
 /* Medium - Tablet */

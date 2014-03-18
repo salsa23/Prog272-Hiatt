@@ -93,10 +93,9 @@ app.get('/copyToMongo', function(request, response) {'use strict';
 	console.log(typeof request.query.options);
 	var options = JSON.parse(request.query.options);
 	console.log(options);
-	// code from AwsUI.js options to copy from folder location
-	var location = options.copyFrom;
+	// code from AwsUI.js options to copy from folder location use WalkDirs as template
+	// var location = options.copyFrom;
 	// add code to find all files in the folder and push to an array 
-	
 });
 
 
@@ -138,18 +137,34 @@ app.get('/readAll', function(request, response) {'use strict';
 	queryMongo.getAllDocuments(response);
 });
 
-// NEW
-// insertJSON into Mongo
+// NEW insert JSON
 app.get('/insertJson', function(request, response) { 'use strict';
-	message("Server side request for newDocument route");
+	//message("Server side request for newDocument route");
 	var fileContent = fs.readFileSync('Presidents.json', 'utf8');
+	queryMongo.insertIntoCollection(response, JSON.parse(fileContent));
+});
+
+// NEW
+// insert MD Transform Config JSON into Mongo
+app.get('/insertMdTransConfigJson', function(request, response) { 'use strict';
+	console.log("insertMdTransConfigJson called");
+	//message("Server side request for insertMdTransConfigJson route");
+	var fileContent = fs.readFileSync('MarkdownTransformConfig.json', 'utf8');
+	queryMongo.insertIntoCollection(response, JSON.parse(fileContent));
+});
+
+// NEW
+// insert S3 Config JSON into Mongo
+app.get('/insertS3ConfigJson', function(request, response) { 'use strict';
+	//message("Server side request for insertS3ConfigJson route");
+	var fileContent = fs.readFileSync('Options.json', 'utf8');
 	queryMongo.insertIntoCollection(response, JSON.parse(fileContent));
 });
 
 // NEW
 // insert MarkdownFiles into Mongo
 app.get('/insertMarkdown', function(request, response) {
-	message('insertMarkdown');
+	//message('insertMarkdown');
 	var jsonObject = queryMongo.readMarkDown("Presidents", markdownName);
 	queryMongo.insertIntoCollection(response, jsonObject);
 });

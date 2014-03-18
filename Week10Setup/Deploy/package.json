@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "express": "3.1",
+    "mongodb": "latest",
     "walk": "2.2.1",
     "aws-sdk": ">0.9.0",
-    "jade": "~1.3.0",
-    "mongodb": "latest"
+    "jade": "~1.3.0"
   },
   "devDependencies": {
     "winston": "~0.7.2",

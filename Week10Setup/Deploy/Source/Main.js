@@ -4,10 +4,10 @@
 
 require.config({
   paths: {
-    //"jquery": "http://code.jquery.com/jquery-1.11.0.min",
-    "jquery": "jquery-1.11.0.min",
+    "jquery": "http://code.jquery.com/jquery-1.11.0.min",
+    //"jquery": "jquery-1.11.0.min",
     "bootstrap":"bootstrap.min.js",
-    "mongodb": "QueryMongo",
+    "clientMongo": "ClientMongo", 
     "awsui": "AwsUi"
   },
 	shim : {
@@ -22,22 +22,11 @@ require.config({
 		//	deps : ['jasmine', 'jasmine-html'],
 		//	exports : 'jasmine'
 		//}
-		'jquery': {
-          exports: '$'
-        },
-        //'underscore': {
-        //  deps:["jquery"],
-        //  exports: '_'
-        //},
-		'mongodb': {
-			deps : ["_"],
-			exports : 'mongodb'
-		}
 	}
 });
 
-require(["_","mongodb", "awsui"], function(m, awsui) {
+require(["jquery","awsui", "clientMongo"], function(j, awsui, clientMongo) {
 	console.log("Main called.");
-	m.querymongo();
+	clientMongo();
 	awsui();
 });

@@ -1,4 +1,4 @@
-define(['mongodb','jquery'], function() {'use strict';
+define(['jquery'], function() {'use strict';
 
     var buttons = null;
     var options = null;
@@ -52,9 +52,18 @@ define(['mongodb','jquery'], function() {'use strict';
         });
     };
     
-    // NEW ADDED CMH to copy config files to Mongo from Folder
+    // NEW ADDED CMH to copy Md Transform config files to Mongo from Folder
     var copyConfigToMongo = function() {
-        $.getJSON("/copyConfigToMongo", {
+        $.getJSON("/insertMdTransConfigJson", {
+            options : JSON.stringify(options[dataIndex])
+        }, function(data) {
+            $("#copyConfigResult").html("Result: " + data.result);
+        });
+    };
+    
+    // NEW ADDED CMH to copy S3 config files to Mongo from Folder
+    var copyConfigToMongo = function() {
+        $.getJSON("/insertS3ConfigJson", {
             options : JSON.stringify(options[dataIndex])
         }, function(data) {
             $("#copyConfigResult").html("Result: " + data.result);
