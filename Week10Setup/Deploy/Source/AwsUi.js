@@ -1,4 +1,4 @@
-define(['jquery'], function() {'use strict';
+define(['mongodb','jquery'], function() {'use strict';
 
     var buttons = null;
     var options = null;
@@ -43,12 +43,21 @@ define(['jquery'], function() {'use strict';
         });
     };
     
-    // NEW ADDED CMH to copy files to Mongo
+    // NEW ADDED CMH to copy files to Mongo from Folder
     var copyToMongo = function() {
         $.getJSON("/copyToMongo", {
             options : JSON.stringify(options[dataIndex])
         }, function(data) {
             $("#copyDBResult").html("Result: " + data.result);
+        });
+    };
+    
+    // NEW ADDED CMH to copy config files to Mongo from Folder
+    var copyConfigToMongo = function() {
+        $.getJSON("/copyConfigToMongo", {
+            options : JSON.stringify(options[dataIndex])
+        }, function(data) {
+            $("#copyConfigResult").html("Result: " + data.result);
         });
     };
 

@@ -33,8 +33,8 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="config.html">Config</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="config.html">Config</a></li>
             <li><a href="upload.html">Upload</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -45,15 +45,14 @@
 
       <div class="starter-template">
         <h1 id="top">AwsBasicS3 - Hiatt</h1>        
-        <p>Welcome to AwsBasicS3 - recently updated by Chelsa Hiatt. New functionality includes
-			ability to configure your setup, saving files to MongoDB, and more!</p>
+        <p>Use this page to configure your setup.</p>
         <div>
         <img src="Bar02.png">
         </div>
-        <button id="buildAll">Transform and copy</button>
+        <button id="saveConfig">Save Config</button>
         <button id="tranformBackButton">&lt;&lt;</button>
         <button id="transformForwardButton">&gt;&gt;</button>
-        <p id="copyResultA"></p>
+        <p id="saveResultA"></p>
         <div class="displayKing">
             <label for="pathToPython">Path to Python</label>
             <p id="pathToPython">-</p>
@@ -68,8 +67,8 @@
         <img src="Bar02.png">
         </div>
         <button id="listBuckets">Get Buckets</button>
-        <button id="copyToS3"> Copy to S3 </button>
-        <button id="getOptions"> Get Options </button>
+        <button id="saveConfigS3">Save S3 Config</button>
+        <button id="getOptions">Get Options </button>
         <button id="backButton"> &lt;&lt; </button>
         <button id="forwardButton"> &gt;&gt; </button>
         <ul id="buckets"></ul>
@@ -100,14 +99,9 @@
         <div>
         <img src="Bar02.png">
         </div>
-        <div class="displayKing">            
-            <h2>Files Copied</h2>
-            <ul id="buildData">
-            </ul>
-        </div>
          <div class="displayKing">            
-            <h2>Files Copied To MongoDB</h2>
-            <p id = "CopyDBResult"> </p>
+            <h2>Config Saved</h2>
+            <p id = "SaveConfigResult"> </p>
             <ul id="buildData">
             </ul>
         </div>

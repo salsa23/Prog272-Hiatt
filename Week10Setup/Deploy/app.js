@@ -11,6 +11,7 @@ var walkDirs = require("./Source/WalkDirs").walkDirs;
 var s3Code = require("./Source/S3Code");
 var fs = require("fs");
 var exec = require('child_process').exec;
+// added CMH
 var qm = require('./Source/QueryMongo');
 var queryMongo = qm.QueryMongo; 
 
