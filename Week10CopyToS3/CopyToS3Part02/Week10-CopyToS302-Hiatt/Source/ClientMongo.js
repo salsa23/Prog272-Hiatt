@@ -1,35 +1,41 @@
 // Handle Ajax and maintain list of data 
-define('clientMongo', function(awsui) {'use strict';
+define('clientMongo', function() {'use strict';
 
-	 var mongoData = [];
+	var mongoData = [];
 
 	function ClientMongo() {
 		console.log("Client Mongo constructor called");
-		$("#insertMdTransConfig").click(insertMdTransConfigDocument);
-		$("#saveConfigS3").click(insertNewDocument);
+		//$("#insertMdTransConfig").click(insertMdTransConfigDocument);
+		//$("#insertConfigS3").click(insertS3ConfigDocument);
+		//$("#saveInputConfig").click(saveInputOptions);
 		readAll();
-		loadNewOptionsDefault();
+		//loadNewOptionsDefault();
 	}
 
-	var loadNewOptionsDefault = function(awsui) {
+/*	Moved to AwsUI.js file with UseInput = true
+ * 
+ * var loadNewOptionsDefault = function() {
 		console.log("loadNewOptions called");
-	        $("#newPathToPython").val(awsui.options.pathToPython);
-	        $("#newCopyFrom").val(awsui.options.copyFrom);
-	        $("#newCopyTo").val(awsui.options.copyTo);
-	        $("#newFilesToCopy").val(awsui.options.filesToCopy);
+		console.log("options: " + JSON.stringify(awsui.options));
+		console.log("pathToPython: " + JSON.Stringify(awsui.options.pathToPython));
+	        $("#newPathToPython").val(options.pathToPython);
+	        $("#newCopyFrom").val(options.copyFrom);
+	        $("#newCopyTo").val(options.copyTo);
+	        $("#newFilesToCopy").val(options.filesToCopy);
 
 	        //$("#currentDocument").html(dataIndex + 1);
-	        $("#newPathToConfig").val(awsui.options.pathToConfig);
-	        $("#newReallyWrite").val(awsui.options.reallyWrite ? "true" : "false");
-	        $("#newBucketName").val(awsui.options.bucketName);
-	        $("#newFolderToWalk").val(awsui.options.folderToWalk);
-	        $("#newS3RootFolder").val(awsui.options.s3RootFolder);
-	        $("#newCreateFolderToWalkOnS3").val(awsui.options.createFolderToWalkOnS3 ? "true" : "false");
-	        $("#newCreateIndex").val(awsui.options.createIndex ? "true" : "false");
-	        $("#newFilesToIgnore").val(awsui.options.filesToIgnore);
+	        $("#newPathToConfig").val(options.pathToConfig);
+	        $("#newReallyWrite").val(options.reallyWrite ? "true" : "false");
+	        $("#newBucketName").val(options.bucketName);
+	        $("#newFolderToWalk").val(options.folderToWalk);
+	        $("#newS3RootFolder").val(options.s3RootFolder);
+	        $("#newCreateFolderToWalkOnS3").val(options.createFolderToWalkOnS3 ? "true" : "false");
+	        $("#newCreateIndex").val(options.createIndex ? "true" : "false");
+	        $("#newFilesToIgnore").val(options.filesToIgnore);
 	};
 	
-	var saveNewOptions = function(awsui) {
+	// Moved to AWSUI.js
+	var saveInputOptions = function() {
 		console.log("saveNewOptions called");
 		var newOptions = awsui.options;
 		// ADD CODE TO SAVE VALUES TO OBJECT MdTransConfig Object
@@ -87,7 +93,7 @@ define('clientMongo', function(awsui) {'use strict';
 		});
 		
 	};
-	
+*/
 	var getDocument = function(event, request) {		
 		request.callback(mongoData[request.index]);
 	};
@@ -95,24 +101,6 @@ define('clientMongo', function(awsui) {'use strict';
 	var insertNewDocument = function(event, callback) {
 		console.log("insert New Document called");
 		$.getJSON('/insertJson', function(newData) {
-			mongoData = mongoData.concat(newData.mongoDocument);			
-			//callback(newData.mongoDocument, mongoData);			
-		});
-	};
-	
-	// NEW CMH - saves Markdown Transform Config file to MongoDB
-	var insertMdTransConfigDocument = function(event, callback) {
-		console.log("insert insertMdTransConfigDocument called");
-		$.getJSON('/insertMdTransConfigJson', function(newData) {
-			mongoData = mongoData.concat(newData.mongoDocument);			
-			//callback(newData.mongoDocument, mongoData);			
-		});
-	};
-	
-	// NEW CMH - saves S3 Config file to MongoDB
-	var insertS3ConfigDocument = function(event, callback) {
-		console.log("insert insertS3ConfigDocument called");
-		$.getJSON('/insertS3ConfigJson', function(newData) {
 			mongoData = mongoData.concat(newData.mongoDocument);			
 			//callback(newData.mongoDocument, mongoData);			
 		});

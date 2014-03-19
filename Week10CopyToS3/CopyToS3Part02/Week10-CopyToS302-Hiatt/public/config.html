@@ -45,12 +45,11 @@
 
       <div class="starter-template">
         <h1 id="top">AwsBasicS3 - Hiatt</h1>        
-        <p>Use this page to configure your setup.</p>
-        <button id="saveConfig">Save Config Changes</button>
+        <p>Use this page to configure your setup, then save it to a Mongo database Collection.</p>
+        <button id="saveInputConfig">Save Input to Mongo</button>
         <div>
         <img src="Bar02.png">
         </div>
-        <button id="insertMdTransConfig">Upload Config</button>
         <button id="tranformBackButton">&lt;&lt;</button>
         <button id="transformForwardButton">&gt;&gt;</button>
         <p id="saveResultA"></p>
@@ -58,25 +57,24 @@
             <label for="pathToPython">Path to Python</label>
             <p id="pathToPython">-</p>
             <label for="newPathToPython">New Path to Python</label>
-            <p><input type="text" id="newPathToPython"value="insert new Path To Python"/></p>
+            <p><input type="text" id="newPathToPython"/></p>
             <label for="copyFrom">Copy from</label>
             <p id="copyFrom">-</p>
             <label for="newCopyFrom">New Copy from</label>
-            <p><input type="text" id="newCopyFrom" value="insert new Copy From"/></p>
+            <p><input type="text" id="newCopyFrom" /></p>
             <label for="copyTo">Copy to</label>
             <p id="copyTo">-</p>
             <label for="newCopyTo">New Copy to</label>
-            <p><input type="text" id="newCopyTo" value="insert new Copy To"/></p>
+            <p><input type="text" id="newCopyTo" /></p>
             <label for="filesToCopy">Files to copy</label>
             <p id="filesToCopy">-</p>
             <label for="newFilesToCopy">New Files to copy</label>
-            <p><input type="text" id="newFilesToCopy" value="insert new Path To Python"/></p>
+            <p><input type="text" id="newFilesToCopy" /></p>
         </div>        
         <div>
         <img src="Bar02.png">
         </div>
         <button id="listBuckets">Get Buckets</button>
-        <button id="insertConfigS3">Upload S3 Config</button>
         <button id="getOptions">Get Options </button>
         <button id="backButton"> &lt;&lt; </button>
         <button id="forwardButton"> &gt;&gt; </button>
@@ -92,7 +90,7 @@
             <label for="pathToConfig">pathToConfig</label>
             <p id="pathToConfig">-</p>
             <label for="newPathToConfig">New pathToConfig</label>
-            <p><input type="text" id="newPathToConfig" value="insert new Path To Config"/></p>
+            <p><input type="text" id="newPathToConfig" /></p>
             <label for="reallyWrite">reallyWrite</label>
             <p id="reallyWrite">-</p>
             <label for="newReallyWrite">New reallyWrite</label>

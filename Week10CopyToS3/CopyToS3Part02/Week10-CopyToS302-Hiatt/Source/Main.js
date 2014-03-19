@@ -27,6 +27,6 @@ require.config({
 
 require(["jquery","awsui", "clientMongo"], function(j, awsui, clientMongo) {
 	console.log("Main called.");
-	awsui();
-	clientMongo(awsui);
+	awsui(true);
+	clientMongo();
 });

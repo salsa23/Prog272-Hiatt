@@ -149,8 +149,12 @@ app.get('/insertConfigJson', function(request, response) { 'use strict';
 	console.log("insertConfigJson called Server side");
 	//message("Server side request for newDocument route");
 	//var fileContent = fs.readFileSync('Presidents.json', 'utf8');
-	var fileContent = request.config;
-	queryMongo.insertIntoCollection(response, JSON.parse(fileContent));
+	console.log("request.query: " + request.query);
+	console.log("request.query.insertObject: "+request.query.insertObject);
+	var fileContent = [];
+	fileContent.push(request.query.insertObject);
+	console.log(fileContent);
+	queryMongo.insertIntoCollection(response, fileContent);
 });
 
 // NEW
@@ -165,6 +169,7 @@ app.get('/insertMdTransConfigJson', function(request, response) { 'use strict';
 // NEW
 // insert S3 Config JSON into Mongo
 app.get('/insertS3ConfigJson', function(request, response) { 'use strict';
+	console.log("insertS3ConfigJson called");
 	//message("Server side request for insertS3ConfigJson route");
 	var fileContent = fs.readFileSync('Options.json', 'utf8');
 	queryMongo.insertIntoCollection(response, JSON.parse(fileContent));
