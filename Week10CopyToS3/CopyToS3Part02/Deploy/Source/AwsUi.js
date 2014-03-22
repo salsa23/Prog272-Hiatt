@@ -9,8 +9,9 @@ define(['jquery'], function() {'use strict';
 
     function AwsUi(useInputInit) {
 		if (typeof useInputInit === 'undefined') {
-			$("#listBuckets").click(listBuckets);
+			//$("#listBuckets").click(listBuckets);
 			$("#copyToS3").click(copyToS3);
+			$("#getTransOptions").click(getBuildConfig);
 			$("#getOptions").click(getOptions);
 			$("#transformForwardButton").click(forwardTransform);
 			$("#tranformBackButton").click(backwardTransform);
@@ -18,14 +19,15 @@ define(['jquery'], function() {'use strict';
 			$("#backButton").click(backward);
 			$("#insertConfigFiles").click(insertConfigFiles);
 			$("#uploadInputConfig").click(uploadInputOptions);
-			$("#saveInputConfig").click(updateDBConfig);
+			$("#saveInputConfig").click(saveConfig);
 			$("#buildAll").click(buildAll);
 			getBuildConfig();
 			getOptions();
 		} else {
 			useInput = useInputInit;
-			$("#listBuckets").click(listBuckets);
+			//$("#listBuckets").click(listBuckets);
 			$("#copyToS3").click(copyToS3);
+			$("#getTransOptions").click(getBuildConfig);
 			$("#getOptions").click(getOptions);
 			$("#transformForwardButton").click(forwardTransform);
 			$("#tranformBackButton").click(backwardTransform);
@@ -33,7 +35,7 @@ define(['jquery'], function() {'use strict';
 			$("#backButton").click(backward);
 			$("#insertConfigFiles").click(insertConfigFiles);
 			$("#uploadInputConfig").click(uploadInputOptions);
-			$("#saveInputConfig").click(updateDBConfig);
+			$("#saveInputConfig").click(saveConfig);
 			$("#buildAll").click(buildAll);
 			getBuildConfig();
 			getOptions();
@@ -108,14 +110,14 @@ define(['jquery'], function() {'use strict';
 		console.log("uploadInputOptions called");
 	
 		var mdFile = {
-			"type": "Markdown Config",
+			"fileType": "Markdown Config",
 			"itemName": "Markdown Transform User Input",
 			"fileName": "",
 			"folderPath": "",
 			"keywords" : ["config", "markdown"]
 		}
 		var awsFile = {
-			"type":"AWS Config",
+			"fileType":"AWS Config",
 			"itemName": "AWS Options User Input",
 			"fileName": "",
 			"folderPath": "",
@@ -137,9 +139,6 @@ define(['jquery'], function() {'use strict';
         // put objects into an array to pass
 		var config = [ mdFile, awsFile ];
 		
-		// ADD CODE TO WRITE TO FILE
-		// TO BE ADDED IN THE FUTURE
-		
 		// Code to Save config to Mongo
 		var request = {};
 		request.insertObject = config;
@@ -149,32 +148,36 @@ define(['jquery'], function() {'use strict';
 		
 	};
 	
-	var updateDBConfig = function() {
+	var saveConfig = function() {
 		// save any input changes
 		saveMDInput();
 		saveAWSInput();
 		
 		// create query to find Markdown DB object
-		var updateDetails = { "type":"Markdown Config", "content": transformOptions};
+		var updateDetails = { "fileType":"Markdown Config", "content": transformOptions };
 		// query DB and update Markdown
-		saveConfig(updateDetails);
+		updateDBConfig(updateDetails);
 		
 		// create query to find AWS DB object
-		var updateDetails = { "type":"AWS Config", "content": options};
+		var updateDetails = { "fileType":"AWS Config", "content": options };
 		// query DB and update Markdown
-		saveConfig(updateDetails);
+		updateDBConfig(updateDetails);
 	};
 	
-	// update config object - WORK IN PROGRESS
-	var saveConfig = function(updateDetails) {
+	// NEW update config object - WORK IN PROGRESS
+	var updateDBConfig = function(updateDetails) {
 	    var request = { 
-	        query: { "type": updateDetails.type },
+	        search: { "fileType": updateDetails.fileType },
 	        update: {
 	            $set: { "content" : updateDetails.content }
 	        }    
 	    };
-	    $.getJSON('/update', request, function(data) {
-            alert("Your changes were UPDATED");
+	    $.getJSON('/updateCollection', request, function(data) {
+			if(data.result === "Success"){
+				$("#ConfigResult").html("Your changes were saved to the database.");
+			}else{
+				$("#ConfigResult").html("Your changes were NOT saved to the database.");
+			}
         });
 	};
 	

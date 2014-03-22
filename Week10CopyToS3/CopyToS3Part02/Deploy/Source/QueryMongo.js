@@ -160,30 +160,17 @@ var QueryMongo = (function() {'use strict';
 		});
 	};
 	
-	// will update the object passed
+	// will update the object passed via objectToUpdate.query
 	QueryMongo.prototype.updateCollection = function(response, objectToUpdate) {
 		console.log("QueryMongo.updateCollection called");
 		getDatabase(function getCol(database) {
 		    console.log("In the update callback");
 			var collection = database.collection(collectionName);
-			collection.update(objectToUpdate.query, objectToUpdate.update, function(err, docs) {
-				if (err) {
-					throw err;
-				}
-				if (callClose) { closeDatabase(); }
-				console.log("update succeeded");
-				response.send({ result: "Success", mongoDocument: docs });
-			});
-		});
-	};
-	
-	// will find based on keyword passed
-	QueryMongo.prototype.findInCollection = function(response, objectToFind) {
-		console.log("QueryMongo.updateCollection called");
-		getDatabase(function getCol(database) {
-		    console.log("In the update callback");
-			var collection = database.collection(collectionName);
-			collection.find(objectToFind.query, function(err, docs) {
+			console.log("objectToUpdate.search is:");
+			console.log(objectToUpdate.search);
+			console.log("objectToUpdate.update is:");
+			console.log(objectToUpdate.update);
+			collection.update(objectToUpdate.search, objectToUpdate.update, function(err, docs) {
 				if (err) {
 					throw err;
 				}

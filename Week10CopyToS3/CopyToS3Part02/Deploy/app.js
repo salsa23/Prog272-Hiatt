@@ -164,24 +164,26 @@ app.get('/insertUserConfig', function(request, response) { 'use strict';
 	queryMongo.insertIntoCollection(response, request.query.insertObject);
 });
 
-//NEW Update User Config
-app.get('/updateUserConfig', function(request, response) { 'use strict';
-	console.log("insertUserConfig called Server side");
-	queryMongo.updateObject(response, request.query.insertObject);
+//NEW Update Collection
+app.get('/updateCollection', function(request, response) { 'use strict';
+	console.log("/updateCollection called Server side");
+	console.log("UPDATE REQUEST (request.query): ");
+	console.log(request.query);
+	queryMongo.updateCollection(response, request.query);
 });
 
 // NEW insert BOTH Default Config JSON Files into Mongo
 app.get('/insertDefaultConfigJson', function(request, response) { 'use strict';
 	console.log("insertDefaultConfigJson called");
 	var mdFile = {
-		"type":"Markdown Config",
+		"fileType":"Markdown Config",
 		"itemName": "Markdown Transform Default",
 		"fileName": "MarkdownTransformConfig.json",
 		"folderPath": "",
 		"keywords" : ["config", "markdown"]
 		}
 	var awsFile = {
-		"type":"AWS Config",
+		"fileType":"AWS Config",
 		"itemName": "AWS Options Default",
 		"fileName": "Options.json",
 		"folderPath": "",
