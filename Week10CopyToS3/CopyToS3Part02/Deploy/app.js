@@ -72,13 +72,43 @@ app.get('/getOptions', function(request, response) {'use strict';
 	response.send(options);
 });
 
-// NEW ADDED reading Markdown config from MongoDB
-// returns markdown config
-app.get('/getConfigFromDB', function(request, response) {'use strict';
-	//var mdOptions = fs.readFileSync("Options.json", 'utf8');
-	//mdOptions = JSON.parse(options);
-	var mdOptions = queryMongo.FindInCollection(response, request.query.insertObject);
-	response.send(mdOptions);
+// returns options by reading MarkdownTransformConfig JSON file
+app.get('/getBuildConfig', function(request, response) { 'use strict';
+	console.log('getBuildConfig called');
+	var options = fs.readFileSync("MarkdownTransformConfig.json", 'utf8');
+	options = JSON.parse(options);
+	response.send(options);
+});
+
+// NEW ADDED reading content object from MongoDB
+// returns markdown config options from database
+app.get('/getDBBuildConfig', function(request, response) {'use strict';
+	console.log('getDBBuildConfig called');
+	console.log(typeof request);
+	console.log(request.query);
+	request.query = { 'fileType': 'Markdown Config'};
+	console.log("Request.query:");
+	console.log(request.query);
+	queryMongo.findInCollection(response, request.query, function(theArray){
+		console.log('Mardown Options from DB: ');
+		console.log(JSON.stringify(theArray));
+		response.send(theArray);
+	});
+});
+
+// NEW ADDED reading content object from MongoDB
+// returns aws config options from database
+app.get('/getDBOptions', function(request, response) {'use strict';
+	console.log('getDBBuildConfig called');
+	console.log(typeof request);
+	console.log(request.query);
+	request.query.findObject = { 'fileType': 'AWS Config'};
+	console.log("Request.query:");
+	console.log(request.query);
+	queryMongo.findInCollection(response, request.query, function(theArray){
+		console.log('AWS Options from DB: ');
+		console.log(JSON.stringify(theArray));
+		response.send(theArray);
 });
 
 app.get('/listBuckets', function(request, response) {'use strict';
@@ -134,13 +164,7 @@ app.get('/buildAll', function(request, response) { 'use strict';
 	buildAll(response, options, request.query.index);
 });
 
-// returns options by reading MarkdownTransformConfig JSON file
-app.get('/getBuildConfig', function(request, response) { 'use strict';
-	console.log('getBuildConfig called');
-	var options = fs.readFileSync("MarkdownTransformConfig.json", 'utf8');
-	options = JSON.parse(options);
-	response.send(options);
-});
+
 
 // NEW -- Read MongoDB collection
 app.get('/readAll', function(request, response) {'use strict';
@@ -181,14 +205,14 @@ app.get('/insertDefaultConfigJson', function(request, response) { 'use strict';
 		"fileName": "MarkdownTransformConfig.json",
 		"folderPath": "",
 		"keywords" : ["config", "markdown"]
-		}
+		};
 	var awsFile = {
 		"fileType":"AWS Config",
 		"itemName": "AWS Options Default",
 		"fileName": "Options.json",
 		"folderPath": "",
 		"keywords" : ["config", "aws"]
-		}
+		};
 	
 	mdFile.content = JSON.parse(fs.readFileSync('MarkdownTransformConfig.json', 'utf8'));
 	awsFile.content = JSON.parse(fs.readFileSync('Options.json', 'utf8'));
@@ -225,3 +249,4 @@ app.get('/readFileOut', function(request, response) {
 http.createServer(app).listen(app.get('port'), function() {'use strict';
 	console.log('Express server listening on port ' + app.get('port'));
 });
+

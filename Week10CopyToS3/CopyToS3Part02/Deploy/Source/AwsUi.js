@@ -11,8 +11,8 @@ define(['jquery'], function() {'use strict';
 		if (typeof useInputInit === 'undefined') {
 			//$("#listBuckets").click(listBuckets);
 			$("#copyToS3").click(copyToS3);
-			$("#getTransOptions").click(getBuildConfig);
-			$("#getOptions").click(getOptions);
+			$("#getTransOptions").click(getDBBuildConfig);
+			$("#getOptions").click(getDBOptions);
 			$("#transformForwardButton").click(forwardTransform);
 			$("#tranformBackButton").click(backwardTransform);
 			$("#forwardButton").click(forward);
@@ -27,8 +27,8 @@ define(['jquery'], function() {'use strict';
 			useInput = useInputInit;
 			//$("#listBuckets").click(listBuckets);
 			$("#copyToS3").click(copyToS3);
-			$("#getTransOptions").click(getBuildConfig);
-			$("#getOptions").click(getOptions);
+			$("#getTransOptions").click(getDBBuildConfig);
+			$("#getOptions").click(getDBOptions);
 			$("#transformForwardButton").click(forwardTransform);
 			$("#tranformBackButton").click(backwardTransform);
 			$("#forwardButton").click(forward);
@@ -90,7 +90,8 @@ define(['jquery'], function() {'use strict';
         transformOptions[dataIndexTransform].pathToPython = $("#newPathToPython").val();
         transformOptions[dataIndexTransform].copyFrom = $("#newCopyFrom").val();
         transformOptions[dataIndexTransform].copyTo = $("#newCopyTo").val();
-        transformOptions[dataIndexTransform].filesToCopy = $("#newFilesToCopy").val();
+        var stringInput = $("#newFilesToCopy").val();
+        transformOptions[dataIndexTransform].filesToCopy = stringInput.split(",");
 	};
 
 	// add user values for AWS
@@ -102,7 +103,8 @@ define(['jquery'], function() {'use strict';
         options[dataIndex].s3RootFolder = $("#newS3RootFolder").val();
         options[dataIndex].createFolderToWalkOnS3 = $("#newCreateFolderToWalkOnS3").val();
         options[dataIndex].createIndex = $("#newCreateIndex").val();
-        options[dataIndex].filesToIgnore = $("#newFilesToIgnore").val();
+        var stringInput = $("#newFilesToIgnore").val();
+        options[dataIndex].filesToIgnore = stringInput.split(",");
 	};
     
     // NEW ADDED CMH to save input config changes to Mongo
@@ -233,7 +235,7 @@ define(['jquery'], function() {'use strict';
 		}
     };
 
-	// sets Markdown Transform options
+	// sets Markdown Transform options from file
     var getBuildConfig = function() {
         $.getJSON("/getBuildConfig", function(optionsInit) {
             transformOptions = optionsInit;
@@ -243,12 +245,47 @@ define(['jquery'], function() {'use strict';
         });
     };
     
-    // sets AWS options
+    // sets Markdown Transform options from DB
+    var getDBBuildConfig = function() {
+        $.getJSON("/getDBBuildConfig", function(optionsInit) {
+			if(optionsInit.length<1){ 
+				// if database is empty get default config file setup
+				getBuildConfig();
+			}else{
+				console.log("optionsInit[0].content[index]:");
+				console.log(optionsInit[0].content[dataIndexTransform]);
+				transformOptions = optionsInit[0].content;
+				displayTransformConfig(transformOptions[dataIndexTransform]);
+			}
+        }).fail(function(a) {
+            alert(JSON.stringify(a));
+        });
+    };
+    
+    // sets AWS options from file
     var getOptions = function() {
         $.getJSON("/getOptions", function(optionsInit) {
             options = optionsInit;
             $('#documentCount').html(options.length);
             displayOptions(options[0]);
+        }).fail(function(a) {
+            alert(JSON.stringify(a));
+        });
+    };
+    
+    // sets AWS options from DB
+    var getDBOptions = function() {
+        $.getJSON("/getDBOptions", function(optionsInit) {
+            if(optionsInit.length<1){ 
+				// if database is empty get default config file setup
+				getConfig();
+			}else{
+				console.log("optionsInit[0].content[index]:");
+				console.log(optionsInit[0].content[dataIndexTransform]);
+				transformOptions = optionsInit[0].content;
+				displayTransformConfig(transformOptions[dataIndexTransform]);
+				$("#displayResults").html("<p>"+JSON.stringify(transformOptions[0])+"</p>");
+			}
         }).fail(function(a) {
             alert(JSON.stringify(a));
         });

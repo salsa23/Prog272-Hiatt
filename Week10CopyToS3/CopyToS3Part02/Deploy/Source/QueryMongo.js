@@ -160,7 +160,7 @@ var QueryMongo = (function() {'use strict';
 		});
 	};
 	
-	// will update the object passed via objectToUpdate.query
+	// will update the object passed via objectToUpdate.search
 	QueryMongo.prototype.updateCollection = function(response, objectToUpdate) {
 		console.log("QueryMongo.updateCollection called");
 		getDatabase(function getCol(database) {
@@ -177,6 +177,26 @@ var QueryMongo = (function() {'use strict';
 				if (callClose) { closeDatabase(); }
 				console.log("update succeeded");
 				response.send({ result: "Success", mongoDocument: docs });
+			});
+		});
+	};
+	
+	// will return the object from the collection via objectToFind.search
+	QueryMongo.prototype.findInCollection = function(response, search) {
+		console.log("QueryMongo.findInCollection called");
+		getDatabase(function getCol(database) {
+		    console.log("In the find callback");
+			var collection = database.collection(collectionName);
+			console.log("search is Type:"+typeof search);
+			console.log(search);
+			collection.find(search).toArray(function(err, theArray) {
+				if (err) {
+					throw err;
+				}
+				if (callClose) { closeDatabase(); }
+				console.log("Find Successful");
+				console.log(theArray);
+				response.send(theArray);
 			});
 		});
 	};
