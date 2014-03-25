@@ -13,7 +13,8 @@ var fs = require("fs");
 var exec = require('child_process').exec;
 // added CMH
 var qm = require('./Source/QueryMongo');
-var queryMongo = qm.QueryMongo; 
+var queryMongo = qm.QueryMongo;
+var walk = require('./Source/WalkSonnets').walk;
 
 var app = express();
 
@@ -99,16 +100,17 @@ app.get('/getDBBuildConfig', function(request, response) {'use strict';
 // NEW ADDED reading content object from MongoDB
 // returns aws config options from database
 app.get('/getDBOptions', function(request, response) {'use strict';
-	console.log('getDBBuildConfig called');
+	console.log('getDBOptions called');
 	console.log(typeof request);
 	console.log(request.query);
-	request.query.findObject = { 'fileType': 'AWS Config'};
+	request.query = { 'fileType': 'AWS Config'};
 	console.log("Request.query:");
 	console.log(request.query);
 	queryMongo.findInCollection(response, request.query, function(theArray){
 		console.log('AWS Options from DB: ');
 		console.log(JSON.stringify(theArray));
 		response.send(theArray);
+	});
 });
 
 app.get('/listBuckets', function(request, response) {'use strict';
@@ -178,7 +180,7 @@ app.get('/insertJson', function(request, response) { 'use strict';
 	queryMongo.insertIntoCollection(response, JSON.parse(fileContent));
 });
 
-//NEW INSERT User Config 
+// NEW INSERT User Config 
 app.get('/insertUserConfig', function(request, response) { 'use strict';
 	console.log("insertUserConfig called Server side");
 	console.log("SAMPLE DATA SERVER SIDE");
@@ -223,28 +225,50 @@ app.get('/insertDefaultConfigJson', function(request, response) { 'use strict';
 	queryMongo.insertIntoCollection(response, arrayToInsert);
 });
 
-// NEW- NOT USED
-// insert MarkdownFiles into Mongo
-app.get('/insertMarkdown', function(request, response) {
-	//message('insertMarkdown');
-	var jsonObject = queryMongo.readMarkDown("Presidents", markdownName);
-	queryMongo.insertIntoCollection(response, jsonObject);
-});
-
-// NEW - NOT USED
-// read Markdown file from MongoDB
-app.get('/readMarkdown', function(request, response) {
-	console.log("readMarkdown called");
-	var jsonObject = queryMongo.readMarkDown('Presidents', markdownName);
-	response.send(jsonObject);
-});
-
 // NEW - NOT USED
 // read file out of MongoDB
 app.get('/readFileOut', function(request, response) {
 	console.log('readFileOut called');
 	queryMongo.readFileOut(response);
 });
+
+
+// added to walk directories
+function getHomeDir() {
+	var homeDir = null;
+	if (os.platform() === 'linux') {
+		homeDir = process.env.HOME;
+	} else if (os.platform() === 'win32') {
+		homeDir = process.env.USERPROFILE;
+	}
+	return homeDir;
+}
+
+// added to walk directories
+app.get('/walk', function(request, response) {
+	// If you run Node in Eclipse, to access JSOBJECTS, you made need 
+	// to choose Run | Run Configurations | Environment | Select
+	//var dirToWalk = process.env.JSOBJECTS;
+	var dirToWalk = getHomeDir + request.query.dir;
+	console.log("About to walk: " + dirToWalk);
+	walk(dirToWalk, ['*.md'], ['node_modules', 'JavaScript'], function(err, data) {
+		if (err) {
+			console.log(err);
+			response.send({
+				result : "Error",
+				error : err
+			});
+		} else {
+			console.log(data);
+			response.send({
+				result : "Success",
+				files : data
+			});
+		}
+	});
+
+});
+
 
 http.createServer(app).listen(app.get('port'), function() {'use strict';
 	console.log('Express server listening on port ' + app.get('port'));

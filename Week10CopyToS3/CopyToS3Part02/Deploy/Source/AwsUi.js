@@ -9,7 +9,7 @@ define(['jquery'], function() {'use strict';
 
     function AwsUi(useInputInit) {
 		if (typeof useInputInit === 'undefined') {
-			//$("#listBuckets").click(listBuckets);
+			$("#listBuckets").click(listBuckets);
 			$("#copyToS3").click(copyToS3);
 			$("#getTransOptions").click(getDBBuildConfig);
 			$("#getOptions").click(getDBOptions);
@@ -25,7 +25,7 @@ define(['jquery'], function() {'use strict';
 			getOptions();
 		} else {
 			useInput = useInputInit;
-			//$("#listBuckets").click(listBuckets);
+			$("#listBuckets").click(listBuckets);
 			$("#copyToS3").click(copyToS3);
 			$("#getTransOptions").click(getDBBuildConfig);
 			$("#getOptions").click(getDBOptions);
@@ -37,8 +37,8 @@ define(['jquery'], function() {'use strict';
 			$("#uploadInputConfig").click(uploadInputOptions);
 			$("#saveInputConfig").click(saveConfig);
 			$("#buildAll").click(buildAll);
-			getBuildConfig();
-			getOptions();
+			getDBBuildConfig();
+			getDBOptions();
 		}
 
     }
@@ -81,7 +81,8 @@ define(['jquery'], function() {'use strict';
 	var insertConfigFiles = function(event, callback) {
 		console.log("insert insertConfigFiles called");
 		$.getJSON('/insertDefaultConfigJson', function(newData) {
-			console.log("Default config files upload was successful");	
+			console.log("Default config files upload was successful");
+			alert("The Default Config was INSERTED into the database.");
 		});
 	};
 	
@@ -90,8 +91,9 @@ define(['jquery'], function() {'use strict';
         transformOptions[dataIndexTransform].pathToPython = $("#newPathToPython").val();
         transformOptions[dataIndexTransform].copyFrom = $("#newCopyFrom").val();
         transformOptions[dataIndexTransform].copyTo = $("#newCopyTo").val();
-        var stringInput = $("#newFilesToCopy").val();
-        transformOptions[dataIndexTransform].filesToCopy = stringInput.split(",");
+        //var stringInput = $("#newFilesToCopy").val();
+        //transformOptions[dataIndexTransform].filesToCopy = stringInput.split(",");
+        transformOptions[dataIndexTransform].filesToCopy = $("#newFilesToCopy").val();
 	};
 
 	// add user values for AWS
@@ -103,8 +105,9 @@ define(['jquery'], function() {'use strict';
         options[dataIndex].s3RootFolder = $("#newS3RootFolder").val();
         options[dataIndex].createFolderToWalkOnS3 = $("#newCreateFolderToWalkOnS3").val();
         options[dataIndex].createIndex = $("#newCreateIndex").val();
-        var stringInput = $("#newFilesToIgnore").val();
-        options[dataIndex].filesToIgnore = stringInput.split(",");
+        //var stringInput = $("#newFilesToIgnore").val();
+        //options[dataIndex].filesToIgnore = stringInput.split(",");
+        options[dataIndex].filesToIgnore = $("#newFilesToIgnore").val();
 	};
     
     // NEW ADDED CMH to save input config changes to Mongo
@@ -164,9 +167,13 @@ define(['jquery'], function() {'use strict';
 		var updateDetails = { "fileType":"AWS Config", "content": options };
 		// query DB and update Markdown
 		updateDBConfig(updateDetails);
+		
+		// update display from database
+		getDBBuildConfig();
+		getDBOptions();
 	};
 	
-	// NEW update config object - WORK IN PROGRESS
+	// NEW update config object
 	var updateDBConfig = function(updateDetails) {
 	    var request = { 
 	        search: { "fileType": updateDetails.fileType },
@@ -212,8 +219,7 @@ define(['jquery'], function() {'use strict';
 			$("#createFolderToWalkOnS3").html(options.createFolderToWalkOnS3 ? "true" : "false");
 			$("#createIndex").html(options.createIndex ? "true" : "false");
 			$("#filesToIgnore").html(options.filesToIgnore);
-      
-	        //$("#currentDocument").html(dataIndex + 1);
+
 	        $("#newPathToConfig").val(options.pathToConfig);
 	        $("#newReallyWrite").val(options.reallyWrite ? "true" : "false");
 	        $("#newBucketName").val(options.bucketName);
@@ -249,8 +255,7 @@ define(['jquery'], function() {'use strict';
     var getDBBuildConfig = function() {
         $.getJSON("/getDBBuildConfig", function(optionsInit) {
 			if(optionsInit.length<1){ 
-				// if database is empty get default config file setup
-				getBuildConfig();
+				alert("The Markdown Transform Options are not configured, please enter your settings and save to continue.");
 			}else{
 				console.log("optionsInit[0].content[index]:");
 				console.log(optionsInit[0].content[dataIndexTransform]);
@@ -277,14 +282,13 @@ define(['jquery'], function() {'use strict';
     var getDBOptions = function() {
         $.getJSON("/getDBOptions", function(optionsInit) {
             if(optionsInit.length<1){ 
-				// if database is empty get default config file setup
-				getConfig();
+				alert("The AWS Options are not configured, please enter your settings and save to continue.");
 			}else{
 				console.log("optionsInit[0].content[index]:");
 				console.log(optionsInit[0].content[dataIndexTransform]);
-				transformOptions = optionsInit[0].content;
-				displayTransformConfig(transformOptions[dataIndexTransform]);
-				$("#displayResults").html("<p>"+JSON.stringify(transformOptions[0])+"</p>");
+				options = optionsInit[0].content;
+				$('#documentCount').html(options.length);
+				displayOptions(options[dataIndex]);
 			}
         }).fail(function(a) {
             alert(JSON.stringify(a));

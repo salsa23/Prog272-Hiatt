@@ -77,7 +77,7 @@ function walkDirs(serverOptions, response) { 'use strict';
 	var options = {
 		followLinks : false,
 	};
-	var myIndexFile = "<!DOCTYPE html>\n<head>\n\t<title>AwsBasicS3</title>\n</head>\n<html>\n<body>\n\t<ul>\n";
+	var myIndexFile = "<!DOCTYPE html>\n<head>\n\t<title>AwsBasicS3-Hiatt</title>\n</head>\n<html>\n<body>\n\t<ul>\n";
 
 	// We care about S3 slashes, not ours
 	var ensureFinalSlash = function(fileName) {
