@@ -20,6 +20,7 @@ define(['jquery'], function() {'use strict';
 			$("#insertConfigFiles").click(insertConfigFiles);
 			$("#uploadInputConfig").click(uploadInputOptions);
 			$("#saveInputConfig").click(saveConfig);
+			$("#exportConfigToFile").click(exportConfigToFile);
 			$("#buildAll").click(buildAll);
 			getBuildConfig();
 			getOptions();
@@ -36,6 +37,7 @@ define(['jquery'], function() {'use strict';
 			$("#insertConfigFiles").click(insertConfigFiles);
 			$("#uploadInputConfig").click(uploadInputOptions);
 			$("#saveInputConfig").click(saveConfig);
+			$("#exportConfigToFile").click(exportConfigToFile);
 			$("#buildAll").click(buildAll);
 			getDBBuildConfig();
 			getDBOptions();
@@ -153,6 +155,19 @@ define(['jquery'], function() {'use strict';
 		
 	};
 	
+	var exportConfigToFile = function() {
+		// split out options that are a string of file names so that they are in an array  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		
+		var request = {};
+		request = {
+			transformOptions: transformOptions,
+			options: options,
+			};
+		$.getJSON('/exportConfigToFile', request, function(newData){
+			alert("Your Config Files were created in the project root default folder.");
+		});
+	};
+	
 	var saveConfig = function() {
 		// save any input changes
 		saveMDInput();
@@ -162,11 +177,14 @@ define(['jquery'], function() {'use strict';
 		var updateDetails = { "fileType":"Markdown Config", "content": transformOptions };
 		// query DB and update Markdown
 		updateDBConfig(updateDetails);
-		
+				
 		// create query to find AWS DB object
 		var updateDetails = { "fileType":"AWS Config", "content": options };
 		// query DB and update Markdown
 		updateDBConfig(updateDetails);
+
+		// save config to file
+		//exportConfigToFile();
 		
 		// update display from database
 		getDBBuildConfig();

@@ -9,12 +9,14 @@ var http = require('http');
 var path = require('path');
 var walkDirs = require("./Source/WalkDirs").walkDirs;
 var s3Code = require("./Source/S3Code");
-var fs = require("fs");
+var fs = require('fs');
 var exec = require('child_process').exec;
 // added CMH
 var qm = require('./Source/QueryMongo');
 var queryMongo = qm.QueryMongo;
 var walk = require('./Source/WalkSonnets').walk;
+//var mkdirp = require('mkdirp');
+//var fileProcess = require('./Source/fileProcess');
 
 var app = express();
 
@@ -166,6 +168,34 @@ app.get('/buildAll', function(request, response) { 'use strict';
 	buildAll(response, options, request.query.index);
 });
 
+app.get('/exportConfigToFile', function(request, response){
+	console.log('exportConfigToFile SERVER called');
+	console.log(request.query);
+	console.log(JSON.stringify(request.query.transformOptions));
+	var fileString = JSON.stringify(request.query.transformOptions);
+	console.log(typeof fileString);
+	//var folderPath = "/home/adminuser/Dev/Deploy/MarkdownTransformConfigDB.json";
+	var folderPath = "MarkdownTransformConfigDB.json";
+	// save MarkdownTransform config to file
+	fs.writeFile(folderPath, fileString, 'utf8', function(err) {
+		if(err){
+			throw err;
+		}else{
+			console.log("Successfully wrote config file to: /home/adminuser/Dev/Deploy/MarkdownTransformConfigDB.json");
+		}
+	});
+	console.log(JSON.stringify(request.query.options));
+	fileString = JSON.stringify(request.query.options);
+	folderPath = "OptionsDB.json";
+	// save AWS config to file
+	fs.writeFile(folderPath, fileString, 'utf8', function(err) {
+		if(err){
+			throw err;
+		}else{
+			console.log("Successfully wrote config file to: /home/adminuser/Dev/Deploy/OptionsDB.json");
+		}
+	});
+});
 
 
 // NEW -- Read MongoDB collection
@@ -248,8 +278,21 @@ function getHomeDir() {
 app.get('/walk', function(request, response) {
 	// If you run Node in Eclipse, to access JSOBJECTS, you made need 
 	// to choose Run | Run Configurations | Environment | Select
+	
 	//var dirToWalk = process.env.JSOBJECTS;
-	var dirToWalk = getHomeDir + request.query.dir;
+	//var dirToWalk = getHomeDir + request.query.dir;
+	
+	/*	request from DatabaseUI.js file sent: 
+	 * request = {
+				query: { 
+					uploadDir: dbOptions.uploadDir,
+					fileType: dbOptions.fileType,
+					keywords: dbOptions.keywords,
+					saveToDir: dbOptions.saveToDir
+					}
+				};
+	*/
+	var dirToWalk = "/home/adminuser/Dev/Dropbox/sonnetsMD";
 	console.log("About to walk: " + dirToWalk);
 	walk(dirToWalk, ['*.md'], ['node_modules', 'JavaScript'], function(err, data) {
 		if (err) {

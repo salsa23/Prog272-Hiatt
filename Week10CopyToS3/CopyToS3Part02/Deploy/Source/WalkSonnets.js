@@ -28,6 +28,7 @@ function isWantedDirectory(file, foldersToSkip) {
 
 var walk = function(dir, filePatterns, foldersToSkip, done) {
   var results = [];
+  
   fs.readdir(dir, function(err, list) {
     if (err) return done(err);
     var pending = list.length;

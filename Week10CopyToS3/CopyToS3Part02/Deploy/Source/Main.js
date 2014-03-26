@@ -7,7 +7,7 @@ require.config({
     "jquery": "http://code.jquery.com/jquery-1.11.0.min",
     //"jquery": "jquery-1.11.0.min",
     "bootstrap":"bootstrap.min.js",
-    "clientMongo": "ClientMongo", 
+    "clientMongo": "ClientMongo",
     "awsui": "AwsUi"
   },
 	shim : {
@@ -25,7 +25,7 @@ require.config({
 	}
 });
 
-require(["jquery","awsui", "clientMongo"], function(j, awsui, clientMongo) {
+require(["jquery", "awsui", "clientMongo"], function(j, awsui, clientMongo) {
 	console.log("Main called.");
 	awsui(true);
 	clientMongo();

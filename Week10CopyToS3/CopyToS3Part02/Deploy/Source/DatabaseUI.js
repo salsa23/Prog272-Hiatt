@@ -1,6 +1,5 @@
 define(['jquery'], function() {'use strict';
-
-    var dbOptions = null;					// Download options
+	var dbOptions = null;					// Download options
     
     function databaseUI() {
 			$("#insertFiles").click(insertFiles);
@@ -18,9 +17,12 @@ define(['jquery'], function() {'use strict';
 		// make an object
 		var tempFile = {
 			"fileType":"Markdown",
-			"itemName": file.name,
-			"fileName": file.name+".md",
-			"folderPath": file.path,
+			"itemName": "Sonnet01",
+			"fileName": "Sonnet01.md",
+			"folderPath": "/home/adminuser/Dev/Dropbox/sonnetsMD",
+			//"itemName": file.name,
+			//"fileName": file.name+".md",
+			//"folderPath": file.path,
 			"keywords" : ["markdown", "sonnets"]
 			};
 		// read in file contents
@@ -33,16 +35,28 @@ define(['jquery'], function() {'use strict';
     
     // walk the directories and do something
 	var walkAndUpload = function() {
+		var request = {
+			query: { 
+				uploadDir: dbOptions.uploadDir,
+				fileType: dbOptions.fileType,
+				keywords: dbOptions.keywords,
+				saveToDir: dbOptions.saveToDir
+				}
+			};
 		$.getJSON('/walk', function(data) {
 			for (var i = 0; i < data.files.length; i++) {
+				console.log("In walkAndUpload callback, data returned is type: ");
+				console.log(typeof data.files);
+				
 				// upload file(s)
 				uploadFile(data.files[i]);
+				// show a list onscreen of files that were in list
+				$("#walkList").append('<li>' + data.files[i] + '</li>');
 			}
 		});
 	};
 	
 	var createFile = function(file){
-		//create file with contents
 		
 	};
 	
