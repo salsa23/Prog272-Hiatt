@@ -22,6 +22,12 @@ define(['jquery'], function() {'use strict';
 			// strip out path and file name
 			var folderPathFileString = fileObject[i];
 			var pathArray = folderPathFileString.split("/");			// last in array is file name
+			var pathString = "";
+			// set pathString except for last item
+			for (var i=1; i<pathArray.length-1; i++){
+				pathString = pathString+"/"+pathArray[i];
+			};
+			
 			var fileString = pathArray[pathArray.length-1];
 			var itemNameArray = fileString.split(".");					// first in array is file name, second is extension
 			var itemName = itemNameArray[0];
@@ -31,7 +37,7 @@ define(['jquery'], function() {'use strict';
 				"itemName": itemName,
 				"fileName": fileString,
 				"fileExt": itemExt,
-				"folderPath": folderPathFileString,
+				"folderPath": pathString,
 				"keywords" : ["markdown", "sonnets"]
 			};
 			var request = {};
@@ -88,6 +94,7 @@ define(['jquery'], function() {'use strict';
 			request.walkArray = data.files;
 			console.log(data.files);
 			filesToUpload = data.files;
+			uploadFile(filesToUpload);
 		});
 	};
 	
@@ -118,7 +125,7 @@ define(['jquery'], function() {'use strict';
 	var insertFiles = function(){
 		saveOptions();
 		walkFilesDir();
-		uploadFile(filesToUpload);
+		//uploadFile(filesToUpload);
 	};
 	
 	var downloadFiles = function(){
