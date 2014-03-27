@@ -1,13 +1,1 @@
-[
-	{
-		"pathToPython": "/usr/bin/python3.3",
-		"copyFrom": "/home/adminuser/Dev/Dropbox/StackEdit",
-		"copyTo": "/home/adminuser/Dev/StaticSite/Site",
-		"filesToCopy": ["Sonnet01", "Sonnet02", "Sonnet03", "Sonnet04", "Sonnet05"]
-	}, {
-		"pathToPython": "/usr/bin/python3.3",
-		"copyFrom": "/home/adminuser/Dev/Dropbox/StackEdit",
-		"copyTo": "/home/adminuser/Dev/StaticSite/Site",
-		"filesToCopy": ["test"]
-	}
-]
+[{"pathToPython":"/usr/bin/python3.3","copyFrom":"/home/adminuser/Dev/Dropbox/sonnetsMD","copyTo":"/home/adminuser/Dev/StaticSite/Site","filesToCopy":["Sonnet01","Sonnet02","Sonnet03","Sonnet04","Sonnet05","Sonnet06","Sonnet07","Sonnet08","Sonnet09","Sonnet10","Sonnet11","Sonnet12","Sonnet13","Sonnet14","Sonnet15","Sonnet16","Sonnet17","Sonnet18","Sonnet19","Sonnet20","Sonnet21","Sonnet22","Sonnet23","Sonnet24","Sonnet25","Sonnet26","Sonnet27","Sonnet28","Sonnet29","Sonnet30","Sonnet31","Sonnet32","Sonnet33","Sonnet34","Sonnet35"]},{"pathToPython":"/usr/bin/python3.3","copyFrom":"/home/adminuser/Dev/Dropbox/StackEdit","copyTo":"/home/adminuser/Dev/StaticSite/Site","filesToCopy":["test"]}]
