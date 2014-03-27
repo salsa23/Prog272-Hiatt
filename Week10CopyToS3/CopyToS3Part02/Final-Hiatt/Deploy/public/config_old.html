@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AwsBasicS3-Hiatt</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="website administration - PROG272-Winter - Chelsa Hiatt">
+		<meta name="author" content="Chelsa Hiatt">
+        <link rel="shortcut icon" href="favicon16.png">
+        
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <!-- Bootstrap core CSS -->
+		<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+        
+        <script data-main="Main" src="require.js"> </script>
+        <!-- script src="jquery-1.11.0.js"></script>
+        <script src="AwsUi.js"></script -->
+    </head>
+    <body>
+		
+		
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">AwsBasicS3</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="config.html">Config</a></li>
+            <li><a href="upload.html">Upload</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1 id="top">AwsBasicS3 - Hiatt</h1>        
+        <p>Use this page to configure your setup, then save it to a Mongo database Collection.</p>
+		<button id="insertConfigFiles">Upload Default from FILE</button>     
+        <button id="uploadInputConfig">Upload Input Config</button>
+        <button id="saveInputConfig">Save Input Config</button>
+        <div>
+        <img src="Bar02.png">
+        </div>
+        <button id="tranformBackButton">&lt;&lt;</button>
+        <button id="transformForwardButton">&gt;&gt;</button>
+        <p id="saveResultA"></p>
+        <div class="displayKing">
+            <label for="pathToPython">Path to Python</label>
+            <p id="pathToPython">-</p>
+            <label for="newPathToPython">New Path to Python</label>
+            <p><input type="text" id="newPathToPython"/></p>
+            <label for="copyFrom">Copy from</label>
+            <p id="copyFrom">-</p>
+            <label for="newCopyFrom">New Copy from</label>
+            <p><input type="text" id="newCopyFrom" /></p>
+            <label for="copyTo">Copy to</label>
+            <p id="copyTo">-</p>
+            <label for="newCopyTo">New Copy to</label>
+            <p><input type="text" id="newCopyTo" /></p>
+            <label for="filesToCopy">Files to copy</label>
+            <p id="filesToCopy">-</p>
+            <label for="newFilesToCopy">New Files to copy</label>
+            <p><input type="text" id="newFilesToCopy" /></p>
+        </div>        
+        <div>
+        <img src="Bar02.png">
+        </div>
+        <button id="listBuckets">Get Buckets</button>
+        <button id="getOptions">Get Options </button>
+        <button id="backButton"> &lt;&lt; </button>
+        <button id="forwardButton"> &gt;&gt; </button>
+        <ul id="buckets"></ul>
+        
+        
+        <div class="displayKing">
+            <label for="documentCount">Document Count</label>
+            <p id="documentCount">-</p>
+            <label for="currentDocument">Current Document</label>
+            <p id="currentDocument">-</p>
+            <hr/>
+            <label for="pathToConfig">pathToConfig</label>
+            <p id="pathToConfig">-</p>
+            <label for="newPathToConfig">New pathToConfig</label>
+            <p><input type="text" id="newPathToConfig" /></p>
+            <label for="reallyWrite">reallyWrite</label>
+            <p id="reallyWrite">-</p>
+            <label for="newReallyWrite">New reallyWrite</label>
+            <p><input type="text" id="newReallyWrite" value="insert new value for really write"/></p>
+            <label for="bucketName">bucketName</label>
+            <p id="bucketName">-</p>
+            <label for="newBucketName">New bucket Name</label>
+            <p><input type="text" id="newBucketName" value="insert new Bucket Name"/></p>
+            <label for="folderToWalk">folderToWalk</label>
+            <p id="folderToWalk">-</p>
+            <label for="newFolderToWalk">New folderToWalk</label>
+            <p><input type="text" id="newFolderToWalk" value="insert new Path for Folder To Walk"/></p>
+            <label for="s3RootFolder">s3RootFolder</label>
+            <p id="s3RootFolder">-</p>
+            <label for="newS3RootFolder">New s3RootFolder</label>
+            <p><input type="text" id="newS3RootFolder" value="insert new S3 folder"/></p>
+            <label for="createFolderToWalkOnS3">createFolderToWalkOnS3</label>
+            <p id="createFolderToWalkOnS3">-</p>
+            <label for="newCreateFolderToWalkOnS3">New createFolderToWalkOnS3</label>
+            <p><input type="text" id="newCreateFolderToWalkOnS3" value="insert new value for create new folder"/></p>
+            <label for="createIndex">createIndex</label>
+            <p id="createIndex">-</p>
+            <label for="newCreateIndex">New createIndex</label>
+            <p><input type="text" id="newCreateIndex" value="insert new value"/></p>
+            <label for="filesToIgnore">filesToIgnore</label>
+            <p id="filesToIgnore">-</p>
+            <label for="newFilesToIgnore">New filesToIgnore</label>
+            <p><input type="text" id="newFilesToIgnore" value="insert new Files to Ignore"/></p>
+        </div>
+        <div>
+        <img src="Bar02.png">
+        </div>
+         <div class="displayKing">            
+            <h2>Config Saved</h2>
+            <p id = "CopyConfigResult"> </p>
+            <ul id="buildData">
+            </ul>
+        </div>
+    </div>
+
+    </div><!-- /.container -->
+    
+    <!-- Bootstrap core JavaScript ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster --> 
+    <!-- loaded using Main.js 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="../bootstrap.min.js"></script> 
+	-->
+    </body>
+</html>
