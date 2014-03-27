@@ -67,7 +67,8 @@ define(['jquery'], function() {'use strict';
             $("#copyResult").html("Result: " + data.result);
         });
     };
-    
+
+/*    
     // NEW ADDED CMH to copy files to Mongo from Folder
     var copyToMongo = function() {
         $.getJSON("/copyToMongo", {
@@ -76,7 +77,7 @@ define(['jquery'], function() {'use strict';
             $("#copyDBResult").html("Result: " + data.result);
         });
     };
-    
+ */  
 
 	// NEW CMH insertConfigFiles - BOTH Default files to MongoDB
 	// use array[i].content[i] to retrieve config back
